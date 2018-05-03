@@ -8,10 +8,14 @@ import registerServiceWorker from './registerServiceWorker';
 import { store } from './redux';
 
 ReactDOM.render(
+  (
     <Provider store={store}>
-        <Router>
-            <App />
-        </Router>
-    </Provider>,
-    document.getElementById('root'));
+      <Router>
+        <App />
+      </Router>
+    </Provider>
+  ),
+  document.getElementById('root')
+);
+
 registerServiceWorker();
