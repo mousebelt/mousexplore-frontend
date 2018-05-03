@@ -1,0 +1,34 @@
+.header {
+}
+
+.header .owner {
+    float: left;
+    width: 30%;
+}
+.header .owner .logo {
+    height: 80px;
+    vertical-align: middle;
+}
+
+.header .owner h2 {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.header .settings {
+    float: right;
+    margin-top: 20px;
+    margin-right: 40px;
+}
+.header .settings>div {
+    display: inline-block;
+    margin-left: 20px;
+}
+.header .settings .currency-select, .header .settings .token-select {
+    width: 200px;
+}
+
+.header .settings .net-type-toggle {
+    vertical-align: middle;
+    text-align: center;
+}
