@@ -4,15 +4,15 @@ import NetTypeToggleContainer from '../NetTypeToggleContainer/NetTypeToggleConta
 import TokenSelectContainer from '../TokenSelectContainer/TokenSelectContainer';
 
 class SettingsContainer extends Component {
-    render() {
-        return (
-            <div className={'settings'}>
-                <CurrencySelectionContainer />
-                <NetTypeToggleContainer />
-                <TokenSelectContainer />
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className={'settings'}>
+        <CurrencySelectionContainer />
+        <NetTypeToggleContainer />
+        <TokenSelectContainer />
+      </div>
+    );
+  }
 }
 
 export default SettingsContainer;
