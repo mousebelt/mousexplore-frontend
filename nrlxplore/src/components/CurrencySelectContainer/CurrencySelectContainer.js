@@ -1,18 +1,32 @@
 import React, { Component } from 'react';
-import { Select } from 'antd';
 
-const { Option } = Select;
+import DropdownSelect from '../../shared/DropdownSelect/DropdownSelect';
+
+const mockCurrencySelect = {
+  className: 'currency-select',
+  placeholder: 'Select Currency',
+  defaultValue: 'btc',
+  options: [
+    {
+      value: 'btc',
+      name: 'Bitcoin'
+    },
+    {
+      value: 'eth',
+      name: 'Ethereum'
+    }
+  ]
+}
 
 class CurrencySelectContainer extends Component {
   render() {
     return (
-      <div>
-        <Select className={'currency-select'}
-          placeholder={'Select Currency'}
-        >
-          <Option value="bitcoin">Bitcoin</Option>
-          <Option value="ethereum">Ethereum</Option>
-        </Select>
+      <div className='currency-select-container'>
+        <DropdownSelect
+          className={mockCurrencySelect.className}
+          placeholder={mockCurrencySelect.placeholder}
+          options={mockCurrencySelect.options}
+          defaultValue={mockCurrencySelect.defaultValue} />
       </div>
     );
   }

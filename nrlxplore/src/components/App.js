@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { store } from 'core';
 import HeaderContainer from './HeaderContainer/HeaderContainer';
+import CurrencyView from './CurrencyView';
 
 class App extends Component {
   render() {
@@ -11,6 +12,7 @@ class App extends Component {
         <Router>
           <div className="App">
             <HeaderContainer />
+            <CurrencyView />
           </div>
         </Router>
       </Provider>
