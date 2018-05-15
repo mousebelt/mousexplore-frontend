@@ -5,7 +5,7 @@ const { Option } = Select;
 class TokenSelectContainer extends Component {
   render() {
     return (
-      <div>
+      <div className='token-select-container'>
         <Select className={'token-select'}
           placeholder={'Select Token (Optional)'}
         >
@@ -17,4 +17,4 @@ class TokenSelectContainer extends Component {
   }
 }
 
-export default TokenSelectContainer;    
+export default TokenSelectContainer;

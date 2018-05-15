@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import logoImg from 'assets/img/logo.svg'
+import logoImg from 'assets/img/nitro-refined-540.png'
 
 class OwnerContainer extends Component {
   render() {
     return (
-      <div className={'owner'}>
+      <div className='organization'>
         <img src={logoImg} className={'logo'} />
-        <h2>Owner Name</h2>
+        <div className='org-name'>NRLXplore</div>
       </div>
     )
   }

@@ -4,6 +4,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Source Sans Pro', sans-serif;
+  background-color: rgba(50,50,0,0.02);
 }
 
 h1, h2, h3, h4, h5, h6 {
