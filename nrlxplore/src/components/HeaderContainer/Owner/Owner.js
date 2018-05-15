@@ -7,7 +7,7 @@ class OwnerContainer extends Component {
   render() {
     return (
       <div className={'owner'}>
-        <img src={logoImg} className={'logo'} />
+        <img src={logoImg} className={'logo img-responsive img-fluid'} />
         <h2>Owner Name</h2>
       </div>
     )
