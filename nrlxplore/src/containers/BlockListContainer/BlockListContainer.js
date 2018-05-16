@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { store } from 'core';
 
-import BlockList from '../../shared/List/BlockList';
+import BlockList from 'components/List/BlockList';
 
 const mockBlocks = [
   {

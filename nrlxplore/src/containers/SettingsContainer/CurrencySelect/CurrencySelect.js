@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import DropdownSelect from 'shared/DropdownSelect/DropdownSelect';
+import DropdownSelect from 'components/DropdownSelect/DropdownSelect';
 
 const mockCurrencySelect = {
   className: 'currency-select',

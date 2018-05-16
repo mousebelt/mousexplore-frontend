@@ -1,13 +1,13 @@
 import React, { PureComponent } from 'react';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 
-import HomeContainer from 'components/HomeContainer/HomeContainer';
-import BlockListContainer from 'components/BlockListContainer/BlockListContainer';
-import BlockContainer from 'components/BlockContainer/BlockContainer';
-import TxnListContainer from 'components/TxnListContainer/TxnListContainer';
-import TxnContainer from 'components/TxnContainer/TxnContainer';
-import AddressContainer from 'components/AddressContainer/AddressContainer';
-import PageNotFound from 'shared/PageNotFound/PageNotFound';
+import HomeContainer from 'containers/HomeContainer/HomeContainer';
+import BlockListContainer from 'containers/BlockListContainer/BlockListContainer';
+import BlockContainer from 'containers/BlockContainer/BlockContainer';
+import TxnListContainer from 'containers/TxnListContainer/TxnListContainer';
+import TxnContainer from 'containers/TxnContainer/TxnContainer';
+import AddressContainer from 'containers/AddressContainer/AddressContainer';
+import PageNotFound from 'components/PageNotFound/PageNotFound';
 
 class RoutesContainer extends PureComponent {
   componentWillMount() {

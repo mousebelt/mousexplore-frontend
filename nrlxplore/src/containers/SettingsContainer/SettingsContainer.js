@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import CurrencySelect from './CurrencySelect/CurrencySelect';
 import NetTypeToggle from './NetTypeToggle/NetTypeToggle';
 import TokenSelect from './TokenSelect/TokenSelect';
-import SearchBar from 'shared/SearchBar/SearchBar';
+import SearchBar from 'components/SearchBar/SearchBar';
 
 import 'assets/styles/SettingsContainer.css';
 

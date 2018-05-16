@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import { store } from 'core';
-import HeaderContainer from 'components/HeaderContainer/HeaderContainer';
-import SettingsContainer from 'components/SettingsContainer/SettingsContainer';
-import RoutesContainer from 'components/RoutesContainer/RoutesContainer';
-import PageNotFound from 'shared/PageNotFound/PageNotFound';
+import HeaderContainer from 'containers/HeaderContainer/HeaderContainer';
+import SettingsContainer from 'containers/SettingsContainer/SettingsContainer';
+import RoutesContainer from 'containers/RoutesContainer/RoutesContainer';
+import PageNotFound from 'components/PageNotFound/PageNotFound';
 
 class App extends Component {
   render() {

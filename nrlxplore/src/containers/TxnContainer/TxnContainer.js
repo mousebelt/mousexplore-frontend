@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { store } from 'core';
 
-import TxnList from '../../shared/List/TxnList';
+import TxnList from 'components/List/TxnList';
 
 const mockCurrency = {
   shorthand: 'BTC',
