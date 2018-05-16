@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Select } from 'antd';
 const { Option } = Select;
 
-class TokenSelectContainer extends Component {
+class TokenSelect extends Component {
   render() {
     return (
       <div className='token-select-container'>
@@ -17,4 +17,4 @@ class TokenSelectContainer extends Component {
   }
 }
 
-export default TokenSelectContainer;
+export default TokenSelect;

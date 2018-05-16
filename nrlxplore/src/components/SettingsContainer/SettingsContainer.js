@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import CurrencySelectionContainer from '../CurrencySelectContainer/CurrencySelectContainer';
-import NetTypeToggleContainer from '../NetTypeToggleContainer/NetTypeToggleContainer';
-import TokenSelectContainer from '../TokenSelectContainer/TokenSelectContainer';
-import SearchBar from '../../shared/SearchBar/SearchBar';
+import CurrencySelect from './CurrencySelect/CurrencySelect';
+import NetTypeToggle from './NetTypeToggle/NetTypeToggle';
+import TokenSelect from './TokenSelect/TokenSelect';
+import SearchBar from 'shared/SearchBar/SearchBar';
 
 import 'assets/styles/SettingsContainer.css';
 
@@ -12,9 +12,9 @@ class SettingsContainer extends Component {
     return (
       <div className={'settings'}>
         <div className='filter-container'>
-          <CurrencySelectionContainer />
-          <NetTypeToggleContainer />
-          <TokenSelectContainer />
+          <CurrencySelect />
+          <NetTypeToggle />
+          <TokenSelect />
         </div>
         <div className='search-container'>
           <SearchBar />

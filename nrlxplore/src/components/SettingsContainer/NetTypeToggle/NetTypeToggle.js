@@ -3,7 +3,7 @@ import { Switch } from 'antd';
 
 import 'assets/styles/Switch.css'
 
-class NetTypeToggleContainer extends Component {
+class NetTypeToggle extends Component {
   render() {
     return (
       <div className={'livenet-toggle-container'}>
@@ -13,4 +13,4 @@ class NetTypeToggleContainer extends Component {
   }
 }
 
-export default NetTypeToggleContainer;
+export default NetTypeToggle;

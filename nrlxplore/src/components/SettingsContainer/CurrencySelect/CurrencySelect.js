@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import DropdownSelect from '../../shared/DropdownSelect/DropdownSelect';
+import DropdownSelect from 'shared/DropdownSelect/DropdownSelect';
 
 const mockCurrencySelect = {
   className: 'currency-select',
@@ -18,7 +18,7 @@ const mockCurrencySelect = {
   ]
 }
 
-class CurrencySelectContainer extends Component {
+class CurrencySelect extends Component {
   render() {
     return (
       <div className='currency-select-container'>
@@ -32,4 +32,4 @@ class CurrencySelectContainer extends Component {
   }
 }
 
-export default CurrencySelectContainer;
+export default CurrencySelect;
