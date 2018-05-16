@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import HomeContainer from 'components/HomeContainer/HomeContainer';
@@ -9,7 +9,7 @@ import TxnContainer from 'components/TxnContainer/TxnContainer';
 import AddressContainer from 'components/AddressContainer/AddressContainer';
 import PageNotFound from 'shared/PageNotFound/PageNotFound';
 
-class RoutesContainer extends PureComponent {
+class RoutesContainer extends Component {
   render () {
     return (
       <Switch>
