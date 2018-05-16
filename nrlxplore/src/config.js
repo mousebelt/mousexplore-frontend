@@ -1,4 +1,4 @@
-const coins = [
+export const coins = [
   {
     name: 'Bitcoin',
     currency: 'BTC',
@@ -48,5 +48,3 @@ const coins = [
     ],
   },
 ];
-
-export default coins;
