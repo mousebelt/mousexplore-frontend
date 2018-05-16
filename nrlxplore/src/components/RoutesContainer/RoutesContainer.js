@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import React, { PureComponent } from 'react';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 
 import HomeContainer from 'components/HomeContainer/HomeContainer';
 import BlockListContainer from 'components/BlockListContainer/BlockListContainer';
@@ -9,11 +9,14 @@ import TxnContainer from 'components/TxnContainer/TxnContainer';
 import AddressContainer from 'components/AddressContainer/AddressContainer';
 import PageNotFound from 'shared/PageNotFound/PageNotFound';
 
-class RoutesContainer extends Component {
+class RoutesContainer extends PureComponent {
+  componentWillMount() {
+    console.log(this.props);
+  }
+
   render () {
     return (
       <Switch>
-        <Redirect exact from="/" to="/btc"/>
         <Route exact path="/:currnecy" component={HomeContainer}/>
         <Route exact path="/:currency/blocks" component={BlockListContainer}/>
         <Route exact path="/:currency/block/:blockHash" component={BlockContainer}/>
@@ -26,4 +29,4 @@ class RoutesContainer extends Component {
   }
 }
 
-export default RoutesContainer;
+export default withRouter(RoutesContainer);

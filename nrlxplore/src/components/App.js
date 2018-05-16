@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import { store } from 'core';
 import HeaderContainer from 'components/HeaderContainer/HeaderContainer';
 import SettingsContainer from 'components/SettingsContainer/SettingsContainer';
 import RoutesContainer from 'components/RoutesContainer/RoutesContainer';
+import PageNotFound from 'shared/PageNotFound/PageNotFound';
 
 class App extends Component {
   render() {
@@ -15,7 +16,11 @@ class App extends Component {
             <HeaderContainer />
             <div className="content">
               <SettingsContainer />
-              <RoutesContainer/>
+              <Switch>
+                <Redirect exact from="/" to="/btc"/>
+                <Route exact path="/404" component={PageNotFound}/>
+                <Route path="/:currency" component={RoutesContainer}/>
+              </Switch>
             </div>
           </div>
         </Router>
