@@ -1,11 +1,12 @@
-export const coins = [
-  {
+export const coins = {
+  'BTC': {
     name: 'Bitcoin',
     currency: 'BTC',
     hasTokens: false,
     tokens: [],  
   },
-  {
+
+  'ETH': {
     name: 'Ethereum',
     currency: 'ETH',
     hasTokens: true,
@@ -17,13 +18,15 @@ export const coins = [
       { tokenName: 'Zilliqa', ticker: 'ZIL' },
     ],
   },
-  {
+
+  'LTC': {
     name: 'Litecoin',
     currency: 'LTC',
     hasTokens: false,
     tokens: [],
   },
-  {
+
+  'NEO': {
     name: 'NEO',
     currency: 'NEO',
     hasTokens: true,
@@ -35,7 +38,8 @@ export const coins = [
       { tokenName: 'THKEY', ticker: 'TKY' },
     ],
   },
-  {
+  
+  'XLM': {
     name: 'Stellar',
     currency: 'XLM',
     hasTokens: true,
@@ -47,4 +51,4 @@ export const coins = [
       { tokenName: 'Smartlands', ticker: 'SLT' },
     ],
   },
-];
+};
