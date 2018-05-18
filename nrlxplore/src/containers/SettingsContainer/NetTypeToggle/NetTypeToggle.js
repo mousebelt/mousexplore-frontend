@@ -1,15 +1,34 @@
-import React, { Component } from 'react';
-import { Switch } from 'antd';
+import React, { PureComponent } from 'react';
+import Toggle from 'components/Toggle/Toggle';
 
-import 'assets/styles/Switch.css'
+class NetTypeToggle extends PureComponent {
+  constructor(props) {
+    super(props);
 
-class NetTypeToggle extends Component {
+    this.state = {
+      isChecked: true
+    };
+  }
+
   render() {
+    const { isChecked } = this.state;
+
     return (
-      <div className={'livenet-toggle-container'}>
-        <Switch checkedChildren="Livenet" unCheckedChildren="Offline" defaultChecked />
+      <div className="settings__filter-nettype">
+        <span className="net-name">{isChecked ? 'Livenet' : 'Testnet'}</span>
+        <Toggle
+          {...this.props}
+          checked={isChecked}
+          onChange={this.handleChange}
+        />
       </div>
     );
+  }
+
+  handleChange = (checked) => {
+    this.setState({
+      isChecked: checked
+    });
   }
 }
 

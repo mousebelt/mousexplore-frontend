@@ -1,18 +1,24 @@
-import React, { Component } from 'react';
-import { Select } from 'antd';
-const { Option } = Select;
+import React, { PureComponent } from 'react';
+import DropdownSelect from 'components/DropdownSelect/DropdownSelect';
 
-class TokenSelect extends Component {
+import { coins } from 'config';
+
+class TokenSelect extends PureComponent {
   render() {
+    const currencyOptions = coins.map((coin, index) => ({
+      name: coin.name,
+      value: coin.currency
+    }));
+
+    const { options, className, placeholder } = this.props;
+
     return (
-      <div className='token-select-container'>
-        <Select className={'token-select'}
-          placeholder={'Select Token (Optional)'}
-        >
-          <Option value="lucy">Ronaldo</Option>
-          <Option value="messi">Messi</Option>
-        </Select>
-      </div>
+      <DropdownSelect
+        {...this.props}
+        className="settings__filter-token"
+        placeholder="Select Token (Optional)"
+        options={options ? options : currencyOptions}
+      />
     );
   }
 }

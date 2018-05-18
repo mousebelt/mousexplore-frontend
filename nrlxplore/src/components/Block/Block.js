@@ -3,8 +3,6 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { store } from 'core';
 
-import 'assets/styles/Block.css'
-
 class Block extends Component {
   render() {
     const { block } = this.props;

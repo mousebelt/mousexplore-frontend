@@ -3,8 +3,6 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { store } from 'core';
 
-import 'assets/styles/Txn.css'
-
 class Txn extends Component {
   render() {
     const { txn, currency } = this.props;

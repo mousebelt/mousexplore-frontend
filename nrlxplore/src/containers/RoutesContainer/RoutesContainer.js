@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
-import qs from 'query-string'
-import { coins } from 'config';
+// import qs from 'query-string'
+// import { coins } from 'config';
 
 import HomeContainer from 'containers/HomeContainer/HomeContainer';
 import BlockListContainer from 'containers/BlockListContainer/BlockListContainer';
@@ -9,7 +9,7 @@ import BlockContainer from 'containers/BlockContainer/BlockContainer';
 import TxnListContainer from 'containers/TxnListContainer/TxnListContainer';
 import TxnContainer from 'containers/TxnContainer/TxnContainer';
 import AddressContainer from 'containers/AddressContainer/AddressContainer';
-import PageNotFound from 'components/PageNotFound/PageNotFound';
+// import PageNotFound from 'components/PageNotFound/PageNotFound';
 
 /**
  * All App routing is started off from currency name (i.e '/btc' or '/eth').

@@ -1,33 +1,24 @@
-import React, { Component } from 'react';
-
+import React, { PureComponent } from 'react';
 import DropdownSelect from 'components/DropdownSelect/DropdownSelect';
 
-const mockCurrencySelect = {
-  className: 'currency-select',
-  placeholder: 'Select Currency',
-  defaultValue: 'btc',
-  options: [
-    {
-      value: 'btc',
-      name: 'Bitcoin'
-    },
-    {
-      value: 'eth',
-      name: 'Ethereum'
-    }
-  ]
-}
+import { coins } from 'config';
 
-class CurrencySelect extends Component {
+class CurrencySelect extends PureComponent {
   render() {
+    const currencyOptions = coins.map((coin, index) => ({
+      name: coin.name,
+      value: coin.currency
+    }));
+
+    const { options, className, placeholder } = this.props;
+
     return (
-      <div className='currency-select-container'>
-        <DropdownSelect
-          className={mockCurrencySelect.className}
-          placeholder={mockCurrencySelect.placeholder}
-          options={mockCurrencySelect.options}
-          defaultValue={mockCurrencySelect.defaultValue} />
-      </div>
+      <DropdownSelect
+        {...this.props}
+        className="settings__filter-currency"
+        placeholder="Select Currency"
+        options={options ? options : currencyOptions}
+      />
     );
   }
 }

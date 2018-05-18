@@ -1,24 +1,27 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Select } from 'antd';
 
-import 'assets/styles/Dropdown.css';
-
-const { Option } = Select;
-
-class DropdownSelect extends Component {
+class DropdownSelect extends PureComponent {
   render() {
-    const { className, placeholder, options, defaultValue } = this.props;
+    const { className, options, ...props } = this.props;
 
     return (
-      <Select className={className}
-        placeholder={placeholder}
-        defaultValue={defaultValue}
+      <Select
+        {...props}
+        className={`nrl-dropdown${className ? ' ' + className : ''}`}
+        size="large"
       >
         {
-          options.length > 0 &&
-          options.map((item, index) => (
-            <Option key={index} value={item.value}>{item.name}</Option>
-          ))
+          (options && options.length) && (
+            options.map((item, index) => (
+              <Select.Option
+                key={index}
+                value={item.value}
+              >
+                {item.name}
+              </Select.Option>
+            ))
+          )
         }
       </Select>
     );
