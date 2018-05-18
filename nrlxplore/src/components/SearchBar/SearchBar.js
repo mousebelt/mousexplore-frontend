@@ -1,15 +1,17 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Input } from 'antd';
 const Search = Input.Search;
 
 
-class SearchBar extends Component {
+class SearchBar extends PureComponent {
   render() {
+    const { className, size, enterButton, ...props } = this.props;
     return (
       <Search
-        placeholder="Search by address / txn hash / block..."
-        onSearch={value => console.log(value)}
-        enterButton
+        {...props}
+        className={`nrl-searchbar${className ? ' ' + className : ''}`}
+        enterButton={ enterButton ? enterButton : "SEARCH"}
+        size={ size ? size : 'large'}
       />
     );
   }
