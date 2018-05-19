@@ -1,0 +1,12 @@
+.block-record {
+    width: 100% !important;
+    text-align: left;
+}
+
+.record-header {
+    font-weight: bold;
+}
+
+.record-time {
+    text-align: right;
+}
