@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
-// import qs from 'query-string'
-// import { coins } from 'config';
+import qs from 'query-string';
+// import { find } from 'lodash/find';
+import { findCoinByCurrency, findTokenByTicker } from 'config';
+import { connectSettings } from 'core';
 
 import HomeContainer from 'containers/HomeContainer/HomeContainer';
 import BlockListContainer from 'containers/BlockListContainer/BlockListContainer';
@@ -9,7 +11,8 @@ import BlockContainer from 'containers/BlockContainer/BlockContainer';
 import TxnListContainer from 'containers/TxnListContainer/TxnListContainer';
 import TxnContainer from 'containers/TxnContainer/TxnContainer';
 import AddressContainer from 'containers/AddressContainer/AddressContainer';
-// import PageNotFound from 'components/PageNotFound/PageNotFound';
+import PageNotFound from 'components/PageNotFound/PageNotFound';
+
 
 /**
  * All App routing is started off from currency name (i.e '/btc' or '/eth').
@@ -33,39 +36,48 @@ import AddressContainer from 'containers/AddressContainer/AddressContainer';
 class RoutesContainer extends PureComponent {
 
   componentWillMount() {
-    console.log(this.props);
-    
+    const newSettings = this.getSettingsFromURL();
+    const { history, setSettings } = this.props;
+
+    if (!newSettings)
+      history.replace('/404');
+    else
+      setSettings(newSettings);
   }
 
-  // getSettingsFromURL () {
-  //   const defaultSetting = {
-  //     currency: 'BTC',
-  //     netType: 'live',
-  //     ticker: undefined
-  //   };
-
-  //   const { location, match } = this.props;
+  getSettingsFromURL () {
+    const { location, match, settings } = this.props;
+    const newSettings = {};
     
-  //   if (!match.params || !match.params.currency) {
-  //     return undefined;
-  //   }
+    if (!match.params || !match.params.currency) {
+      return undefined;
+    }
 
-  //   const currency = match.params.currency.toUpperCase();
+    // Get currency
+    const currency = match.params.currency;
+    const { net, ticker } = qs.parse(location.search);
+    
+    
+    const coin = findCoinByCurrency(currency);
+    
+    if (!coin) 
+      return undefined;
 
-  //   if (!!coins[currency]) {
-  //     const coin = coins[currency];
-  //     const { netType, ticker } = qs.parse(location.search);
-  //     const settings = defaultSetting;
-      
-  //     if (ticker && coin.hasTokens && 
-  //       coin.tokens.findIndex(token => (token.ticker.toUpperCase() === ticker.toUpperCase()) >= 0)
+    if (net && (net !== 'live' && net !== 'test')) {
+      return undefined;
+    }
 
+    if (ticker && !findTokenByTicker(coin.currency, ticker)) 
+      return undefined;
 
+    const token = ticker ? (findTokenByTicker(coin.currency, ticker)).ticker : undefined;
 
-  //   } else {
-  //     return undefined;
-  //   }
-  // }
+    newSettings.currency = coin.currency;
+    newSettings.netType = net ? net : 'live';
+    newSettings.token = token;
+
+    return newSettings;
+  }
 
   render () {
     return (
@@ -82,4 +94,4 @@ class RoutesContainer extends PureComponent {
   }
 }
 
-export default withRouter(RoutesContainer);
+export default connectSettings()(withRouter(RoutesContainer));

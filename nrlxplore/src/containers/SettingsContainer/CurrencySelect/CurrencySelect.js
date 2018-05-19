@@ -10,13 +10,13 @@ class CurrencySelect extends PureComponent {
       value: coin.currency
     }));
 
-    const { options, className, placeholder } = this.props;
+    const { options, className, placeholder, props } = this.props;
 
     return (
       <DropdownSelect
-        {...this.props}
-        className="settings__filter-currency"
-        placeholder="Select Currency"
+        {...props}
+        className={className ? className: "settings__filter-currency"}
+        placeholder={placeholder ? placeholder: "Select Currency"}
         options={options ? options : currencyOptions}
       />
     );
