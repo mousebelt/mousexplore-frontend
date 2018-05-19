@@ -1,26 +1,43 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import DropdownSelect from 'components/DropdownSelect/DropdownSelect';
 
-import { coins } from 'config';
+import { findCoinByCurrency, findTokenByTicker } from 'config';
 
 class TokenSelect extends PureComponent {
-  render() {
-    const currencyOptions = coins.map((coin, index) => ({
-      name: coin.name,
-      value: coin.currency
-    }));
+  handleChange = (ticker) => {
+    const { setTicker } = this.props;
+    setTicker(ticker);
+  }
 
-    const { options, className, placeholder, props } = this.props;
+  render() {
+    const { currency, ticker } = this.props;
+    let tokenOptions = [];
+
+    const coin = findCoinByCurrency(currency);
+    if (coin && coin.hasTokens && coin.tokens) {
+      tokenOptions = coin.tokens.map((token) => ({
+        name: `${token.tokenName} ( ${token.ticker} )`,
+        value: token.ticker
+      }));
+    }
 
     return (
       <DropdownSelect
-        {...props}
-        className={className ? className: "settings__filter-currency"}
-        placeholder={placeholder ? placeholder: "Select Currency"}
-        options={options ? options : currencyOptions}
+        className="settings__filter-token"
+        placeholder="Select Token (Optional)"
+        options={tokenOptions}
+        onChange={this.handleChange}
+        value={ticker}
       />
     );
   }
+}
+
+TokenSelect.propTypes = {
+  currency: PropTypes.string,
+  ticker: PropTypes.string,
+  setTicker: PropTypes.func
 }
 
 export default TokenSelect;

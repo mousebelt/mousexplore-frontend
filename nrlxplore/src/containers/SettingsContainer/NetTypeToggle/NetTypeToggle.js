@@ -1,35 +1,34 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+
 import Toggle from 'components/Toggle/Toggle';
 
 class NetTypeToggle extends PureComponent {
-  constructor(props) {
-    super(props);
+  handleChange = (isLiveNet) => {
+    const { setNetType } = this.props;
 
-    this.state = {
-      isChecked: true
-    };
+    setNetType(isLiveNet ? 'live' : 'test');
   }
 
   render() {
-    const { isChecked } = this.state;
+    const { netType } = this.props;
+    const isLiveNet = (netType === 'live');
 
     return (
       <div className="settings__filter-nettype">
-        <span className="net-name">{isChecked ? 'Livenet' : 'Testnet'}</span>
+        <span className="net-name">{isLiveNet ? 'Livenet' : 'Testnet'}</span>
         <Toggle
-          {...this.props}
-          checked={isChecked}
+          checked={isLiveNet}
           onChange={this.handleChange}
         />
       </div>
     );
   }
+}
 
-  handleChange = (checked) => {
-    this.setState({
-      isChecked: checked
-    });
-  }
+NetTypeToggle.propTypes = {
+  netType: PropTypes.string,
+  setNetType: PropTypes.func
 }
 
 export default NetTypeToggle;

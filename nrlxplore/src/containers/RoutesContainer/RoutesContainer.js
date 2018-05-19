@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import { bindActionCreators, compose } from 'redux';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import qs from 'query-string';
-// import { find } from 'lodash/find';
+
 import { findCoinByCurrency, findTokenByTicker } from 'config';
-import { connectSettings } from 'core';
+import { connectSettings, settingsActionCreators } from 'core';
 
 import HomeContainer from 'containers/HomeContainer/HomeContainer';
 import BlockListContainer from 'containers/BlockListContainer/BlockListContainer';
@@ -11,8 +13,6 @@ import BlockContainer from 'containers/BlockContainer/BlockContainer';
 import TxnListContainer from 'containers/TxnListContainer/TxnListContainer';
 import TxnContainer from 'containers/TxnContainer/TxnContainer';
 import AddressContainer from 'containers/AddressContainer/AddressContainer';
-import PageNotFound from 'components/PageNotFound/PageNotFound';
-
 
 /**
  * All App routing is started off from currency name (i.e '/btc' or '/eth').
@@ -33,11 +33,21 @@ import PageNotFound from 'components/PageNotFound/PageNotFound';
  * Transaction detail page - '/etc/transaction/0x751c37f62829d703e7cdb02c9315044001aa901e31284f0ed403b63fa72b1ed0'
  * Address page - '/etc/address/0xf50c1e11808d33b3b27088b081b3df1dbde7dfcd'
  */
-class RoutesContainer extends PureComponent {
 
+
+class RoutesContainer extends PureComponent {
   componentWillMount() {
-    const newSettings = this.getSettingsFromURL();
     const { history, setSettings } = this.props;
+
+    /**
+     * Check whether the url is valid before mounting
+     * 
+     * If returned paramemter is undefined,
+     *    it means invalid url and should redirect to 404 page.
+     * Else 
+     *    set the state of settings in redux store with new settings from url
+     */
+    const newSettings = this.getSettingsFromURL();
 
     if (!newSettings)
       history.replace('/404');
@@ -53,10 +63,9 @@ class RoutesContainer extends PureComponent {
       return undefined;
     }
 
-    // Get currency
+    // Get currency, net (optional in query param), ticker (optional in query param) of sub token
     const currency = match.params.currency;
     const { net, ticker } = qs.parse(location.search);
-    
     
     const coin = findCoinByCurrency(currency);
     
@@ -70,11 +79,11 @@ class RoutesContainer extends PureComponent {
     if (ticker && !findTokenByTicker(coin.currency, ticker)) 
       return undefined;
 
-    const token = ticker ? (findTokenByTicker(coin.currency, ticker)).ticker : undefined;
+    const token = ticker ? (findTokenByTicker(coin.currency, ticker)) : undefined;
 
     newSettings.currency = coin.currency;
     newSettings.netType = net ? net : 'live';
-    newSettings.token = token;
+    newSettings.ticker = token ? token.ticker : undefined;
 
     return newSettings;
   }
@@ -94,4 +103,27 @@ class RoutesContainer extends PureComponent {
   }
 }
 
-export default connectSettings()(withRouter(RoutesContainer));
+RoutesContainer.propTypes = {
+
+  // Current state of settings in redux
+  settings: PropTypes.shape({
+    currency: PropTypes.string,
+    netType: PropTypes.string,
+    ticker: PropTypes.string
+  }),
+
+  // Action dispatcher to set the state of settings
+  setSettings: PropTypes.func
+}
+
+const mapDisptachToProps = (dispatch) => {
+  const {
+    setSettings
+  } = settingsActionCreators;
+
+  return bindActionCreators({
+    setSettings
+  }, dispatch);
+}
+
+export default connectSettings(undefined, mapDisptachToProps)(RoutesContainer);

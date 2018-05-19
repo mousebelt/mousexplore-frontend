@@ -2,7 +2,7 @@ import {
   SET_SETTINGS,
   SET_CURRENCY,
   SET_NET_TYPE,
-  SET_TOKEN
+  SET_TICKER
 } from './actions';
 
 import { initialState } from '../initialState';
@@ -17,20 +17,30 @@ export default function auth(state = initialState.settings, action = {}) {
         ...payload
       };
     case SET_CURRENCY:
-      return {
-        ...state,
-        currency: payload
-      };
+      if (state.currency !== payload)
+        return {
+          ...state,
+          currency: payload,
+          ticker: undefined
+        };
+      else
+        return state;
     case SET_NET_TYPE:
-      return {
-        ...state,
-        netType: payload
-      };
-    case SET_TOKEN:
-      return {
-        ...state,
-        token: payload
-      };
+      if (state.netType !== payload)
+        return {
+          ...state,
+          netType: payload
+        };
+      else
+        return state;
+    case SET_TICKER:
+      if (state.ticker !== payload)
+        return {
+          ...state,
+          ticker: payload
+        };
+      else
+        return state;
     default: 
       return state;
   }
