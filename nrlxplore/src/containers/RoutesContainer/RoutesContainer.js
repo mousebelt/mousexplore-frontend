@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators, compose } from 'redux';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import qs from 'query-string';
+import { isEqual } from 'lodash';
 
 import { findCoinByCurrency, findTokenByTicker } from 'config';
 import { connectSettings, settingsActionCreators } from 'core';
@@ -34,8 +35,8 @@ import AddressContainer from 'containers/AddressContainer/AddressContainer';
  * Address page - '/etc/address/0xf50c1e11808d33b3b27088b081b3df1dbde7dfcd'
  */
 
-
 class RoutesContainer extends PureComponent {
+
   componentWillMount() {
     const { history, setSettings } = this.props;
 
@@ -53,6 +54,34 @@ class RoutesContainer extends PureComponent {
       history.replace('/404');
     else
       setSettings(newSettings);
+  }
+
+  componentWillReceiveProps(newProps) {
+    const { history, location, match } = newProps;
+
+    const newSettings = newProps.settings;
+    const curSettings = this.props.settings;
+
+    if (!isEqual(curSettings, newSettings)) {
+      const queryString = qs.stringify({
+        net: (newSettings.netType.toLowerCase() === 'test') ? newSettings.netType.toLowerCase() : undefined,
+        ticker: newSettings.ticker ? newSettings.ticker.toLowerCase() : undefined,
+      });
+
+      const matchParams = location.pathname.split('/');
+      matchParams[1] = newSettings.currency.toLowerCase();
+      const newPathName = matchParams.join('/');
+
+      const newLocation = history.createHref({
+        hash: '',
+        pathname: newPathName,
+        search: queryString,
+        state: undefined
+      });
+
+      history.push(newLocation);
+    }
+    
   }
 
   getSettingsFromURL () {
