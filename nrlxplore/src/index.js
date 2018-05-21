@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App';
+import App from 'containers/App';
 import registerServiceWorker from './registerServiceWorker';
 
 import 'antd/dist/antd.css';
-import './index.css';
+import 'assets/styles/index.less';
 
 ReactDOM.render(
   <App/>,
