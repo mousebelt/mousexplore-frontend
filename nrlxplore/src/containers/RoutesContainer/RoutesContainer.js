@@ -9,9 +9,9 @@ import { findCoinByCurrency, findTokenByTicker } from 'config';
 import { connectSettings, settingsActionCreators } from 'core';
 
 import HomeContainer from 'containers/HomeContainer/HomeContainer';
-import BlockListContainer from 'containers/BlockListContainer/BlockListContainer';
+import BlockTableContainer from 'containers/BlockTableContainer/BlockTableContainer';
 import BlockContainer from 'containers/BlockContainer/BlockContainer';
-import TxnListContainer from 'containers/TxnListContainer/TxnListContainer';
+import TxnTableContainer from 'containers/TxnTableContainer/TxnTableContainer';
 import TxnContainer from 'containers/TxnContainer/TxnContainer';
 import AddressContainer from 'containers/AddressContainer/AddressContainer';
 
@@ -120,10 +120,10 @@ class RoutesContainer extends PureComponent {
   render () {
     return (
       <Switch>
-        <Route exact path="/:currnecy" component={HomeContainer}/>
-        <Route exact path="/:currency/blocks" component={BlockListContainer}/>
+        <Route exact path="/:currency" component={HomeContainer}/>
+        <Route exact path="/:currency/blocks" component={BlockTableContainer}/>
         <Route exact path="/:currency/block/:blockHash" component={BlockContainer}/>
-        <Route exact path="/:currency/transactions" component={TxnListContainer}/>
+        <Route exact path="/:currency/transactions" component={TxnTableContainer}/>
         <Route exact path="/:currency/transaction/:txnHash" component={TxnContainer}/>
         <Route exact path="/:currency/address/:addrHash" component={AddressContainer}/>
         <Redirect to="/404"/>

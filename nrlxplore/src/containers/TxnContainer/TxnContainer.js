@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { store } from 'core';
 
-import TxnList from 'components/List/TxnList';
+// import TxnList from 'components/List/TxnList';
 
 const mockCurrency = {
   shorthand: 'BTC',
@@ -46,7 +43,7 @@ class TxnContainer extends Component {
     return (
       <div className="txn-list-container">
         <div className='txn-list-header'>Transactions</div>
-        <TxnList list={mockTxns} currency={mockCurrency} />
+        {/* <TxnList list={mockTxns} currency={mockCurrency} /> */}
       </div>
     );
   }
