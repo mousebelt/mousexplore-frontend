@@ -2,24 +2,99 @@
   .block {
     position: relative;
 
+    a {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      color: @txt-main-color;
+      font-weight: normal;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
     .icon {
       float: left;
       line-height: 25px;
     }
+    
+    .detail {
+      margin-left: 25px;
 
-    .height {
-      font-size: 16px;
-      line-height: 25px;
-      margin-left: 20px;
+      .height {
+        font-size: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 25px;
+        margin-bottom: 10px;
+      }
+      
+      .hash {
+        display: inline-block;
+        font-size: 14px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        line-height: 15px;
+        max-width: 80%;       
+        color: #aaa;
+      }
     }
 
-    .hash {
-      font-size: 14px;
+    .time {
+      color: @txt-light-color;
+      position: absolute;
+      right: 0px;
+      top: 0px;
+    }
+  }
+
+  .transaction {
+    position: relative;
+
+    a {
       white-space: nowrap;
-      overflow: hidden;
       text-overflow: ellipsis;
+      overflow: hidden;
+      color: @txt-main-color;
+      font-weight: normal;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .icon {
+      float: left;
       line-height: 25px;
-      margin-left: 20px;
+    }
+    
+    .detail {
+      margin-left: 30px;
+
+      .hash {
+        font-size: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 25px;
+        max-width: 80%;
+        margin-bottom: 10px;
+      }
+      
+      .from,.to {
+        display: inline-block;
+        max-width: 40%;
+        font-size: 14px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        margin-right: 10px;
+        line-height: 15px;
+        color: #aaa;
+      }
     }
 
     .time {

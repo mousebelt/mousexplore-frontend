@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Row, Col } from 'antd';
 
 import LatestBlocks from './LatestBlocks/LatestBlocks';
+import LatestTransactions from './LatestTransactions/LatestTransactions';
 
 class HeaderContainer extends PureComponent {
 
@@ -14,7 +15,7 @@ class HeaderContainer extends PureComponent {
             <LatestBlocks/>
           </Col>
           <Col span={12}>
-            <LatestBlocks/>
+            <LatestTransactions/>
           </Col>
         </Row>
       </div>
