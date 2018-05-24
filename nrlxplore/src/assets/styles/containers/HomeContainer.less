@@ -104,4 +104,56 @@
       top: 0px;
     }
   }
+
+  .ledger {
+    position: relative;
+
+    a {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      color: @txt-main-color;
+      font-weight: normal;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .icon {
+      float: left;
+      line-height: 25px;
+    }
+    
+    .detail {
+      margin-left: 25px;
+
+      .id {
+        font-size: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 25px;
+        margin-bottom: 10px;
+      }
+      
+      .hash {
+        display: inline-block;
+        font-size: 14px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        line-height: 15px;
+        max-width: 80%;       
+        color: #aaa;
+      }
+    }
+
+    .time {
+      color: @txt-light-color;
+      position: absolute;
+      right: 0px;
+      top: 0px;
+    }
+  }
 }

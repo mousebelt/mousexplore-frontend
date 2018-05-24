@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
+import { connectSettings } from 'core';
+
 import List from 'components/List/List';
 
 const mockTransactions = [
@@ -36,33 +38,39 @@ const mockTransactions = [
 ]
 
 class LatestTransactons extends PureComponent {
-  _renderTransaction = (transaction) => (
-    <div className="transaction">
-      <i className="fa fa-credit-card icon"/>
-      <div className="detail">
-        <div className="hash">
-          <Link to={`/eth/transaction/${transaction.hash}`}>
-            {transaction.hash}
-          </Link>
+  _renderTransaction = (transaction) => {
+    let { currency } = this.props;
+
+    currency = currency.toLowerCase();
+
+    return (
+      <div className="transaction">
+        <i className="fa fa-credit-card icon"/>
+        <div className="detail">
+          <div className="hash">
+            <Link to={`/${currency}/transaction/${transaction.hash}`}>
+              {transaction.hash}
+            </Link>
+          </div>
+          <div className="from">
+            From: &nbsp;
+            <Link to={`/${currency}/address/${transaction.from}`}>
+              {transaction.from}
+            </Link>
+          </div>
+          <div className="to">
+            To: &nbsp;
+            <Link to={`/${currency}/address/${transaction.to}`}>
+              {transaction.to}
+            </Link>
+          </div>
         </div>
-        <div className="from">
-          From: &nbsp;
-          <Link to={`/eth/address/${transaction.from}`}>
-            {transaction.from}
-          </Link>
-        </div>
-        <div className="to">
-          To: &nbsp;
-          <Link to={`/eth/address/${transaction.to}`}>
-            {transaction.to}
-          </Link>
-        </div>
+        <span className="time">
+          <i className="fa fa-clock-o"/> {transaction.timestamp}
+        </span>
       </div>
-      <span className="time">
-        <i className="fa fa-clock-o"/> {transaction.timestamp}
-      </span>
-    </div>
-  )
+    );
+  }
 
   render() {
     return (
@@ -78,4 +86,8 @@ class LatestTransactons extends PureComponent {
   }
 }
 
-export default LatestTransactons;
+const mapStateToProps = ({settings}) => ({
+  currency: settings.currency
+});
+
+export default connectSettings(mapStateToProps, {})(LatestTransactons);

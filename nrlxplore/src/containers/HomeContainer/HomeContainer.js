@@ -4,6 +4,7 @@ import { Row, Col } from 'antd';
 
 import LatestBlocks from './LatestBlocks/LatestBlocks';
 import LatestTransactions from './LatestTransactions/LatestTransactions';
+import LatestLedgers from './LatestLedgers/LatestLedgers';
 
 class HeaderContainer extends PureComponent {
 
@@ -11,11 +12,15 @@ class HeaderContainer extends PureComponent {
     return (
       <div className="home">
         <Row gutter={24}>
+          <Col span={24}>
+            <LatestTransactions/>
+          </Col>
+          
           <Col span={12}>
             <LatestBlocks/>
           </Col>
           <Col span={12}>
-            <LatestTransactions/>
+            <LatestLedgers/>
           </Col>
         </Row>
       </div>
