@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators, compose } from 'redux';
-import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import qs from 'query-string';
 import { isEqual } from 'lodash';
 
@@ -85,7 +85,7 @@ class RoutesContainer extends PureComponent {
   }
 
   getSettingsFromURL () {
-    const { location, match, settings } = this.props;
+    const { location, match } = this.props;
     const newSettings = {};
     
     if (!match.params || !match.params.currency) {

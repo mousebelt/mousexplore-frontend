@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { store } from 'core';
+import { Link } from 'react-router-dom';
 
 import Txn from '../Txn/Txn'
 
@@ -13,10 +11,21 @@ class List extends PureComponent {
     const defaultHeader = (
       <div className="nrl__list-header--content">
         { 
-          icon && <img src={icon} className="nrl__list-header-icon"/>
+          icon && (
+            <span className="nrl__list-header--icon">
+              {icon}
+            </span>
+          )
         }
         {
-          title && <h5 className="nrl__list-header-title">{title}</h5>
+          title && (
+            <h5 className="nrl__list-header--title">{title}</h5>
+          )
+        }
+        {
+          linkToAll && (
+            <Link className="nrl__list-header--link" to={linkToAll}>View All</Link>
+          )
         }
       </div>
     );

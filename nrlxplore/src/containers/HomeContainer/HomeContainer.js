@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Row, Col } from 'antd';
-import { List } from 'components/List/List';
 
 import LatestBlocks from './LatestBlocks/LatestBlocks';
 

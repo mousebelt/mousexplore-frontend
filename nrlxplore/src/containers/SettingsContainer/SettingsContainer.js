@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { settingsActionCreators, connectSettings } from 'core';
+import { connectSettings } from 'core';
 
 import OwnerLogo from './OwnerLogo/OwnerLogo';
 import CurrencySelect from './CurrencySelect/CurrencySelect';

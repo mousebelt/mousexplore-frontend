@@ -34,7 +34,9 @@ class LatestBlocks extends PureComponent {
     <div className="block">
       <div className="height">{block.height}</div>
       <div className="hash">{block.hash}</div>
-      <span className="time">{block.timestamp}</span>
+      <span className="time">
+        <i className="fa fa-clock-o"/> {block.timestamp}
+      </span>
     </div>
   )
 
@@ -42,8 +44,10 @@ class LatestBlocks extends PureComponent {
     return (
       <List
         className="latest-blocks"
-        data={mockBlocks}
+        icon={<i className="fa fa-cubes"/>}
         title="Blocks"
+        linkToAll="#"
+        data={mockBlocks}
         renderItem={this._renderBlock}
       />
     );

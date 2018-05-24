@@ -8,8 +8,31 @@
     border-bottom: 1px solid @border-grey-color;
     padding: 20px;
 
-    &-title {
-      font-size: 18px;
+    &--title {
+      font-size: 20px;
+      line-height: 35px;
+      display: inline-block;
+      margin-left: 10px;
+    }
+
+    &--icon {
+      font-size: 20px;
+      line-height: 35px;
+    }
+
+    &--link {
+      padding: 10px 20px;
+      float: right;
+      background: @border-main-color;
+      font-size: 14px;
+      line-height: 15px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      color: @txt-main-color;
+
+      &:hover {
+        color: @txt-main-color;
+      }
     }
   }
 
@@ -18,9 +41,14 @@
   }
 
   &-item {
-    border: 1px solid @border-grey-color;
+    border: 1px solid @border-main-color;
     border-radius: 4px;
     padding: 15px;
     margin-bottom: 20px;
+    background-color: @bg-main-color;
+
+    &:last-of-type {
+      margin-bottom: 0px;
+    }
   }
 }
