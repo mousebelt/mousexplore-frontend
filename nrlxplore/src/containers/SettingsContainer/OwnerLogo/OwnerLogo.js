@@ -4,7 +4,7 @@ import logoImg  from'assets/img/logo.png';
 
 const OwnerLogo = () => (
   <div className="logo">
-    <img className="logo__img" src={logoImg}/>
+    <img className="logo__img" src={logoImg} alt="App Logo"/>
   </div>
 )
 

@@ -57,7 +57,7 @@ class RoutesContainer extends PureComponent {
   }
 
   componentWillReceiveProps(newProps) {
-    const { history, location, match } = newProps;
+    const { history, location } = newProps;
 
     const newSettings = newProps.settings;
     const curSettings = this.props.settings;

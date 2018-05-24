@@ -32,7 +32,10 @@ const mockBlocks = [
 class LatestBlocks extends PureComponent {
   _renderBlock = (block) => (
     <div className="block">
-      <div className="height">{block.height}</div>
+      <i className="fa fa-cube icon"/>
+      <div className="height">
+        {block.height}
+      </div>
       <div className="hash">{block.hash}</div>
       <span className="time">
         <i className="fa fa-clock-o"/> {block.timestamp}
