@@ -1,3 +1,26 @@
-.list {
-  padding: 20px;
+@import '../shared.less';
+
+.nrl__list {
+  background: @bg-main-color;
+  border-radius: 5px;
+
+  &-header {
+    border-bottom: 1px solid @border-grey-color;
+    padding: 20px;
+
+    &-title {
+      font-size: 18px;
+    }
+  }
+
+  &-items {
+    padding: 20px;
+  }
+
+  &-item {
+    border: 1px solid @border-grey-color;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
 }
