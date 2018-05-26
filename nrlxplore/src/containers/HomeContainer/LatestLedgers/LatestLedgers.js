@@ -1,7 +1,6 @@
-import React, { PureComponent } from 'react';
+ import React, { PureComponent } from 'react';
 import List from 'components/List/List';
 import { connectSettings } from 'core';
-
 import { Link } from 'react-router-dom';
 
 const mockLedgers = [
