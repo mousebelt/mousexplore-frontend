@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'; 
-import { withRouter } from 'react-router-dom';
 import { Row, Col } from 'antd';
 import { connectSettings } from 'core';
 
@@ -46,6 +45,7 @@ class HomeContainer extends PureComponent {
     }
   }  
 }
+
 const mapStateToProps = ({settings}) => ({
   currency: settings.currency
 });

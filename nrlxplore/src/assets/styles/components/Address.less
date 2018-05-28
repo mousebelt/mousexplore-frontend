@@ -1,0 +1,96 @@
+@import '../shared.less';
+
+.address {
+  background-color: @bg-main-color;
+  border-radius: 6px;
+  padding: 20px;
+
+  &__info {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+
+    &-icon {
+      width: 80px;
+      height: 80px;
+      background: @bg-grey-color;
+      border-radius: 50%;
+
+      img {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+      }
+    }
+
+    &-balance, &-account {  
+      margin: 0px 30px;
+
+      p {
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      span {
+        font-size: 16px;
+      }
+    }
+  }
+
+  &__txn {
+    border-radius: 5px;
+    border: 1px solid @border-light-color;
+
+    .txn-table {
+      width: 100%;
+
+      tr {
+        border-bottom: 1px solid @border-light-color;
+        
+        .in-out {
+          text-align: right;
+        }
+
+        .hash {
+          width: 30%;
+        }
+
+        td {
+          padding :15px;
+        }
+
+        .label {
+          font-size: 12px;
+        }
+
+        .value {
+          color: black;
+          font-size: 15px;
+          font-weight: bold;
+          display: inline-block;
+          
+          &.in {
+            color: @green;
+          }
+
+          &.out {
+            color: @red;
+          }
+        }
+        
+        a.value {
+          text-decoration: underline;
+          max-width: 200px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        &:last-of-type {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}
