@@ -56,7 +56,7 @@ class AddressContainer extends PureComponent {
       // currency: currency,
       // address: match.params.addrHash,
       // balance: 0,
-      // txnHistory: [],      
+      // txnHistory: [],
 
       ...mockAddress
     };

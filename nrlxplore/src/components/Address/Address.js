@@ -48,7 +48,7 @@ class Address extends React.PureComponent {
                   </td>
                   <td className="amount">
                     <p className="label">Amount</p>
-                    <span className={`value ${isOut ? 'out' : 'in'}`}>{txn.value}</span>
+                    <span className={`value ${isOut ? 'out' : 'in'}`}>{`${isOut ? '-' : '+'}${txn.value}`}</span>
                   </td>
                 </tr>
               );

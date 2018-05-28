@@ -1,24 +1,37 @@
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { store } from 'core';
+import { Button } from 'antd';
 
 class Txn extends Component {
   render() {
-    const { txn, currency } = this.props;
+    const { className, currency, txnId, onPrevClick, onNextClick, children } = this.props;
 
     return (
-      <div className='nrl-txn-flexbox'>
-        <div className='nrl-txn-icon'></div>
-        <div className='nrl-txn-left'>
-          <div className='nrl-txn-id'>TXN {txn.id}</div>
-          <div className='nrl-txn-info'>
-            <span className='nrl-txn-from'>{txn.from}...</span> to <span className='nrl-txn-to'>{txn.to}...</span>
+      <div className={`txn${className ? ' ' + className : ''}`}>
+        <div className="txn__header">
+          <div className="txn__header-icon">
+            <i className="fa fa-long-arrow-left"/>
           </div>
-          <div className='nrl-txn-amount'>{txn.amount} {currency.shorthand}</div>
+          <div className="txn__header-title">
+            <h5>{currency} Transaction Information</h5>
+            <p>TXN Hash: {txnId}</p>
+          </div>
+          <div className="txn__header-actions">
+            <Button
+              shape="circle"
+              icon="left"
+              onClick={this.onPrevClick}
+            />
+            <Button
+              shape="circle"
+              icon="right"
+              onClick={this.onNextClick}
+            />
+          </div>
         </div>
-        <div className='nrl-txn-right'>
-          <span className='nrl-txn-author'>{txn.timestamp}</span>
+        <div className="txn__content">
+          {
+            children
+          }
         </div>
       </div>
     );
