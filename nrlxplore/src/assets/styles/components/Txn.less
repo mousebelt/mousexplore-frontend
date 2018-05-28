@@ -1,9 +1,43 @@
-.nrl-txn-flexbox {
-  background-color: rgba(50,50,0,0.01);
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-  padding: 15px;
-  border: 1px solid rgba(0,0,0,0.05);
-  border-radius: 3px;
+@import '../shared.less';
+
+.txn {
+  background-color: @bg-main-color;
+  border-radius: 5px;
+
+  .txn__header {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-bottom: 1px solid @border-light-color;
+
+    &-icon {
+      color: @red;
+      margin-right: 20px;
+      height: 40px;
+    }
+
+    &-title {
+      h5 {
+        font-size: 20px;
+      }
+
+      p {
+        font-size: 14px;
+      }
+    }
+
+    &-actions {
+      position: absolute;
+      right: 20px;
+
+      button {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .txn__content {
+    padding: 20px;
+  }
 }

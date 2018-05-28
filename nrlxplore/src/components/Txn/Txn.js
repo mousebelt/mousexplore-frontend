@@ -3,7 +3,7 @@ import { Button } from 'antd';
 
 class Txn extends PureComponent {
   render() {
-    const { className, currency, txnId, onPrevClick, onNextClick, children } = this.props;
+    const { className, currency, txnHash, onPrevClick, onNextClick, children } = this.props;
 
     return (
       <div className={`txn${className ? ' ' + className : ''}`}>
@@ -13,7 +13,7 @@ class Txn extends PureComponent {
           </div>
           <div className="txn__header-title">
             <h5>{currency} Transaction Information</h5>
-            <p>TXN Hash: {txnId}</p>
+            <p>TXN Hash: {txnHash}</p>
           </div>
           <div className="txn__header-actions">
             <Button
