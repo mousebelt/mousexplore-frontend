@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Button } from 'antd';
 
-class Txn extends Component {
+class Txn extends PureComponent {
   render() {
     const { className, currency, txnId, onPrevClick, onNextClick, children } = this.props;
 

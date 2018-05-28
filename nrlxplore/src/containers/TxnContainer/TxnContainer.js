@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connectSettings } from 'core';
 
-import BTCTxn from './BTCTxn/BTCTxn';
+import Txn from 'components/Txn/Txn';
 // import BTCTxn from './BTCTxn/BTCTxn';
 // import BTCTxn from './BTCTxn/BTCTxn';
 // import BTCTxn from './BTCTxn/BTCTxn';
@@ -14,16 +14,17 @@ class TxnContainer extends PureComponent {
     );
   }
 
+  _renderTxn = () => {
+    
+  }
+
   render() {
     const { currency } = this.props;
     return (
       <div className="txn-container">
-        { currency === "BTC" && 
-          <BTCTxn
-            currency={currency}
-
-          />
-        }
+        <Txn>
+          { currency }
+        </Txn>
       </div>
     );
   }
