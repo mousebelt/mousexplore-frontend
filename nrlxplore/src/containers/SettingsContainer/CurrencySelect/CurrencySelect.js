@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { coins, findCoinByCurrency } from 'config';
+import { coins } from 'config';
 
 import DropdownSelect from 'components/DropdownSelect/DropdownSelect';
 

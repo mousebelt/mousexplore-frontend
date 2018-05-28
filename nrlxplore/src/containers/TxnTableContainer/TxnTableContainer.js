@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-class TxnListContainer extends PureComponent {
+class TxnTableContainer extends PureComponent {
   render () {
     return (
       <div class="txnlist">
@@ -10,4 +10,4 @@ class TxnListContainer extends PureComponent {
   }
 }
 
-export default TxnListContainer;
+export default TxnTableContainer;

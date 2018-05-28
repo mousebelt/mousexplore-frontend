@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { store } from 'core';
 
-import BlockList from 'components/List/BlockList';
+// import BlockList from 'components/List/BlockList';
 
 const mockBlocks = [
   {
@@ -32,15 +29,15 @@ const mockBlocks = [
   }
 ]
 
-class BlockListContainer extends Component {
+class BlockTableContainer extends Component {
   render() {
     return (
       <div className="block-list-container">
         <div className='block-list-header'>Blocks</div>
-        <BlockList list={mockBlocks} />
+        {/* <BlockList list={mockBlocks} /> */}
       </div>
     );
   }
 }
 
-export default BlockListContainer;
+export default BlockTableContainer;

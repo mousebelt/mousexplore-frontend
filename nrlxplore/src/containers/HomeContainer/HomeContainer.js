@@ -1,14 +1,53 @@
-import React, { PureComponent } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { PureComponent } from 'react'; 
+import { Row, Col } from 'antd';
+import { connectSettings } from 'core';
 
-class HeaderContainer extends PureComponent {
+import LatestBlocks from './LatestBlocks/LatestBlocks';
+import LatestTransactions from './LatestTransactions/LatestTransactions';
+import LatestLedgers from './LatestLedgers/LatestLedgers';
+
+class HomeContainer extends PureComponent {
+
   render () {
-    return (
-      <div className="home">
-        Home Container
-      </div>
-    )
-  }
+    const { currency } = this.props;
+
+    if (currency === 'XLM') {
+      return (
+        <div className="home">
+          <Row gutter={24}>
+            <Col span={20} push={2}>
+              <LatestTransactions/>
+            </Col>
+            
+            <Col span={20} push={2}>
+              <LatestBlocks/>
+            </Col>
+            <Col span={20} push={2}>
+              <LatestLedgers/>
+            </Col>
+          </Row>
+        </div>
+      );
+    } else {
+      return (
+        <div className="home">
+          <Row gutter={24}>
+            <Col span={12}>
+              <LatestBlocks/>
+            </Col>
+            
+            <Col span={12}>
+              <LatestTransactions/>
+            </Col>
+          </Row>
+        </div>
+      );
+    }
+  }  
 }
 
-export default withRouter(HeaderContainer);
+const mapStateToProps = ({settings}) => ({
+  currency: settings.currency
+});
+
+export default connectSettings(mapStateToProps, {})(HomeContainer);

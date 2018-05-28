@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import DropdownSelect from 'components/DropdownSelect/DropdownSelect';
 
-import { findCoinByCurrency, findTokenByTicker } from 'config';
+import { findCoinByCurrency } from 'config';
 
 class TokenSelect extends PureComponent {
   handleChange = (ticker) => {

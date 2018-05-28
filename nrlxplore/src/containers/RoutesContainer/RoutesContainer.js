@@ -1,16 +1,17 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators, compose } from 'redux';
-import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import qs from 'query-string';
+import { isEqual } from 'lodash';
 
 import { findCoinByCurrency, findTokenByTicker } from 'config';
 import { connectSettings, settingsActionCreators } from 'core';
 
 import HomeContainer from 'containers/HomeContainer/HomeContainer';
-import BlockListContainer from 'containers/BlockListContainer/BlockListContainer';
+import BlockTableContainer from 'containers/BlockTableContainer/BlockTableContainer';
 import BlockContainer from 'containers/BlockContainer/BlockContainer';
-import TxnListContainer from 'containers/TxnListContainer/TxnListContainer';
+import TxnTableContainer from 'containers/TxnTableContainer/TxnTableContainer';
 import TxnContainer from 'containers/TxnContainer/TxnContainer';
 import AddressContainer from 'containers/AddressContainer/AddressContainer';
 
@@ -34,8 +35,8 @@ import AddressContainer from 'containers/AddressContainer/AddressContainer';
  * Address page - '/etc/address/0xf50c1e11808d33b3b27088b081b3df1dbde7dfcd'
  */
 
-
 class RoutesContainer extends PureComponent {
+
   componentWillMount() {
     const { history, setSettings } = this.props;
 
@@ -55,8 +56,36 @@ class RoutesContainer extends PureComponent {
       setSettings(newSettings);
   }
 
+  componentWillReceiveProps(newProps) {
+    const { history, location } = newProps;
+
+    const newSettings = newProps.settings;
+    const curSettings = this.props.settings;
+
+    if (!isEqual(curSettings, newSettings)) {
+      const queryString = qs.stringify({
+        net: (newSettings.netType.toLowerCase() === 'test') ? newSettings.netType.toLowerCase() : undefined,
+        ticker: newSettings.ticker ? newSettings.ticker.toLowerCase() : undefined,
+      });
+
+      const matchParams = location.pathname.split('/');
+      matchParams[1] = newSettings.currency.toLowerCase();
+      const newPathName = matchParams.join('/');
+
+      const newLocation = history.createHref({
+        hash: '',
+        pathname: newPathName,
+        search: queryString,
+        state: undefined
+      });
+
+      history.push(newLocation);
+    }
+    
+  }
+
   getSettingsFromURL () {
-    const { location, match, settings } = this.props;
+    const { location, match } = this.props;
     const newSettings = {};
     
     if (!match.params || !match.params.currency) {
@@ -91,10 +120,10 @@ class RoutesContainer extends PureComponent {
   render () {
     return (
       <Switch>
-        <Route exact path="/:currnecy" component={HomeContainer}/>
-        <Route exact path="/:currency/blocks" component={BlockListContainer}/>
+        <Route exact path="/:currency" component={HomeContainer}/>
+        <Route exact path="/:currency/blocks" component={BlockTableContainer}/>
         <Route exact path="/:currency/block/:blockHash" component={BlockContainer}/>
-        <Route exact path="/:currency/transactions" component={TxnListContainer}/>
+        <Route exact path="/:currency/transactions" component={TxnTableContainer}/>
         <Route exact path="/:currency/transaction/:txnHash" component={TxnContainer}/>
         <Route exact path="/:currency/address/:addrHash" component={AddressContainer}/>
         <Redirect to="/404"/>
