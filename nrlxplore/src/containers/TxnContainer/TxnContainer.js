@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connectSettings } from 'core';
+import moment from 'moment';
 
 import Txn from 'components/Txn/Txn';
 
@@ -58,7 +59,32 @@ class TxnContainer extends PureComponent {
     }
 
     return (
-      <div className="txn-btc"></div>
+      <div className="txn-btc">
+        <div className="status">
+          <span className="label">
+            TxReceipt Status:&nbsp;
+          </span>
+          <span className={`value ${txnDetail.confirmations > 1 ? 'success' : 'failure'}`}>
+            {txnDetail.confirmations > 1 ? 'Success' : 'Failed'}
+          </span>
+        </div>
+        <div className="input-output">
+        </div>
+        <div className="time">
+          <span className="label">
+            Included In Blocks:&nbsp; 
+          </span>
+          <span className="value">
+            Sent on {moment(txnDetail.blocktime).format('lll')} ({moment(txnDetail.blocktime).fromNow()})
+          </span>
+        </div>
+        <div className="conformation">
+          <span className="label">
+            Confirmations:&nbsp;
+          </span>
+          <span className="value">{txnDetail.confirmations}</span>
+        </div>
+      </div>
     );
   }
 
@@ -75,7 +101,7 @@ class TxnContainer extends PureComponent {
           txnHash={this.state.txnHash}
         >
           {
-            this._renderBTC(this.state.txnDetail)
+            this._renderBTC(mockBTCTxn)
           }
         </Txn>
       </div>
