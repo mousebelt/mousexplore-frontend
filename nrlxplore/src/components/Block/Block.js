@@ -22,26 +22,26 @@ class Block extends PureComponent {
             <div className="detail">
               <div className="left">
                 <p className="property">
-                  Block Hash: <Link to={`/block/${block.hash}`}>{block.hash}</Link>
+                  Block Hash: <Link to={`/${currency}/block/${block.hash}`}>{block.hash}</Link>
                 </p>
                 {
                   block.prevHash && (
                     <p className="property">
-                      Previous Hash: <Link to={`/block/${block.prevHash}`}>{block.prevHash}</Link>
+                      Previous Hash: <Link to={`/${currency}/block/${block.prevHash}`}>{block.prevHash}</Link>
                     </p>
                   )
                 }
                 {
                   block.nextHash && (
                     <p className="property">
-                      Next Hash: <Link to={`/block/${block.nextHash}`}>{block.nextHash}</Link>
+                      Next Hash: <Link to={`/${currency}/block/${block.nextHash}`}>{block.nextHash}</Link>
                     </p>
                   )
                 }
                 {
                   block.merkleRoot && (
                     <p className="property">
-                      Merkle Root: <Link to={`/block/${block.merkleRoot}`}>{block.merkleRoot}</Link>
+                      Merkle Root: <Link to={`/${currency}/block/${block.merkleRoot}`}>{block.merkleRoot}</Link>
                     </p>
                   )
                 }
@@ -91,17 +91,17 @@ class Block extends PureComponent {
               <tbody>
                 {
                   txns.map((txn, index) => (
-                    <tr key={txn.hash} className="block_txns-item">
+                    <tr key={index} className="block_txns-item">
                       <td className="icon">
                         <i className="fa fa-cubes"/>
                       </td>
                       <td className="block-height">
                         <p className="label">Block Height</p>
-                        <span className="value">{block.height}</span>
+                        <Link to={`/${currency}/block/${block.height}`} className="value">{block.height}</Link>
                       </td>
                       <td className="hash">
                         <p className="label">TX Hash</p>
-                        <span className="value">{txn.hash}</span>
+                        <Link to={`/${currency}/transaction/${txn}`} className="value">{txn}</Link>
                       </td>
                       <td className="time">
                         <p className="label">Time</p>
