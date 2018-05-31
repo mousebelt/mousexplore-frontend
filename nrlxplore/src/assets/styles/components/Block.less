@@ -1,9 +1,132 @@
-.nrl-block-flexbox {
-  background-color: rgba(50,50,0,0.01);
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-  padding: 15px;
-  border: 1px solid rgba(0,0,0,0.05);
-  border-radius: 3px;
+@import '../shared.less';
+
+.nrl__block {
+  background: @bg-main-color;
+  padding: 20px;
+  border-radius: 5px;
+
+  &-info {
+    &--icon {
+      margin: 20px;
+      width: 80px;
+      height: 80px;
+      float: left;
+      border-radius: 50%;
+      background: @bg-grey-color;
+
+      i {
+        font-size: 25px;
+        color: @red;
+        transform: translateX(-50%) translateY(-50%);
+        position: relative;
+        top: 50%;
+        left: 50%;
+      }
+    }
+
+    &--detail {
+      margin-left: 120px;
+
+      .summary {
+        padding: 20px 0px;
+        border-bottom: 1px solid #aaa;
+
+        .height {
+          font-size: 20px;
+          font-weight: bold;
+          line-height: 40px;
+        }
+
+        .txn-count {
+          font-size: 16px;
+          line-height: 20px;
+        }
+      }
+
+      .detail {
+        padding: 20px 0px;
+
+        .left {
+          width: 60%;
+          right: 30%;
+        }
+        
+        .left,.right {
+          display: inline-block;
+          vertical-align: top;
+          padding-right: 10%;
+        }
+
+        .property {
+          font-size: 16px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+
+          a {
+            color: @txt-main-color;
+            text-decoration: underline;
+          }
+        }
+
+        .time {
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+
+  &-txns {
+    &--title {
+      font-size: 20px;
+      font-weight: bold;
+      padding: 20px;
+      line-height: 20px;
+
+      span {
+        color: @red;
+      }
+    }
+
+    &--table {
+      border-radius: 5px;
+      border: 1px solid @border-main-color;
+
+      table {
+        width: 100%;
+
+        tr {
+          border-bottom: 1px solid @border-main-color;
+
+          &:last-of-type {
+            border: none;
+          }
+
+          td {
+            padding: 10px;
+
+            &.icon {
+              text-align: right;
+              width: 50px;
+              font-size: 16px;
+            }
+
+            .label {
+              font-size: 12px;
+            }
+
+            a {
+              color: @txt-main-color;
+              text-decoration: underline;
+            }
+
+            .value {
+              font-size: 14px;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+  }
 }

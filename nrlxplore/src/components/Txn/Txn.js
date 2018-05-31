@@ -3,19 +3,19 @@ import { Button } from 'antd';
 
 class Txn extends PureComponent {
   render() {
-    const { className, currency, txnId, onPrevClick, onNextClick, children } = this.props;
+    const { className, currency, txnHash, onPrevClick, onNextClick, children } = this.props;
 
     return (
-      <div className={`txn${className ? ' ' + className : ''}`}>
-        <div className="txn__header">
-          <div className="txn__header-icon">
+      <div className={`nrl__txn${className ? ' ' + className : ''}`}>
+        <div className="nrl__txn-header">
+          <div className="nrl__txn-header--icon">
             <i className="fa fa-long-arrow-left"/>
           </div>
-          <div className="txn__header-title">
+          <div className="nrl__txn-header--title">
             <h5>{currency} Transaction Information</h5>
-            <p>TXN Hash: {txnId}</p>
+            <p>TXN Hash: {txnHash}</p>
           </div>
-          <div className="txn__header-actions">
+          <div className="nrl__txn-header--actions">
             <Button
               shape="circle"
               icon="left"
@@ -28,7 +28,7 @@ class Txn extends PureComponent {
             />
           </div>
         </div>
-        <div className="txn__content">
+        <div className="nrl__txn-content">
           {
             children
           }

@@ -63,21 +63,21 @@ class Address extends React.PureComponent {
     const { className } = this.props;
     const { currency, address, balance, txnHistory, renderTXNHistory } = this.props;
     return (
-      <div className={`address${className ? ' ' + className : ''}`}>
-        <div className="address__info">
-          <div className="address__info-icon">
+      <div className={`nrl__address${className ? ' ' + className : ''}`}>
+        <div className="nrl__address-info">
+          <div className="nrl__address-info--icon">
             <img src={icCoin}/>
           </div>
-          <div className="address__info-balance">
+          <div className="nrl__address-info--balance">
             <p>Balance: {balance} {currency}&nbsp;<i className="fa fa-angle-down"/></p>
             <span>{txnHistory.length} Transactions</span>
           </div>
-          <div className="address__info-account">
+          <div className="nrl__address-info--account">
             <p>Address</p>
             <span>{address}</span>
           </div>
         </div>
-        <div className="address__txn">
+        <div className="nrl__address-txn">
           {
             renderTXNHistory ? renderTXNHistory() : this._renderTXNHistory()
           }

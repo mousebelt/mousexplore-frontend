@@ -7,7 +7,7 @@ class Toggle extends PureComponent {
     return (
       <Switch
         {...props}
-        className={`nrl-toggle${className ? ' ' + className : ''}`}
+        className={`nrl__toggle${className ? ' ' + className : ''}`}
       />
     );
   }

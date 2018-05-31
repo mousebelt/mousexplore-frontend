@@ -1,0 +1,28 @@
+@import '../shared.less';
+
+.txn-container {
+  .txn-detail {
+    border: 1px solid @border-main-color;
+    border-radius: 5px;
+
+    &>div {
+      padding: 20px;
+      border-bottom: 1px solid @border-main-color;
+
+      .label {
+        font-size: 16px;
+        font-weight: bold;
+        width: 250px;
+        display: inline-block;
+      }
+
+      .value {
+        font-size: 16px;
+
+        &.success {
+          color: @green;
+        }
+      }
+    }
+  } 
+}

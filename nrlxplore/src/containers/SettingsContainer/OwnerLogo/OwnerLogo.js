@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import logoImg  from'assets/img/logo.png';
 
@@ -11,4 +11,4 @@ const OwnerLogo = () => (
   </div>
 )
 
-export default withRouter(OwnerLogo);
+export default OwnerLogo;
