@@ -9,12 +9,12 @@ class Block extends PureComponent {
     const { currency } = this.props;
 
     return (
-      <div className={`block${className ? ' ' + className : ''}`}>
-        <div className="block__info">
-          <div className="block__info-icon">
+      <div className={`nrl__block${className ? ' ' + className : ''}`}>
+        <div className="nrl__block-info">
+          <div className="nrl__block-info--icon">
             <i className="fa fa-cubes"/>
           </div>
-          <div className="block__info-detail">
+          <div className="nrl__block-info--detail">
             <div className="summary">
               <p className="height">Height: {block.height}</p>
               <span className="txn-count">Transactions: {block.txn}</span>
@@ -82,16 +82,16 @@ class Block extends PureComponent {
             </div>
           </div>
         </div>
-        <div className="block__txns">
-          <h3 className="block__txns-title">
+        <div className="nrl__block-txns">
+          <h3 className="nrl__block-txns--title">
             Transactions In Block&nbsp;<span className="height">{block.height}</span>
           </h3>
-          <div className="block__txns-table">
+          <div className="nrl__block-txns--table">
             <table>
               <tbody>
                 {
                   txns.map((txn, index) => (
-                    <tr key={index} className="block_txns-item">
+                    <tr key={index} className="nrl__block-txns--item">
                       <td className="icon">
                         <i className="fa fa-cubes"/>
                       </td>

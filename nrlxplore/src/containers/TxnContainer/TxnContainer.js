@@ -59,7 +59,7 @@ class TxnContainer extends PureComponent {
     }
 
     return (
-      <div className="txn-btc">
+      <div className="txn-detail txn-btc">
         <div className="status">
           <span className="label">
             TxReceipt Status:&nbsp;
