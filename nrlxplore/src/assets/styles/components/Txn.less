@@ -1,23 +1,23 @@
 @import '../shared.less';
 
-.txn {
+.nrl__txn {
   background-color: @bg-main-color;
   border-radius: 5px;
 
-  .txn__header {
+  &-header {
     padding: 20px;
     display: flex;
     align-items: center;
     position: relative;
     border-bottom: 1px solid @border-light-color;
 
-    &-icon {
+    &--icon {
       color: @red;
       margin-right: 20px;
       height: 40px;
     }
 
-    &-title {
+    &--title {
       h5 {
         font-size: 20px;
       }
@@ -27,7 +27,7 @@
       }
     }
 
-    &-actions {
+    &--actions {
       position: absolute;
       right: 20px;
 
@@ -47,7 +47,7 @@
     }
   }
 
-  .txn__content {
+  &-content {
     padding: 20px;
   }
 }

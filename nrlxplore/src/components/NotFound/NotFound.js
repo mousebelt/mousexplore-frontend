@@ -1,7 +1,7 @@
 import React from 'react';
 
 const NotFound = ({...props}) => (
-  <div className="">
+  <div className="nrl__notfound">
     Entry Not Found
   </div>
 );
