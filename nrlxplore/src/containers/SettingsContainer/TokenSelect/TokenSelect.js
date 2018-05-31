@@ -29,7 +29,7 @@ class TokenSelect extends PureComponent {
         options={tokenOptions}
         onChange={this.handleChange}
         value={ticker}
-        disabled={tokenOptions.length > 0}
+        disabled={!tokenOptions || !tokenOptions.length}
       />
     );
   }
