@@ -17,16 +17,16 @@ import AddressContainer from 'containers/AddressContainer/AddressContainer';
 
 /**
  * All App routing is started off from currency name (i.e '/btc' or '/eth').
- * The currency parameter receives it and if currency parameter value doesn't match 
+ * The currency parameter receives it and if currency parameter value doesn't match
  * with any of supported coin then it redirect to '/404'.
  * Network type and ticker are optional parameter in search query.
- * 
+ *
  * Default currency: BTC
  * Default network: livenet
- * 
- * 
+ *
+ *
  * Example URLs to pages
- * 
+ *
  * Homepage - '/etc?net=live&ticker=VEN'
  * Block list page - '/etc/blocks'
  * Block detail page - '/etc/block/0000000000000171dd048645bbeee7e123093e5f4e68d38ed17fc24d34fa7142'
@@ -42,10 +42,10 @@ class RoutesContainer extends PureComponent {
 
     /**
      * Check whether the url is valid before mounting
-     * 
+     *
      * If returned paramemter is undefined,
      *    it means invalid url and should redirect to 404 page.
-     * Else 
+     * Else
      *    set the state of settings in redux store with new settings from url
      */
     const newSettings = this.getSettingsFromURL();
@@ -81,13 +81,13 @@ class RoutesContainer extends PureComponent {
 
       history.push(newLocation);
     }
-    
+
   }
 
   getSettingsFromURL () {
     const { location, match } = this.props;
     const newSettings = {};
-    
+
     if (!match.params || !match.params.currency) {
       return undefined;
     }
@@ -95,17 +95,17 @@ class RoutesContainer extends PureComponent {
     // Get currency, net (optional in query param), ticker (optional in query param) of sub token
     const currency = match.params.currency;
     const { net, ticker } = qs.parse(location.search);
-    
+
     const coin = findCoinByCurrency(currency);
-    
-    if (!coin) 
+
+    if (!coin)
       return undefined;
 
     if (net && (net !== 'live' && net !== 'test')) {
       return undefined;
     }
 
-    if (ticker && !findTokenByTicker(coin.currency, ticker)) 
+    if (ticker && !findTokenByTicker(coin.currency, ticker))
       return undefined;
 
     const token = ticker ? (findTokenByTicker(coin.currency, ticker)) : undefined;
@@ -145,7 +145,7 @@ RoutesContainer.propTypes = {
   setSettings: PropTypes.func
 }
 
-const mapDisptachToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   const {
     setSettings
   } = settingsActionCreators;
@@ -155,4 +155,4 @@ const mapDisptachToProps = (dispatch) => {
   }, dispatch);
 }
 
-export default connectSettings(undefined, mapDisptachToProps)(RoutesContainer);
+export default connectSettings(undefined, mapDispatchToProps)(RoutesContainer);
