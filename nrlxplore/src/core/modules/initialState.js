@@ -4,6 +4,7 @@ const settings = {
   currency: defaultCoin || coins[0].currency,
   netType: 'live',
   ticker: undefined,
+  apiObject: undefined,
 };
 
 export const initialState = {

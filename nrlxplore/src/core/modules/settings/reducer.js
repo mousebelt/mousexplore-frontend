@@ -1,3 +1,6 @@
+import { findCoinByCurrency } from 'config';
+import axios from 'axios';
+
 import {
   SET_SETTINGS,
   SET_CURRENCY,
@@ -10,38 +13,56 @@ import { initialState } from '../initialState';
 export default function auth(state = initialState.settings, action = {}) {
   const { type, payload } = action;
 
+  let newSettings;
+
   switch (type) {
+    default: 
+      newSettings = state;
+
     case SET_SETTINGS: 
-      return {
+      newSettings = {
         ...state,
         ...payload
       };
+      break;
+
     case SET_CURRENCY:
       if (state.currency !== payload)
-        return {
+        newSettings = {
           ...state,
           currency: payload,
           ticker: undefined
-        };
-      else
-        return state;
+        };      
+      break;
+
     case SET_NET_TYPE:
       if (state.netType !== payload)
-        return {
+        newSettings = {
           ...state,
           netType: payload
         };
-      else
-        return state;
+      break;
+
     case SET_TICKER:
       if (state.ticker !== payload)
-        return {
+        newSettings = {
           ...state,
           ticker: payload
         };
-      else
-        return state;
-    default: 
-      return state;
+      break;
   }
+
+  if (newSettings.currency !== state.currency || newSettings.netType !== state.netType || !newSettings.apiObject) {
+    const coin = findCoinByCurrency(newSettings.currency);
+
+    if (newSettings.apiObject) {
+      delete newSettings.apiObject;
+    }
+
+    newSettings.apiObject = axios.create({
+      baseUrl: newSettings.netType === 'test' ? coin.api.test : coin.api.live
+    });
+  }
+
+  return newSettings;
 }
