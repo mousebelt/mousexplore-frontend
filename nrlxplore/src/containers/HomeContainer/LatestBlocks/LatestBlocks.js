@@ -33,6 +33,10 @@ const mockBlocks = [
 ]
 
 class LatestBlocks extends PureComponent {
+  state = {
+    blocks: []
+  };
+
   _renderBlock = (block) => {
     let { currency } = this.props;
 
@@ -60,6 +64,23 @@ class LatestBlocks extends PureComponent {
     );
   }
 
+  componentDidMount() {
+    this.getLatestBlocks();
+  }
+
+  async getLatestBlocks () {
+    const { apiObject } = this.props;
+
+    try {
+      const res = apiObject.get('/blocks', {
+        params: { count: 5}
+      });
+      console.log(res);
+    } catch (error) {
+
+    }
+  }
+
   render() {
     return (
       <List
@@ -75,7 +96,8 @@ class LatestBlocks extends PureComponent {
 }
 
 const mapStateToProps = ({settings}) => ({
-  currency: settings.currency
+  currency: settings.currency,
+  apiObject: settings.apiObject
 });
 
 export default connectSettings(mapStateToProps, {})(LatestBlocks);

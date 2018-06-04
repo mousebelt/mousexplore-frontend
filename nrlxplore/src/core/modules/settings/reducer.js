@@ -13,12 +13,9 @@ import { initialState } from '../initialState';
 export default function auth(state = initialState.settings, action = {}) {
   const { type, payload } = action;
 
-  let newSettings;
+  let newSettings = state;
 
   switch (type) {
-    default: 
-      newSettings = state;
-
     case SET_SETTINGS: 
       newSettings = {
         ...state,
@@ -50,6 +47,10 @@ export default function auth(state = initialState.settings, action = {}) {
           ticker: payload
         };
       break;
+
+    default: 
+      newSettings = state;
+      break;
   }
 
   if (newSettings.currency !== state.currency || newSettings.netType !== state.netType || !newSettings.apiObject) {
@@ -60,7 +61,11 @@ export default function auth(state = initialState.settings, action = {}) {
     }
 
     newSettings.apiObject = axios.create({
-      baseUrl: newSettings.netType === 'test' ? coin.api.test : coin.api.live
+      baseURL: newSettings.netType === 'test' ? coin.api.test : coin.api.live,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
     });
   }
 
