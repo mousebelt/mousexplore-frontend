@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'; 
+import React, { PureComponent } from 'react';
 import { Row, Col } from 'antd';
 import { connectSettings } from 'core';
 
@@ -15,15 +15,11 @@ class HomeContainer extends PureComponent {
       return (
         <div className="home">
           <Row gutter={24}>
-            <Col span={20} push={2}>
-              <LatestTransactions/>
-            </Col>
-            
-            <Col span={20} push={2}>
-              <LatestBlocks/>
-            </Col>
-            <Col span={20} push={2}>
+            <Col span={12}>
               <LatestLedgers/>
+            </Col>
+            <Col span={12}>
+              <LatestTransactions/>
             </Col>
           </Row>
         </div>
@@ -35,7 +31,7 @@ class HomeContainer extends PureComponent {
             <Col span={12}>
               <LatestBlocks/>
             </Col>
-            
+
             <Col span={12}>
               <LatestTransactions/>
             </Col>
@@ -43,7 +39,7 @@ class HomeContainer extends PureComponent {
         </div>
       );
     }
-  }  
+  }
 }
 
 const mapStateToProps = ({settings}) => ({
