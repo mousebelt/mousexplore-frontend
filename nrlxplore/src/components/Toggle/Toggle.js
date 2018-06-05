@@ -8,6 +8,8 @@ class Toggle extends PureComponent {
       <Switch
         {...props}
         className={`nrl__toggle${className ? ' ' + className : ''}`}
+        checkedChildren="Livenet"
+        unCheckedChildren="Offline"
       />
     );
   }
