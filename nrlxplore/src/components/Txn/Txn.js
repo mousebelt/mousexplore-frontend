@@ -15,18 +15,6 @@ class Txn extends PureComponent {
             <h5>{currency} Transaction Information</h5>
             <p>TXN Hash: {txnHash}</p>
           </div>
-          <div className="nrl__txn-header--actions">
-            <Button
-              shape="circle"
-              icon="left"
-              onClick={this.onPrevClick}
-            />
-            <Button
-              shape="circle"
-              icon="right"
-              onClick={this.onNextClick}
-            />
-          </div>
         </div>
         <div className="nrl__txn-content">
           {

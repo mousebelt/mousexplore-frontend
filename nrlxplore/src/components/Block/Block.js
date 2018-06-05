@@ -108,7 +108,7 @@ class Block extends PureComponent {
                         </td>
                         <td className="time">
                           <p className="label">Time</p>
-                          <span className="value">{moment(block.time).fromNow()}</span>
+                          <span className="value">{moment.unix(block.time).fromNow()}</span>
                         </td>
                       </tr>
                     ))
