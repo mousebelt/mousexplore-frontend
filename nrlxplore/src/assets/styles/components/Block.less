@@ -4,13 +4,17 @@
   background: @bg-main-color;
   padding: 20px;
   border-radius: 5px;
+  margin-bottom: 50px;
 
   &-info {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid @nrl-grey;
+
     &--icon {
       margin: 20px;
       width: 80px;
       height: 80px;
-      float: left;
       border-radius: 50%;
       background: @bg-grey-color;
 
@@ -24,24 +28,23 @@
       }
     }
 
+    .summary {
+      padding: 20px 0px;
+
+      .height {
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 40px;
+      }
+
+      .txn-count {
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+
     &--detail {
       margin-left: 120px;
-
-      .summary {
-        padding: 20px 0px;
-        border-bottom: 1px solid #aaa;
-
-        .height {
-          font-size: 20px;
-          font-weight: bold;
-          line-height: 40px;
-        }
-
-        .txn-count {
-          font-size: 16px;
-          line-height: 20px;
-        }
-      }
 
       .detail {
         padding: 20px 0px;
@@ -49,8 +52,12 @@
         .left {
           width: 60%;
           right: 30%;
+
+          @media all and (max-width: 900px) {
+            width: 100%;
+          }
         }
-        
+
         .left,.right {
           display: inline-block;
           vertical-align: top;
@@ -72,6 +79,10 @@
         .time {
           margin-top: 20px;
         }
+      }
+
+      @media all and (max-width: 900px) {
+        margin: 15px;
       }
     }
   }
@@ -103,16 +114,17 @@
           }
 
           td {
-            padding: 10px;
+            padding: 15px;
 
             &.icon {
-              text-align: right;
+              // text-align: right;
               width: 50px;
               font-size: 16px;
+              padding-left: 25px;
             }
 
             .label {
-              font-size: 12px;
+              font-size: 14px;
             }
 
             a {
@@ -121,7 +133,7 @@
             }
 
             .value {
-              font-size: 14px;
+              font-size: 16px;
               font-weight: bold;
             }
           }
