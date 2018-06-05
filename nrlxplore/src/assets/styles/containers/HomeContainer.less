@@ -1,4 +1,21 @@
 .home {
+  width: 100%;
+  display: flex;
+  flex-direction: row-wrap;
+  justify-content: space-between;
+
+  @media all and (max-width: 800px) {
+    flex-direction: column;
+  }
+
+  .nrl__list {
+    width: 49%;
+
+    @media all and (max-width: 800px) {
+      width: 100%;
+    }
+  }
+
   .block {
     position: relative;
 
@@ -18,7 +35,7 @@
       float: left;
       line-height: 25px;
     }
-    
+
     .detail {
       margin-left: 25px;
 
@@ -30,7 +47,7 @@
         line-height: 25px;
         margin-bottom: 10px;
       }
-      
+
       .hash {
         display: inline-block;
         font-size: 14px;
@@ -38,7 +55,7 @@
         text-overflow: ellipsis;
         overflow: hidden;
         line-height: 15px;
-        max-width: 80%;       
+        max-width: 80%;
         color: #aaa;
       }
     }
@@ -70,7 +87,7 @@
       float: left;
       line-height: 25px;
     }
-    
+
     .detail {
       margin-left: 30px;
 
@@ -83,7 +100,7 @@
         max-width: 80%;
         margin-bottom: 10px;
       }
-      
+
       .from,.to {
         display: inline-block;
         max-width: 40%;
@@ -124,7 +141,7 @@
       float: left;
       line-height: 25px;
     }
-    
+
     .detail {
       margin-left: 25px;
 
@@ -136,7 +153,7 @@
         line-height: 25px;
         margin-bottom: 10px;
       }
-      
+
       .hash {
         display: inline-block;
         font-size: 14px;
@@ -144,7 +161,7 @@
         text-overflow: ellipsis;
         overflow: hidden;
         line-height: 15px;
-        max-width: 80%;       
+        max-width: 80%;
         color: #aaa;
       }
     }
