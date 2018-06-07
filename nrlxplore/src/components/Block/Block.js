@@ -68,23 +68,23 @@ class Block extends PureComponent {
                   )
                 }
                 {
-                  block.confirmations && (
+                  block.size && (
                     <p className="property">
                       Block Size: {block.size}
                     </p>
                   )
                 }
                 {
-                  block.confirmations && (
+                  block.bits && (
                     <p className="property">
                       Bits: {block.bits}
                     </p>
                   )
                 }
                 {
-                  block.confirmations && (
+                  block.nonce && (
                     <p className="property">
-                      Block Reward: {block.reward}
+                      Nonce: {block.nonce}
                     </p>
                   )
                 }

@@ -9,7 +9,7 @@ const mapTxnKeys = {
   'ETH': {
     'blockHash': 'blockHash',
     'hash': 'hash',    
-    'timestamp': 'time',
+    'timestamp': 'timestamp',
     'confirmations': 'confirmations',
     'vsize': 'v',
   },
