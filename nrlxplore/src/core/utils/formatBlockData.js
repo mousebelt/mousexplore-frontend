@@ -2,8 +2,8 @@ const mapBlockKeys = {
   'BTC': {
     'height': 'height',
     'hash': 'hash',    
-    // 'nextHash': 'nextblockhash',
-    // 'prevHash': 'previousblockhash',
+    'nextHash': 'nextblockhash',
+    'prevHash': 'previousblockhash',
     'txns': 'tx',
     'timestamp': 'time',
     'nonce': 'nonce',    

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import Block from 'components/Block/Block';
-import { connectSettings } from 'core';
-
+import NotFound from 'components/NotFound/NotFound';
+import { connectSettings, formatBlockData } from 'core';
 
 const mockBlock = {
   "hash": "40fec69d3163bac5374f57aa220233b95e1706a0a03e14243d650029ec2efa1e",
@@ -29,22 +29,72 @@ const mockBlock = {
 }
 
 class BlockContainer extends PureComponent {
+  state = {
+    block: undefined
+  };
+
+  componentDidMount() {
+    const { apiObject, currency, match } = this.props;
+
+    const { blockHash } = match.params;
+
+    if (blockHash) {
+      this.getBlock(apiObject, currency, blockHash);    
+    }
+  }
+
+  componentWillReceiveProps () {
+    const { apiObject, currency, match } = this.props;
+
+    const { blockHash } = match.params;
+
+    if (blockHash) {
+      this.getBlock(apiObject, currency, blockHash);    
+    }
+  }
+
+  getBlock(apiObject, currency, blockHash) {
+    apiObject.get(`/block/${blockHash}`)
+      .then(res => {
+        if (res.data.status !== 200) {
+          return;
+        }
+        let block = res.data.data;
+
+        block = formatBlockData(block, currency);
+
+        this.setState({ block: block });
+
+      })
+  }
+  
   render () {
     const { currency } = this.props;
+    const { block } = this.state;
+    
+    console.log(block);
+
     return (
       <div className="block-container">
-        <Block
-          currency={currency}
-          block={mockBlock}
-          txns={mockBlock.tx}
-        />
+        {
+          block ? (
+            <Block
+              currency={currency}
+              block={block}
+            />
+          ) : (
+            <NotFound/>
+          )
+        }
+        
       </div>
     );
   }
 }
 
 const mapStateToProps = ({settings}) => ({
-  currency: settings.currency
+  currency: settings.currency,
+  apiObject: settings.apiObject
 });
 
 export default connectSettings(mapStateToProps, {})(BlockContainer);

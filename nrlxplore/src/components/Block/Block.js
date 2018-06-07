@@ -1,12 +1,25 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
+import { formatTxnData } from 'core';
 import moment from 'moment';
 
 class Block extends PureComponent {
+  state = {
+    visibleTxnCount: 10
+  };
+
+  handleViewMore = () => {
+    this.setState({
+      visibleTxnCount: this.state.visibleTxnCount + 10
+    });
+  }
+
   render() {
     const { className } = this.props;
-    const { block, txns } = this.props;
+    const { block } = this.props;
     const { currency } = this.props;
+
+    const txns = block.txns.slice(0, this.state.visibleTxnCount);
 
     return (
       <div className={`nrl__block${className ? ' ' + className : ''}`}>
@@ -17,7 +30,7 @@ class Block extends PureComponent {
           <div className="nrl__block-info--detail">
             <div className="summary">
               <p className="height">Height: {block.height}</p>
-              <span className="txn-count">Transactions: {txns.length}</span>
+              <span className="txn-count">Transactions: {block.txns.length}</span>
             </div>
             <div className="detail">
               <div className="left">
@@ -90,28 +103,33 @@ class Block extends PureComponent {
             <table>
               <tbody>
                 {
-                  txns.map((txn, index) => (
-                    <tr key={index} className="nrl__block-txns--item">
-                      <td className="icon">
-                        <i className="fa fa-cubes"/>
-                      </td>
-                      <td className="block-height">
-                        <p className="label">Block Height</p>
-                        <Link to={`/${currency}/block/${block.height}`} className="value">{block.height}</Link>
-                      </td>
-                      <td className="hash">
-                        <p className="label">TX Hash</p>
-                        <Link to={`/${currency}/transaction/${txn}`} className="value">{txn}</Link>
-                      </td>
-                      <td className="time">
-                        <p className="label">Time</p>
-                        <span className="value">{moment(block.time).fromNow()}</span>
-                      </td>
-                    </tr>
-                  ))
+                  txns.map((txn, index) => {
+                    return (
+                      <tr key={index} className="nrl__block-txns--item">
+                        <td className="icon">
+                          <i className="fa fa-cubes"/>
+                        </td>
+                        <td className="block-height">
+                          <p className="label">Block Height</p>
+                          <Link to={`/${currency}/block/${block.height}`} className="value">{block.height}</Link>
+                        </td>
+                        <td className="hash">
+                          <p className="label">TX Hash</p>
+                          <Link to={`/${currency}/transaction/${txn.hash || txn}`} className="value">{txn.hash || txn}</Link>
+                        </td>
+                        <td className="time">
+                          <p className="label">Time</p>
+                          <span className="value">{moment.unix(block.timestamp).fromNow()}</span>
+                        </td>
+                      </tr>
+                    );
+                  })
                 }
               </tbody>
             </table>
+          </div>
+          <div className="nrl__block-txns--more">
+            <a className="btn-viewmore" onClick={this.handleViewMore}>View More</a>
           </div>
         </div>
       </div>
