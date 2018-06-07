@@ -17,7 +17,7 @@ class Block extends PureComponent {
           <div className="nrl__block-info--detail">
             <div className="summary">
               <p className="height">Height: {block.height}</p>
-              <span className="txn-count">Transactions: {block.txn}</span>
+              <span className="txn-count">Transactions: {txns.length}</span>
             </div>
             <div className="detail">
               <div className="left">
