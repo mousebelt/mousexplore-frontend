@@ -119,6 +119,10 @@ class TxnContainer extends PureComponent {
           </span>
           <span className="value">{txnDetail.confirmations}</span>
         </div>
+        <div className="block-hash">
+          <span className="label">Block Hash:</span>
+          <Link className="value" to={`/eth/block/${txnDetail.blockHash}`}>{txnDetail.blockHash}</Link>
+        </div>
       </div>
     );
   }
@@ -172,6 +176,10 @@ class TxnContainer extends PureComponent {
           <span className="value">
             Sent on {moment.unix(txnDetail.block.timestamp).format('lll')} ({moment.unix(txnDetail.block.timestamp).fromNow()})
           </span>
+        </div>
+        <div className="block-hash">
+          <span className="label">Block Hash:</span>
+          <Link className="value" to={`/eth/block/${txnDetail.blockHash}`}>{txnDetail.blockHash}</Link>
         </div>
       </div>
     );

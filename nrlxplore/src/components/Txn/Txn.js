@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Button } from 'antd';
+import { Link } from 'react-router-dom';
 
 class Txn extends PureComponent {
   render() {
@@ -13,7 +14,10 @@ class Txn extends PureComponent {
           </div>
           <div className="nrl__txn-header--title">
             <h5>{currency} Transaction Information</h5>
-            <p>TXN Hash: {txnHash}</p>
+            <p>
+              TXN Hash:&nbsp;
+              <Link to={`/${currency.toLowerCase()}/transaction/${txnHash}`}>{txnHash}</Link>
+            </p>
           </div>
           <div className="nrl__txn-header--actions">
             <Button
