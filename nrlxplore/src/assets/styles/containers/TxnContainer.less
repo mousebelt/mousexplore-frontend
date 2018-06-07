@@ -23,6 +23,11 @@
           color: @green;
         }
       }
+
+      a.value {
+        color: @txt-main-color;
+        text-decoration: underline;
+      }
     }
 
     .input-output {
@@ -60,6 +65,12 @@
             vertical-align: top; 
           }
         }
+      }
+    }
+
+    &.txn-eth {
+      &>div:nth-of-type(2n) {
+        background: @bg-light-color;
       }
     }
   }
