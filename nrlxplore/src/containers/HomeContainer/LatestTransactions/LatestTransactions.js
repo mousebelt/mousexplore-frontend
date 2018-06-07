@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'; 
 import { Link } from 'react-router-dom';
 import { connectSettings, formatTxnData } from 'core';
+import moment from 'moment';
 
 import List from 'components/List/List';
 
@@ -65,7 +66,7 @@ class LatestTransactons extends PureComponent {
           </div>
         </div>
         <span className="time">
-          <i className="fa fa-clock-o"/> {transaction.timestamp || 'n/a'}
+          <i className="fa fa-clock-o"/> {transaction.timestamp ? moment.unix(transaction.timestamp).fromNow() : 'n/a'}
         </span>
       </div>
     );

@@ -13,7 +13,7 @@ class SettingsContainer extends Component {
     const { settings, setCurrency, setNetType, setTicker } = this.props;
     return (
       <div className="settings">
-        <OwnerLogo/>  
+        <OwnerLogo currency={this.props.settings.currency}/>  
         <div className="settings__filter">
           <CurrencySelect
             currency={settings.currency}
