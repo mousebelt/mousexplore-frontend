@@ -39,33 +39,6 @@ class LatestBlocks extends PureComponent {
     blocks: []
   };
 
-  _renderBlock = (block) => {
-    let { currency } = this.props;
-
-    currency = currency.toLowerCase();
-    
-    return (
-      <div className="block">
-        <i className="fa fa-cube icon"/>
-        <div className="detail">
-          <div className="height">
-            <Link to={`/${currency}/block/${block.height}`}>
-              #{block.height}
-            </Link>
-          </div>
-          <div className="hash">
-            <Link to={`/${currency}/block/${block.hash}`}>
-              {block.hash}
-            </Link>
-          </div>
-        </div>
-        <span className="time">
-          <i className="fa fa-clock-o"/> {moment.unix(block.timestamp).fromNow()}
-        </span>
-      </div>
-    );
-  }
-
   componentDidMount() {
     const { apiObject, currency } = this.props;
     
@@ -96,6 +69,33 @@ class LatestBlocks extends PureComponent {
  
       this.setState({ blocks });
     });
+  }
+
+  _renderBlock = (block) => {
+    let { currency } = this.props;
+
+    currency = currency.toLowerCase();
+    
+    return (
+      <div className="block">
+        <i className="fa fa-cube icon"/>
+        <div className="detail">
+          <div className="height">
+            <Link to={`/${currency}/block/${block.height}`}>
+              #{block.height}
+            </Link>
+          </div>
+          <div className="hash">
+            <Link to={`/${currency}/block/${block.hash}`}>
+              {block.hash}
+            </Link>
+          </div>
+        </div>
+        <span className="time">
+          <i className="fa fa-clock-o"/> {moment.unix(block.timestamp).fromNow()}
+        </span>
+      </div>
+    );
   }
 
   render() {
