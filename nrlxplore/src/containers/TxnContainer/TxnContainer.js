@@ -1,45 +1,10 @@
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { connectSettings, formatTxnData,  } from 'core';
 
 import Txn from 'components/Txn/Txn';
 import NotFound from 'components/NotFound/NotFound';
-
-const mockBTCTxn = {
-  "txid": "3bf8c518a7a1187287516da67cb96733697b1d83eb937e68ae39bd4c08e563b7",
-  "hash": "3bf8c518a7a1187287516da67cb96733697b1d83eb937e68ae39bd4c08e563b7",
-  "version": 1,
-  "size": 126,
-  "vsize": 126,
-  "weight": 504,
-  "locktime": 0,
-  "vin": [
-      {
-          "coinbase": "0440bebf4f0122172f503253482f49636549726f6e2d51432d6d696e65722f",
-          "sequence": 4294967295
-      }
-  ],
-  "vout": [
-      {
-          "value": 50,
-          "n": 0,
-          "scriptPubKey": {
-              "asm": "03a5f981bf546b95152ed6695bc50edd0b8db3afb48839b9d58714519e5bdd1f95 OP_CHECKSIG",
-              "hex": "2103a5f981bf546b95152ed6695bc50edd0b8db3afb48839b9d58714519e5bdd1f95ac",
-              "reqSigs": 1,
-              "type": "pubkey",
-              "addresses": [
-                  "mw8BoejnFJmntv3PjKAcPbuB6PMsBnAGDQ"
-              ]
-          }
-      }
-  ],
-  "hex": "01000000010000000000000000000000000000000000000000000000000000000000000000ffffffff1f0440bebf4f0122172f503253482f49636549726f6e2d51432d6d696e65722fffffffff0100f2052a01000000232103a5f981bf546b95152ed6695bc50edd0b8db3afb48839b9d58714519e5bdd1f95ac00000000",
-  "txnhash": "00000000373403049c5fff2cd653590e8cbe6f7ac639db270e7d1a7503d698df",
-  "confirmations": 1209804,
-  "time": 1337966144,
-  "txntime": 1337966144
-};
 
 class TxnContainer extends PureComponent {
 
@@ -52,6 +17,8 @@ class TxnContainer extends PureComponent {
 
     const { txnHash } = match.params;
 
+    console.log(txnHash);
+
     if (txnHash) {
       this.getTxn(apiObject, currency, txnHash);    
     }
@@ -61,6 +28,8 @@ class TxnContainer extends PureComponent {
     const { apiObject, currency, match } = newProps;
 
     const { txnHash } = match.params;
+
+    console.log(txnHash);
 
     if (txnHash) {
       this.getTxn(apiObject, currency, txnHash);    
@@ -72,6 +41,7 @@ class TxnContainer extends PureComponent {
       txn: undefined
     });
 
+    console.log('------------');
     apiObject.get(`/txdetails/${txnHash}`)
       .then(res => {
         console.log(res);
@@ -91,6 +61,20 @@ class TxnContainer extends PureComponent {
       return <p>No content...</p>
     }
 
+    const vins = txnDetail.vin.map(vin => {
+      return {
+        value: vin.address.value,
+        address: vin.address.scriptPubKey.addresses[0]
+      };
+    });
+
+    const vouts = txnDetail.vout.map(vout => {
+      return {
+        value: vout.value,
+        address: vout.scriptPubKey.addresses[0]
+      };
+    })
+
     return (
       <div className="txn-detail txn-btc">
         <div className="status">
@@ -102,6 +86,28 @@ class TxnContainer extends PureComponent {
           </span>
         </div>
         <div className="input-output">
+          <div className="input">
+            <h5>Input:</h5>
+            {
+              vins.map((item, index) => (
+                <p className="item" key={index}>
+                  <Link className="item-address" to={`/btc/address/${item.address}`}>{item.address}</Link>
+                  <span className="item-value">{item.value} BTC</span>
+                </p>
+              ))
+            }
+          </div>
+          <div className="output">
+            <h5>Output:</h5>
+            {
+              vouts.map((item, index) => (
+                <p className="item" key={index}>
+                  <Link className="item-address" to={`/btc/address/${item.address}`}>{item.address}</Link>
+                  <span className="item-value">{item.value} BTC</span>
+                </p>
+              ))
+            }
+          </div>
         </div>
         <div className="time">
           <span className="label">
@@ -119,10 +125,6 @@ class TxnContainer extends PureComponent {
         </div>
       </div>
     );
-  }
-
-  componentDidMount () {
-    const { match } = this.props;
   }
 
   render() {
