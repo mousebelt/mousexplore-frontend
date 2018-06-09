@@ -50,8 +50,6 @@ class BlockContainer extends PureComponent {
     const { currency } = this.props;
     const { block } = this.state;
     
-    console.log(block);
-
     return (
       <div className="block-container">
         {

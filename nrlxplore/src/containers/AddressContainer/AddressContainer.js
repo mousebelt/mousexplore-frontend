@@ -60,19 +60,39 @@ class AddressContainer extends PureComponent {
 
       ...mockAddress
     };
-
-    console.log(this.props);
   }
 
   componentDidMount() {
-    // get information from nodes
+    const { apiObject, currency, match } = this.props;
+
+    const { addrHash } = match.params;
+
+    if (addrHash) {
+      this.getAddressInfo(apiObject, currency, addrHash);    
+    }
   }
 
-  _renderTXNHistory = (txn, index) => {
-    return (
-      <div key={index}/>
-    );
-  };
+  componentWillReceiveProps (newProps) {
+    const { apiObject, currency, match } = newProps;
+
+    const { addrHash } = match.params;
+
+    if (addrHash) {
+      this.getAddressInfo(apiObject, currency, addrHash);    
+    }
+  }
+
+  getAddressInfo (apiObject, currency, address) {
+    apiObject.get(`/balance/${address}`)
+      .then(res => {
+        console.log(res);
+      })
+    
+    apiObject.get(`/address/txs/:${address}`)
+      .then(res => {
+        console.log(res);
+      })
+  }
 
   render () {
     const { currency } = this.props;
@@ -83,14 +103,14 @@ class AddressContainer extends PureComponent {
         address={address}
         balance={balance}
         txnHistory={txnHistory}
-        // renderTXNHistory={this._renderTXNHistory}
       />
     );
   }
 }
 
 const mapStateToProps = ({settings}) => ({
-  currency: settings.currency
+  currency: settings.currency,
+  apiObject: settings.apiObject
 });
 
 
