@@ -47,20 +47,12 @@ const mockAddress = {
 }
 
 class AddressContainer extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    const { currency, match } = this.props;
-
-    this.state = {
-      // currency: currency,
-      // address: match.params.addrHash,
-      // balance: 0,
-      // txnHistory: [],
-
-      ...mockAddress
-    };
-  }
+  state = {
+    address: undefined,
+    balance: undefined,
+    totalTxns: undefined,
+    txnHistory: []
+  };
 
   componentDidMount() {
     const { apiObject, currency, match } = this.props;
@@ -83,12 +75,25 @@ class AddressContainer extends PureComponent {
   }
 
   getAddressInfo (apiObject, currency, address) {
+    this.setState({address});
+
     apiObject.get(`/balance/${address}`)
       .then(res => {
         console.log(res);
+        if (res.data.status !== 200)
+          return;
+
+        this.setState({
+          balance: res.data.data.balance
+        });
       })
-    
-    apiObject.get(`/address/txs/:${address}`)
+    this.getAddressTxns(apiObject, currency, address)
+  }
+
+  getAddressTxns (apiObject, currency, address) {
+    apiObject.get(`/address/txs/${address}`, {
+      
+    })
       .then(res => {
         console.log(res);
       })
