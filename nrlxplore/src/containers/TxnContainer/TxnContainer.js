@@ -52,16 +52,26 @@ class TxnContainer extends PureComponent {
       })
   }
   
-  _renderBTC = (txnDetail) => {
+  _renderDetail = (txnDetail, currency) => {
     if (!txnDetail) {
       return <p>No content...</p>
     }
 
     const vins = txnDetail.vin.map(vin => {
-      return {
-        value: vin.address.value,
-        address: vin.address.scriptPubKey.addresses[0]
-      };
+      if (vin.address)
+        return {
+          value: vin.address.value,
+          address: vin.address.scriptPubKey.addresses[0],
+          isCoinbase: false
+        };
+      else if (vin.coinbase)
+        return {
+          sequence: vin.sequence,
+          coinbase: vin.coinbase,
+          isCoinbase: true,         
+        }
+      else
+        return null;
     });
 
     const vouts = txnDetail.vout.map(vout => {
@@ -85,12 +95,27 @@ class TxnContainer extends PureComponent {
           <div className="input">
             <h5>Input:</h5>
             {
-              vins.map((item, index) => (
-                <p className="item" key={index}>
-                  <Link className="item-address" to={`/btc/address/${item.address}`}>{item.address}</Link>
-                  <span className="item-value">{item.value} BTC</span>
-                </p>
-              ))
+              vins.map((item, index) => {
+                if (item) {
+                  if (!item.isCoinbase) 
+                    return (
+                      <p className="item" key={index}>
+                        <Link className="item-address" to={`/${currency.toLowerCase()}/address/${item.address}`}>
+                          {item.address}
+                        </Link>
+                        <span className="item-value">{item.value} {currency}</span>
+                      </p>
+                    );
+                  else
+                    return (
+                      <p className="coinbase" key={index}>
+                        Coinbase Transaction
+                      </p>
+                    )
+                } else {
+                  return null;
+                }
+              })
             }
           </div>
           <div className="output">
@@ -98,8 +123,10 @@ class TxnContainer extends PureComponent {
             {
               vouts.map((item, index) => (
                 <p className="item" key={index}>
-                  <Link className="item-address" to={`/btc/address/${item.address}`}>{item.address}</Link>
-                  <span className="item-value">{item.value} BTC</span>
+                  <Link className="item-address" to={`/${currency.toLowerCase()}/address/${item.address}`}>
+                    {item.address}
+                  </Link>
+                  <span className="item-value">{item.value} {currency}</span>
                 </p>
               ))
             }
@@ -197,19 +224,7 @@ class TxnContainer extends PureComponent {
               txnHash={this.state.txn.hash}
             >
               {
-                currency === 'BTC' && this._renderBTC(txn)
-              }
-              {
-                currency === 'ETH' && this._renderETH(txn)
-              }
-              {
-                currency === 'LTC' && this._renderBTC(txn)
-              }
-              {
-                currency === 'NEO' && this._renderBTC(txn)
-              }
-              {
-                currency === 'XML' && this._renderBTC(txn)
+                currency === 'ETH' ? this._renderETH(txn) : this._renderDetail(txn, currency)
               }
             </Txn>
           ) : (
