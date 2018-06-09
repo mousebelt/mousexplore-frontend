@@ -1,62 +1,85 @@
 import React, { PureComponent } from 'react';
-import { connectSettings } from 'core';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
+import { connectSettings, formatTxnData } from 'core';
 
 import Txn from 'components/Txn/Txn';
-
-const mockBTCTxn = {
-  "txid": "3bf8c518a7a1187287516da67cb96733697b1d83eb937e68ae39bd4c08e563b7",
-  "hash": "3bf8c518a7a1187287516da67cb96733697b1d83eb937e68ae39bd4c08e563b7",
-  "version": 1,
-  "size": 126,
-  "vsize": 126,
-  "weight": 504,
-  "locktime": 0,
-  "vin": [
-    {
-      "coinbase": "0440bebf4f0122172f503253482f49636549726f6e2d51432d6d696e65722f",
-      "sequence": 4294967295
-    }
-  ],
-  "vout": [
-    {
-      "value": 50,
-      "n": 0,
-      "scriptPubKey": {
-          "asm": "03a5f981bf546b95152ed6695bc50edd0b8db3afb48839b9d58714519e5bdd1f95 OP_CHECKSIG",
-          "hex": "2103a5f981bf546b95152ed6695bc50edd0b8db3afb48839b9d58714519e5bdd1f95ac",
-          "reqSigs": 1,
-          "type": "pubkey",
-          "addresses": [
-              "mw8BoejnFJmntv3PjKAcPbuB6PMsBnAGDQ"
-          ]
-      }
-    }
-  ],
-  "hex": "01000000010000000000000000000000000000000000000000000000000000000000000000ffffffff1f0440bebf4f0122172f503253482f49636549726f6e2d51432d6d696e65722fffffffff0100f2052a01000000232103a5f981bf546b95152ed6695bc50edd0b8db3afb48839b9d58714519e5bdd1f95ac00000000",
-  "blockhash": "00000000373403049c5fff2cd653590e8cbe6f7ac639db270e7d1a7503d698df",
-  "confirmations": 1209804,
-  "time": 1337966144,
-  "blocktime": 1337966144
-};
+import NotFound from 'components/NotFound/NotFound';
 
 class TxnContainer extends PureComponent {
 
-  constructor(props) {
-    super(props);
+  state = {
+    txn: undefined
+  };
 
-    const { match } = this.props;
+  componentDidMount() {
+    const { apiObject, currency, match } = this.props;
 
-    this.state = {
-      txnHash: match.params.txnHash,
-      txnDetail: undefined
-    };
+    const { txnHash } = match.params;
+
+    if (txnHash) {
+      this.getTxn(apiObject, currency, txnHash);    
+    }
   }
 
-  _renderBTC = (txnDetail) => {
+  componentWillReceiveProps (newProps) {
+    const { apiObject, currency, match } = newProps;
+
+    const { txnHash } = match.params;
+
+    if (txnHash) {
+      this.getTxn(apiObject, currency, txnHash);    
+    }
+  }
+
+  getTxn (apiObject, currency, txnHash) {
+    this.setState({
+      txn: undefined
+    });
+
+    apiObject.get(`/txdetails/${txnHash}`)
+      .then(res => {
+        if (res.data.status !== 200) {
+          return;
+        }
+        let txn = res.data.data;
+
+        txn = formatTxnData(txn, currency);
+
+        this.setState({ txn: txn });
+
+        console.log(txn);
+      })
+  }
+  
+  _renderDetail = (txnDetail, currency) => {
     if (!txnDetail) {
       return <p>No content...</p>
     }
+
+    const vins = txnDetail.vin.map(vin => {
+      if (vin.address)
+        return {
+          value: vin.address.value,
+          address: vin.address.scriptPubKey.addresses[0],
+          isCoinbase: false
+        };
+      else if (vin.coinbase)
+        return {
+          sequence: vin.sequence,
+          coinbase: vin.coinbase,
+          isCoinbase: true,         
+        }
+      else
+        return null;
+    });
+
+    const vouts = txnDetail.vout.map(vout => {
+      return {
+        value: vout.value,
+        address: vout.scriptPubKey.addresses[0]
+      };
+    })
 
     return (
       <div className="txn-detail txn-btc">
@@ -69,13 +92,52 @@ class TxnContainer extends PureComponent {
           </span>
         </div>
         <div className="input-output">
+          <div className="input">
+            <h5>Input:</h5>
+            {
+              vins.map((item, index) => {
+                if (item) {
+                  if (!item.isCoinbase) 
+                    return (
+                      <p className="item" key={index}>
+                        <Link className="item-address" to={`/${currency.toLowerCase()}/address/${item.address}`}>
+                          {item.address}
+                        </Link>
+                        <span className="item-value">{item.value} {currency}</span>
+                      </p>
+                    );
+                  else
+                    return (
+                      <p className="coinbase" key={index}>
+                        Coinbase Transaction
+                      </p>
+                    )
+                } else {
+                  return null;
+                }
+              })
+            }
+          </div>
+          <div className="output">
+            <h5>Output:</h5>
+            {
+              vouts.map((item, index) => (
+                <p className="item" key={index}>
+                  <Link className="item-address" to={`/${currency.toLowerCase()}/address/${item.address}`}>
+                    {item.address}
+                  </Link>
+                  <span className="item-value">{item.value} {currency}</span>
+                </p>
+              ))
+            }
+          </div>
         </div>
         <div className="time">
           <span className="label">
-            Included In Blocks:&nbsp;
+            Included In Blocks:&nbsp; 
           </span>
           <span className="value">
-            Sent on {moment.unix(txnDetail.blocktime).format('lll')} ({moment.unix(txnDetail.blocktime).fromNow()})
+            Sent on {moment.unix(txnDetail.timestamp).format('lll')} ({moment.unix(txnDetail.timestamp).fromNow()})
           </span>
         </div>
         <div className="conformation">
@@ -84,33 +146,101 @@ class TxnContainer extends PureComponent {
           </span>
           <span className="value">{txnDetail.confirmations}</span>
         </div>
+        <div className="block-hash">
+          <span className="label">Block Hash:</span>
+          <Link className="value" to={`/${currency.toLowerCase()}/block/${txnDetail.blockHash}`}>
+            {txnDetail.blockHash}
+          </Link>
+        </div>
       </div>
     );
   }
 
-  componentDidMount () {
-    const { match } = this.props;
+  _renderETH = (txnDetail) => {
+    if (!txnDetail) {
+      return <p>No content...</p>
+    }
+
+    return (
+      <div className="txn-detail txn-eth">
+        <div className="status">
+          <span className="label">
+            TxReceipt Status:&nbsp;
+          </span>
+          <span className={`value success`}>Success</span>
+          {/* <span className={`value ${txnDetail.confirmations > 1 ? 'success' : 'failure'}`}>
+            {txnDetail.confirmations > 1 ? 'Success' : 'Failed'}
+          </span> */}
+        </div>
+        <div className="to">
+          <span className="label">To:</span>
+          <Link className="value" to={`/eth/address/${txnDetail.to}`}>{txnDetail.to}</Link>
+        </div>
+        <div className="from">
+          <span className="label">From:</span>
+          <Link className="value" to={`/eth/address/${txnDetail.from}`}>{txnDetail.from}</Link>
+        </div>
+        <div className="amount">
+          <span className="label">
+            Amount:
+          </span>
+          <span className="value">{txnDetail.value} ETH</span>
+        </div>
+        <div className="gas-limit">
+          <span className="label">Gas:</span>
+          <span className="value">{txnDetail.gas}</span>
+        </div>
+        <div className="gas-price">
+          <span className="label">Gas Price:</span>
+          <span className="value">{txnDetail.gasPrice} Gwei</span>
+        </div>
+        <div className="fee">
+          <span className="label">Fee:</span>
+          <span className="value">{txnDetail.fee / Math.pow(10, 16)} ETH</span>
+        </div>
+        <div className="time">
+          <span className="label">
+            Included In Block:&nbsp; 
+          </span>
+          <span className="value">
+            Sent on {moment.unix(txnDetail.block.timestamp).format('lll')} ({moment.unix(txnDetail.block.timestamp).fromNow()})
+          </span>
+        </div>
+        <div className="block-hash">
+          <span className="label">Block Hash:</span>
+          <Link className="value" to={`/eth/block/${txnDetail.blockHash}`}>{txnDetail.blockHash}</Link>
+        </div>
+      </div>
+    );
   }
 
   render() {
     const { currency } = this.props;
+    const { txn } = this.state;
     return (
       <div className="txn-container">
-        <Txn
-          currency={currency}
-          txnHash={this.state.txnHash}
-        >
-          {
-            this._renderBTC(mockBTCTxn)
-          }
-        </Txn>
+        {
+          txn ? (
+            <Txn
+              currency={currency}
+              txnHash={this.state.txn.hash}
+            >
+              {
+                currency === 'ETH' ? this._renderETH(txn) : this._renderDetail(txn, currency)
+              }
+            </Txn>
+          ) : (
+            <NotFound/>
+          )
+        }
       </div>
     );
   }
 }
 
 const mapStateToProps = ({settings}) => ({
-  currency: settings.currency
+  currency: settings.currency,
+  apiObject: settings.apiObject
 });
 
 export default connectSettings(mapStateToProps, {})(TxnContainer);

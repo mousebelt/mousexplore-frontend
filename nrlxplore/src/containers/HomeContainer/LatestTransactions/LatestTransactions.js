@@ -1,43 +1,52 @@
 import React, { PureComponent } from 'react'; 
 import { Link } from 'react-router-dom';
-import { connectSettings } from 'core';
+import { connectSettings, formatTxnData } from 'core';
+import moment from 'moment';
 
 import List from 'components/List/List';
 
-const mockTransactions = [
-  {
-    hash: '0x9cd5932a5b87afaf69f091939534b292fed475b1052446db85296e34d2e4dec8',
-    from: '0x3110960ea5e6cfd443c8abc412f033cad1b07694',
-    to: '0x2a47d6294f8f77e48211ac4328a3eab66f5a1c940x2',
-    timestamp: 'n/a'
-  },
-  {
-    hash: '0x9cd5932a5b87afaf69f091939534b292fed475b1052446db85296e34d2e4dec8',
-    from: '0x3110960ea5e6cfd443c8abc412f033cad1b07694',
-    to: '0x2a47d6294f8f77e48211ac4328a3eab66f5a1c940x2',
-    timestamp: 'n/a'
-  },
-  {
-    hash: '0x9cd5932a5b87afaf69f091939534b292fed475b1052446db85296e34d2e4dec8',
-    from: '0x3110960ea5e6cfd443c8abc412f033cad1b07694',
-    to: '0x2a47d6294f8f77e48211ac4328a3eab66f5a1c940x2',
-    timestamp: 'n/a'
-  },
-  {
-    hash: '0x9cd5932a5b87afaf69f091939534b292fed475b1052446db85296e34d2e4dec8',
-    from: '0x3110960ea5e6cfd443c8abc412f033cad1b07694',
-    to: '0x2a47d6294f8f77e48211ac4328a3eab66f5a1c940x2',
-    timestamp: 'n/a'
-  },
-  {
-    hash: '0x9cd5932a5b87afaf69f091939534b292fed475b1052446db85296e34d2e4dec8',
-    from: '0x3110960ea5e6cfd443c8abc412f033cad1b07694',
-    to: '0x2a47d6294f8f77e48211ac4328a3eab66f5a1c940x2',
-    timestamp: 'n/a'
-  },
-]
-
 class LatestTransactons extends PureComponent {
+  state = {
+    txns: []
+  };
+
+  componentDidMount() {
+    const { apiObject, currency } = this.props;
+    
+    this.getLatestTxns(apiObject, currency);
+  }
+
+  componentWillReceiveProps (newProps) {
+    this.setState({
+      txns: []
+    });
+    
+    const { apiObject, currency } = newProps;
+    
+    this.getLatestTxns(apiObject, currency);
+  }
+
+  getLatestTxns (apiObject, currency) {
+    
+    apiObject.get('/transactions', {
+      params: { count: 5}
+    })
+    .then(res => {
+      if (res.data.status !== 200)
+        return ;
+
+      let txns = res.data.data.result;
+      
+      txns = txns.map(txn => {
+        return formatTxnData(txn, currency);
+      });
+
+      console.log(txns);
+ 
+      this.setState({ txns });
+    });
+  }
+  
   _renderTransaction = (transaction) => {
     let { currency } = this.props;
 
@@ -52,21 +61,15 @@ class LatestTransactons extends PureComponent {
               {transaction.hash}
             </Link>
           </div>
-          <div className="from">
-            From: &nbsp;
-            <Link to={`/${currency}/address/${transaction.from}`}>
-              {transaction.from}
-            </Link>
-          </div>
-          <div className="to">
-            To: &nbsp;
-            <Link to={`/${currency}/address/${transaction.to}`}>
-              {transaction.to}
+          <div className="block-hash">
+            Block: &nbsp;
+            <Link to={`/${currency}/block/${transaction.blockHash}`}>
+              {transaction.blockHash}
             </Link>
           </div>
         </div>
         <span className="time">
-          <i className="fa fa-clock-o"/> {transaction.timestamp}
+          <i className="fa fa-clock-o"/> {transaction.timestamp ? moment.unix(transaction.timestamp).fromNow() : 'n/a'}
         </span>
       </div>
     );
@@ -79,7 +82,7 @@ class LatestTransactons extends PureComponent {
         icon={<i className="fa fa-credit-card"/>}
         title="Transactions"
         linkToAll="#"
-        data={mockTransactions}
+        data={this.state.txns}
         renderItem={this._renderTransaction}
       />
     );
@@ -87,7 +90,8 @@ class LatestTransactons extends PureComponent {
 }
 
 const mapStateToProps = ({settings}) => ({
-  currency: settings.currency
+  currency: settings.currency,
+  apiObject: settings.apiObject
 });
 
 export default connectSettings(mapStateToProps, {})(LatestTransactons);

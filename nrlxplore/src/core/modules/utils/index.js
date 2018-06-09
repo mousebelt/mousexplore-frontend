@@ -1,1 +1,0 @@
-export { createPromiseAction } from './createPromiseAction';

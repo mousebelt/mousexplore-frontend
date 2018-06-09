@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 import logoImg  from'assets/img/logo.png';
 
-const OwnerLogo = () => (
+const OwnerLogo = (props) => (
   <div className="logo">
-    <Link to="/">
+    <Link to={`/${props.currency.toLowerCase()}`}>
       <img className="logo__img" src={logoImg} alt="App Logo"/>
     </Link>
   </div>

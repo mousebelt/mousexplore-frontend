@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
+import moment from 'moment';
+import { Link } from 'react-router-dom';
+
 import List from 'components/List/List';
 import { connectSettings } from 'core';
-
-import { Link } from 'react-router-dom';
+import { formatBlockData } from 'core/utils';
 
 const mockBlocks = [
   {
@@ -33,6 +35,42 @@ const mockBlocks = [
 ]
 
 class LatestBlocks extends PureComponent {
+  state = {
+    blocks: []
+  };
+
+  componentDidMount() {
+    const { apiObject, currency } = this.props;
+    
+    this.getLatestBlocks(apiObject, currency);
+  }
+
+  componentWillReceiveProps (newProps) {
+    this.setState({
+      blocks: []
+    });
+    
+    const { apiObject, currency } = newProps;
+    
+    this.getLatestBlocks(apiObject, currency);
+  }
+
+  getLatestBlocks (apiObject, currency) {
+    
+    apiObject.get('/blocks', {
+      params: { count: 5}
+    })
+    .then(res => {
+      let blocks = res.data.data.result;
+      
+      blocks = blocks.map(block => {
+        return formatBlockData(block, currency);
+      });
+ 
+      this.setState({ blocks });
+    });
+  }
+
   _renderBlock = (block) => {
     let { currency } = this.props;
 
@@ -43,7 +81,7 @@ class LatestBlocks extends PureComponent {
         <i className="fa fa-cube icon"/>
         <div className="detail">
           <div className="height">
-            <Link to={`/${currency}/block/${block.hash}`}>
+            <Link to={`/${currency}/block/${block.height}`}>
               #{block.height}
             </Link>
           </div>
@@ -54,7 +92,7 @@ class LatestBlocks extends PureComponent {
           </div>
         </div>
         <span className="time">
-          <i className="fa fa-clock-o"/> {block.timestamp}
+          <i className="fa fa-clock-o"/> {moment.unix(block.timestamp).fromNow()}
         </span>
       </div>
     );
@@ -67,7 +105,7 @@ class LatestBlocks extends PureComponent {
         icon={<i className="fa fa-cubes"/>}
         title="Blocks"
         linkToAll="#"
-        data={mockBlocks}
+        data={this.state.blocks}
         renderItem={this._renderBlock}
       />
     );
@@ -75,7 +113,8 @@ class LatestBlocks extends PureComponent {
 }
 
 const mapStateToProps = ({settings}) => ({
-  currency: settings.currency
+  currency: settings.currency,
+  apiObject: settings.apiObject
 });
 
 export default connectSettings(mapStateToProps, {})(LatestBlocks);

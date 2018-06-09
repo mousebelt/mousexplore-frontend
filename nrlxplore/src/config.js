@@ -5,7 +5,11 @@ export const coins = [
     name: 'Bitcoin',
     currency: 'BTC',
     hasTokens: false,
-    tokens: [],  
+    tokens: [],
+    api: {
+      live: 'http://35.173.152.54/api/v1',
+      test: 'http://35.173.152.54/api/v1'
+    },
   },
 
   {
@@ -19,6 +23,10 @@ export const coins = [
       { tokenName: 'OmiseGO', ticker: 'OMG' },
       { tokenName: 'Zilliqa', ticker: 'ZIL' },
     ],
+    api: {
+      live: 'http://18.232.254.235/api/v1',
+      test: 'http://18.232.254.235/api/v1'
+    },
   },
 
   {
@@ -26,6 +34,10 @@ export const coins = [
     currency: 'LTC',
     hasTokens: false,
     tokens: [],
+    api: {
+      live: 'http://18.205.122.159:2001/api/v1',
+      test: 'http://18.205.122.159:2001/api/v1'
+    },
   },
 
   {
@@ -39,6 +51,10 @@ export const coins = [
       { tokenName: 'Orbis', ticker: 'OBT' },
       { tokenName: 'THKEY', ticker: 'TKY' },
     ],
+    api: {
+      live: 'http://18.205.122.159:8001/api/v1',
+      test: 'http://18.205.122.159:8001/api/v1'
+    },
   },
   
   {
@@ -52,6 +68,10 @@ export const coins = [
       { tokenName: 'Diruna', ticker: 'DRA' },
       { tokenName: 'Smartlands', ticker: 'SLT' },
     ],
+    api: {
+      live: 'http://18.205.122.159:2000/api/v1',
+      test: 'http://18.205.122.159:2000/api/v1'
+    },
   },
 ];
 
