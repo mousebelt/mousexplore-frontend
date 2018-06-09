@@ -148,7 +148,9 @@ class TxnContainer extends PureComponent {
         </div>
         <div className="block-hash">
           <span className="label">Block Hash:</span>
-          <Link className="value" to={`/eth/block/${txnDetail.blockHash}`}>{txnDetail.blockHash}</Link>
+          <Link className="value" to={`/${currency.toLowerCase()}/block/${txnDetail.blockHash}`}>
+            {txnDetail.blockHash}
+          </Link>
         </div>
       </div>
     );
