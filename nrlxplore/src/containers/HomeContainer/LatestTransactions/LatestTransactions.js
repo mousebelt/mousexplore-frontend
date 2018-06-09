@@ -32,6 +32,9 @@ class LatestTransactons extends PureComponent {
       params: { count: 5}
     })
     .then(res => {
+      if (res.data.status !== 200)
+        return ;
+
       let txns = res.data.data.result;
       
       txns = txns.map(txn => {
