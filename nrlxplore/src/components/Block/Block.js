@@ -22,37 +22,39 @@ class Block extends PureComponent {
     const txns = block.txns.slice(0, this.state.visibleTxnCount);
 
     return (
-      <div className={`nrl__block${className ? ' ' + className : ''}`}>
-        <div className="nrl__block-info">
-          <div className="nrl__block-info--icon">
-            <i className="fa fa-cubes"/>
-          </div>
-          <div className="nrl__block-info--detail">
+      <div>
+        <div className={`nrl__block${className ? ' ' + className : ''}`}>
+          <div className="nrl__block-info">
+            <div className="nrl__block-info--icon">
+              <i className="fa fa-cubes"/>
+            </div>
             <div className="summary">
               <p className="height">Height: {block.height}</p>
               <span className="txn-count">Transactions: {block.txns.length}</span>
             </div>
+          </div>
+          <div className="nrl__block-info--detail">
             <div className="detail">
               <div className="left">
                 <p className="property">
                   Block Hash: <Link to={`/${currency.toLowerCase()}/block/${block.hash}`}>{block.hash}</Link>
                 </p>
                 {
-                  block.prevHash && (
+                  block.previousblockhash && (
                     <p className="property">
                       Previous Hash: <Link to={`/${currency.toLowerCase()}/block/${block.prevHash}`}>{block.prevHash}</Link>
                     </p>
                   )
                 }
                 {
-                  block.nextHash && (
+                  block.nextblockhash && (
                     <p className="property">
                       Next Hash: <Link to={`/${currency.toLowerCase()}/block/${block.nextHash}`}>{block.nextHash}</Link>
                     </p>
                   )
                 }
                 {
-                  block.merkleRoot && (
+                  block.merkleroot && (
                     <p className="property">
                       Merkle Root: <Link to={`/${currency.toLowerCase()}/block/${block.merkleRoot}`}>{block.merkleRoot}</Link>
                     </p>
@@ -90,7 +92,7 @@ class Block extends PureComponent {
                 }
               </div>
               <div className="time">
-                <p className="property">Timestamp {moment(block.time).format('lll')}</p>
+                <p className="property">Timestamp: { moment.unix(block.time).format('YYYY-M-D h:mm:ss a') }</p>
               </div>
             </div>
           </div>

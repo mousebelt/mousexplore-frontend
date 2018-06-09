@@ -1,16 +1,29 @@
-.logo {
-  float: left;
-
-  &__img {
-    height: 90px;
-  }
-}
-
 .settings {
   min-height: 100px;
   margin-bottom: 24px;
   padding-top: 24px;
   padding-bottom: 24px;
+
+
+  @media all and (max-width: 900px) {
+    flex-direction: column;
+  }
+
+  .logo {
+    float: left;
+    &__img {
+      height: 90px;
+    }
+
+    @media all and (max-width: 900px) {
+      float: none;
+      text-align: center;
+
+      &__img {
+        height: 60px;
+      }
+    }
+  }
 
   &__filter {
     height: 90px;
@@ -19,6 +32,22 @@
     align-items: center;
     justify-content: flex-end;
     margin-bottom: 24px;
+
+    @media all and (max-width: 900px) {
+      justify-content: space-between;
+    }
+
+    @media all and (max-width: 650px) {
+      flex-direction: column;
+      height: 150px;
+      margin-top: 25px;
+
+      &-currency,
+      &-token,
+      &-nettype {
+        padding-top: 15px;
+      }
+    }
 
     &-currency {
       min-width: 200px;
@@ -38,33 +67,3 @@
     }
   }
 }
-
-// .ant-btn-primary {
-//   background-color: #e34132 !important;
-//   border-color: #e34132 !important;
-// }
-
-// .ant-btn-primary:hover, .ant-btn-primary:focus,
-// .ant-btn:hover, .ant-btn:focus,
-// .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
-//   border-color: rgba(0,0,0,0.3) !important;
-// }
-
-// .ant-input:focus {
-//   border-color: rgba(0,0,0,0.3) !important;
-//   -webkit-box-shadow: none !important;
-//   box-shadow: none !important;
-
-//   /* -webkit-box-shadow: 0 0 0 2px rgba(50, 0, 0, 0.2) !important; */
-//   /* box-shadow: 0 0 0 2px rgba(50, 0, 0, 0.2) !important; */
-// }
-
-// ::-moz-selection {
-//   background: #e34132 !important;
-// }
-
-// @media all and (min-width: 800px) {
-//   .search-container {
-//     flex: 2 0px;
-//   }
-// }

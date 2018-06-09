@@ -14,28 +14,15 @@ class HomeContainer extends PureComponent {
     if (currency === 'XLM') {
       return (
         <div className="home">
-          <Row gutter={24}>
-            <Col span={12}>
-              <LatestLedgers/>
-            </Col>
-            <Col span={12}>
-              <LatestTransactions/>
-            </Col>
-          </Row>
+          <LatestLedgers/>
+          <LatestTransactions/>
         </div>
       );
     } else {
       return (
         <div className="home">
-          <Row gutter={24}>
-            <Col span={12}>
-              <LatestBlocks/>
-            </Col>
-
-            <Col span={12}>
-              <LatestTransactions/>
-            </Col>
-          </Row>
+          <LatestBlocks/>
+          <LatestTransactions/>
         </div>
       );
     }

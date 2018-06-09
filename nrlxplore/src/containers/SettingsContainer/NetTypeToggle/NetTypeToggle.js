@@ -16,10 +16,14 @@ class NetTypeToggle extends PureComponent {
 
     return (
       <div className="settings__filter-nettype">
-        <span className="net-name">{isLiveNet ? 'Livenet' : 'Testnet'}</span>
+        {
+          // <span className="net-name">{isLiveNet ? 'Livenet' : 'Testnet'}</span>
+        }
         <Toggle
           checked={isLiveNet}
           onChange={this.handleChange}
+          checkedChildren="Livenet"
+          unCheckedChildren="Offline"
         />
       </div>
     );

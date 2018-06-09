@@ -6,7 +6,24 @@
     background-color: @bg-main-color;
     height: 29px;
     min-width: 52px;
-    
+
+    span {
+      color: @nrl-black;
+      font-family: @nrl-sans-serif;
+      margin-left: 35px;
+      margin-right: 15px;
+      line-height: 27px;
+      font-size: 15px;
+
+    }
+
+    &.ant-switch-checked{
+      .ant-switch-inner {
+        margin-left: 15px;
+        margin-right: 35px;
+      }
+    }
+
     &::after {
       background-color: @btn-default-color;
       width: 25px;

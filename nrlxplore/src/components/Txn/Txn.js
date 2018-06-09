@@ -19,18 +19,6 @@ class Txn extends PureComponent {
               <Link to={`/${currency.toLowerCase()}/transaction/${txnHash}`}>{txnHash}</Link>
             </p>
           </div>
-          <div className="nrl__txn-header--actions">
-            <Button
-              shape="circle"
-              icon="left"
-              onClick={this.onPrevClick}
-            />
-            <Button
-              shape="circle"
-              icon="right"
-              onClick={this.onNextClick}
-            />
-          </div>
         </div>
         <div className="nrl__txn-content">
           {

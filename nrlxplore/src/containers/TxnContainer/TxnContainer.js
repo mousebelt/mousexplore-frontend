@@ -134,7 +134,7 @@ class TxnContainer extends PureComponent {
         </div>
         <div className="time">
           <span className="label">
-            Included In Block:&nbsp; 
+            Included In Blocks:&nbsp; 
           </span>
           <span className="value">
             Sent on {moment.unix(txnDetail.timestamp).format('lll')} ({moment.unix(txnDetail.timestamp).fromNow()})
