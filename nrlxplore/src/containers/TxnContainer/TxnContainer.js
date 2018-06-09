@@ -47,6 +47,8 @@ class TxnContainer extends PureComponent {
         txn = formatTxnData(txn, currency);
 
         this.setState({ txn: txn });
+
+        console.log(txn);
       })
   }
   
@@ -75,7 +77,8 @@ class TxnContainer extends PureComponent {
     const vouts = txnDetail.vout.map(vout => {
       return {
         value: vout.value,
-        address: vout.scriptPubKey.addresses[0]
+        address: (vout.scriptPubKey.addresses && vout.scriptPubKey.addresses.length) ?
+          vout.scriptPubKey.addresses[0] : 'n/a'
       };
     })
 
