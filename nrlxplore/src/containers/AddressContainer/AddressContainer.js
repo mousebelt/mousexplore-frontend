@@ -102,7 +102,6 @@ class AddressContainer extends PureComponent {
         let { total: totalTxns, result: txnHistory } = res.data.data;
 
         if (currency === 'ETH') {
-
           txnHistory = txnHistory.map(txn => {
             return {
               hash: txn.hash,
@@ -111,8 +110,32 @@ class AddressContainer extends PureComponent {
               timestamp: txn.timestamp
             };
           })
+        } else if (currency === 'BTC' | currency === 'LTC') {
+          txnHistory = txnHistory.map(txn => {
+            let value = 0;
+            txn.vin.forEach( vin => {
+              if (!vin.address)
+                return;
+
+              if (vin.address.scriptPubKey.addresses[0] === address)
+                value -= vin.address.value;
+            });
+
+            txn.vout.forEach( vout => {
+              if (vout.scriptPubKey.addresses[0] === address)
+                value += vout.value;
+            });
+
+
+            return {
+              hash: txn.hash,
+              blockHash: txn.blockhash,
+              timestamp: txn.time,
+              value: value
+            }
+          })
         }
-        
+
         this.setState({totalTxns, txnHistory});
       })
   }

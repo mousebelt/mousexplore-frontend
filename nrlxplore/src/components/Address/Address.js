@@ -38,7 +38,7 @@ class Address extends React.PureComponent {
                   </td>
                   <td className="hash block-hash">
                     <p className="label">Block Hash</p>
-                    <Link className="value" to={`/${currency.toLowerCase()}/block/${txn.block}`}>{txn.blockHash}</Link>
+                    <Link className="value" to={`/${currency.toLowerCase()}/block/${txn.blockHash}`}>{txn.blockHash}</Link>
                   </td>
                   <td className="time">
                     <p className="label">Time</p>
