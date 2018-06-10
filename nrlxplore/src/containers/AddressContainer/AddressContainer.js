@@ -79,7 +79,6 @@ class AddressContainer extends PureComponent {
 
     apiObject.get(`/balance/${address}`)
       .then(res => {
-        console.log(res);
         if (res.data.status !== 200)
           return;
 
@@ -96,18 +95,38 @@ class AddressContainer extends PureComponent {
     })
       .then(res => {
         console.log(res);
+
+        if (res.data.status !== 200)
+          return;
+
+        let { total: totalTxns, result: txnHistory } = res.data.data;
+
+        if (currency === 'ETH') {
+
+          txnHistory = txnHistory.map(txn => {
+            return {
+              hash: txn.hash,
+              value: (+txn.value) / Math.pow(10, 18) * (txn.from === address ? -1 : 1),
+              blockHash: txn.blockHash,
+              timestamp: txn.timestamp
+            };
+          })
+        }
+        
+        this.setState({totalTxns, txnHistory});
       })
   }
 
   render () {
     const { currency } = this.props;
-    const { address, balance, txnHistory } = this.state;
+    const { address, balance, txnHistory, totalTxns } = this.state;
     return (
       <Address
         currency={currency}
         address={address}
         balance={balance}
         txnHistory={txnHistory}
+        totalTxns={totalTxns}
       />
     );
   }

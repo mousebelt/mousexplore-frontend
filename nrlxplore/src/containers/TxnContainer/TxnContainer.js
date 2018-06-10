@@ -47,8 +47,6 @@ class TxnContainer extends PureComponent {
         txn = formatTxnData(txn, currency);
 
         this.setState({ txn: txn });
-
-        console.log(txn);
       })
   }
   
