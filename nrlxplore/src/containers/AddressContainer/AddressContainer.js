@@ -34,7 +34,7 @@ const mockAddress = {
       value: "0.007792298571672 Ether",
       fee: "0.000084"
     },
-    {   
+    {
       block: "2165403",
       timestamp: 1472533979,
       hash: "0x98db583e5ff636b78",
@@ -59,7 +59,7 @@ class AddressContainer extends PureComponent {
 
     const { addrHash } = match.params;
 
-    if (addrHash) {
+    if (addrHash) {                                 
       this.getAddressInfo(apiObject, currency, addrHash);    
     }
   }
@@ -90,8 +90,11 @@ class AddressContainer extends PureComponent {
   }
 
   getAddressTxns (apiObject, currency, address) {
+    
+    const { txnHistory } = this.state;
+
     apiObject.get(`/address/txs/${address}`, {
-      
+      offset: txnHistory.length
     })
       .then(res => {
         console.log(res);
@@ -99,10 +102,10 @@ class AddressContainer extends PureComponent {
         if (res.data.status !== 200)
           return;
 
-        let { total: totalTxns, result: txnHistory } = res.data.data;
+        let { total: totalTxns, result: newTxns } = res.data.data;
 
         if (currency === 'ETH') {
-          txnHistory = txnHistory.map(txn => {
+          newTxns = newTxns.map(txn => {
             return {
               hash: txn.hash,
               value: (+txn.value) / Math.pow(10, 18) * (txn.from === address ? -1 : 1),
@@ -111,7 +114,7 @@ class AddressContainer extends PureComponent {
             };
           })
         } else if (currency === 'BTC' | currency === 'LTC') {
-          txnHistory = txnHistory.map(txn => {
+          newTxns = newTxns.map(txn => {
             let value = 0;
             txn.vin.forEach( vin => {
               if (!vin.address)
@@ -134,10 +137,25 @@ class AddressContainer extends PureComponent {
               value: value
             }
           })
+        } else {
+          newTxns = [];
         }
 
-        this.setState({totalTxns, txnHistory});
+        this.setState({
+          totalTxns, 
+          txnHistory: txnHistory.concat(newTxns)
+        });
       })
+  }
+
+  handleViewMore = () => {
+    const { apiObject, currency, match } = this.props;
+
+    const { addrHash } = match.params;
+
+    if (addrHash) {
+      this.getAddressTxns(apiObject, currency, addrHash);    
+    }
   }
 
   render () {
@@ -150,6 +168,7 @@ class AddressContainer extends PureComponent {
         balance={balance}
         txnHistory={txnHistory}
         totalTxns={totalTxns}
+        onViewMore={this.handleViewMore}
       />
     );
   }

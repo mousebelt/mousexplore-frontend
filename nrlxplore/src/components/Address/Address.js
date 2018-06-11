@@ -59,7 +59,7 @@ class Address extends React.PureComponent {
 
   render () {
     const { className } = this.props;
-    const { currency, address, balance, txnHistory, totalTxns, renderTXNHistory } = this.props;
+    const { currency, address, balance, txnHistory, totalTxns, renderTXNHistory, onViewMore } = this.props;
     return (
       <div className={`nrl__address${className ? ' ' + className : ''}`}>
         <div className="nrl__address-info">
@@ -75,11 +75,18 @@ class Address extends React.PureComponent {
             <span>{address}</span>
           </div>
         </div>
-        <div className="nrl__address-txn">
+        <div className="nrl__address-txns">
           {
             renderTXNHistory ? renderTXNHistory() : this._renderTXNHistory()
           }
         </div>
+        {
+          (totalTxns && totalTxns > txnHistory.length) && (
+            <div className="nrl__address-txns--more">
+              <a className="btn-viewmore" onClick={onViewMore}>View More</a>
+            </div>
+          )
+        }
       </div>
     );
   }
@@ -91,7 +98,8 @@ Address.propTypes = {
   balance: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   txnHistory: PropTypes.arrayOf(PropTypes.object),
   totalTxns: PropTypes.number,
-  renderTXNHistory: PropTypes.func
+  renderTXNHistory: PropTypes.func,
+  onViewMore: PropTypes.func
 }
 
 export default Address;
