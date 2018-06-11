@@ -3,49 +3,6 @@ import { connectSettings } from 'core';
 
 import Address from 'components/Address/Address';
 
-const mockAddress = {
-  address: "0xaa7a7c2decb180f68f11e975e6d92b5dc06083a6",
-  balance: 3.5,
-  txnHistory: [
-    {   
-      block: "2165403",
-      timestamp: 1472533979,
-      hash: "0x21febe7aa17c03545548d3616eba55ce5c645c7a601a71464cc16526ae4e890a",
-      from: "0xaa7a7c2decb180f68f11e975e6d92b5dc06083a6",
-      to: "0xaa7a7c2decb180f68f11e975e6d92b5dc06083a6",
-      value: "0.007792298571672 Ether",
-      fee: "0.000084"
-    },
-    {   
-      block: "2165403",
-      timestamp: 1472533979,
-      hash: "0x98db583e5ff636b78",
-      from: "0xaa7a7c2decb180f68f11e975e6d92d06083a6",
-      to: "0xaa7a7c2decb180f68f11e975e6d92b5dc06083a6",
-      value: "0.007792298571672 Ether",
-      fee: "0.000084"
-    },
-    {   
-      block: "2165403",
-      timestamp: 1472533979,
-      hash: "0x98db583e5ff636b78",
-      from: "0xaa7a7c2decb180f68f11e975e6d92d06083a6",
-      to: "0xaa7a7c2decb180f68f11e975e6d92b5dc06083a6",
-      value: "0.007792298571672 Ether",
-      fee: "0.000084"
-    },
-    {
-      block: "2165403",
-      timestamp: 1472533979,
-      hash: "0x98db583e5ff636b78",
-      from: "0xaa7a7c2decb180f68f11e975e6d92b5dc06083a6",
-      to: "0xaa7a7c2decb180f68f11e975e6d92e06083a6",
-      value: "0.007792298571672 Ether",
-      fee: "0.000084"
-    },
-  ]
-}
-
 class AddressContainer extends PureComponent {
   state = {
     address: undefined,
@@ -79,8 +36,7 @@ class AddressContainer extends PureComponent {
 
     apiObject.get(`/balance/${address}`)
       .then(res => {
-        if (res.data.status !== 200)
-          return;
+        if (res.data.status !== 200) return;
 
         this.setState({
           balance: res.data.data.balance
@@ -97,8 +53,6 @@ class AddressContainer extends PureComponent {
       offset: txnHistory.length
     })
       .then(res => {
-        console.log(res);
-
         if (res.data.status !== 200)
           return;
 
@@ -151,7 +105,7 @@ class AddressContainer extends PureComponent {
             return {
               hash: txn.txid,
               blockHash: txn.blockhash,
-              timestamp: txn.time,
+              timestamp: txn.blocktime,
               value: value
             }
           });
