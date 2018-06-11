@@ -38,7 +38,7 @@
     }
   }
 
-  &-txn {
+  &-txns {
     border-radius: 5px;
     border: 1px solid @border-light-color;
 
@@ -82,7 +82,7 @@
         
         a.value {
           text-decoration: underline;
-          max-width: 400px;
+          max-width: 250px;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -92,6 +92,22 @@
           border-bottom: none;
         }
       }
+    }
+  }
+  
+  &-txns--more {
+    margin-top: 20px;
+    text-align: center;
+
+    a.btn-viewmore {
+      padding: 10px 25px;
+      background: @btn-default-color;
+      font-size: 14px;
+      line-height: 15px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      color: @txt-main-color;
+      display: inline-block;
     }
   }
 }

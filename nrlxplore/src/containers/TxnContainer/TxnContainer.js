@@ -47,8 +47,6 @@ class TxnContainer extends PureComponent {
         txn = formatTxnData(txn, currency);
 
         this.setState({ txn: txn });
-
-        console.log(txn);
       })
   }
   
@@ -57,29 +55,48 @@ class TxnContainer extends PureComponent {
       return <p>No content...</p>
     }
 
-    const vins = txnDetail.vin.map(vin => {
-      if (vin.address)
+    let vins = [], vouts = [];
+
+    if (currency === 'BTC' || currency === 'LTC') {
+      vins = txnDetail.vin.map(vin => {
+        if (vin.address)
+          return {
+            value: vin.address.value,
+            address: vin.address.scriptPubKey.addresses[0],
+            isCoinbase: false
+          };
+        else if (vin.coinbase)
+          return {
+            sequence: vin.sequence,
+            coinbase: vin.coinbase,
+            isCoinbase: true,         
+          }
+        else
+          return null;
+      });
+  
+      vouts = txnDetail.vout.map(vout => {
+        return {
+          value: vout.value,
+          address: (vout.scriptPubKey.addresses && vout.scriptPubKey.addresses.length) ?
+            vout.scriptPubKey.addresses[0] : 'n/a'
+        };
+      });  
+    } else if (currency === 'NEO') {
+      vins = txnDetail.vin.map(vin => {
         return {
           value: vin.address.value,
-          address: vin.address.scriptPubKey.addresses[0],
-          isCoinbase: false
+          address: vin.address.address,
         };
-      else if (vin.coinbase)
+      });
+  
+      vouts = txnDetail.vout.map(vout => {
         return {
-          sequence: vin.sequence,
-          coinbase: vin.coinbase,
-          isCoinbase: true,         
-        }
-      else
-        return null;
-    });
-
-    const vouts = txnDetail.vout.map(vout => {
-      return {
-        value: vout.value,
-        address: vout.scriptPubKey.addresses[0]
-      };
-    })
+          value: vout.value,
+          address: vout.address,
+        };
+      });
+    }
 
     return (
       <div className="txn-detail txn-btc">
