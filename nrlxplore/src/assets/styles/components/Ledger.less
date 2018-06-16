@@ -1,0 +1,160 @@
+@import '../shared.less';
+
+.nrl__ledger {
+  background: @bg-main-color;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 50px;
+
+  &-info {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid @nrl-grey;
+
+    &--icon {
+      margin: 20px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: @bg-grey-color;
+
+      i {
+        font-size: 25px;
+        color: @red;
+        transform: translateX(-50%) translateY(-50%);
+        position: relative;
+        top: 50%;
+        left: 50%;
+      }
+    }
+
+    .summary {
+      padding: 20px 0px;
+
+      .height {
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 40px;
+      }
+
+      .txn-count {
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+
+    &--detail {
+      margin-left: 120px;
+
+      .detail {
+        padding: 20px 0px;
+
+        .left {
+          width: 60%;
+          right: 30%;
+
+          @media all and (max-width: 900px) {
+            width: 100%;
+          }
+        }
+
+        .left,.right {
+          display: inline-ledger;
+          vertical-align: top;
+          padding-right: 10%;
+        }
+
+        .property {
+          font-size: 16px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+
+          a {
+            color: @txt-main-color;
+            text-decoration: underline;
+          }
+        }
+
+        .time {
+          margin-top: 20px;
+        }
+      }
+
+      @media all and (max-width: 900px) {
+        margin: 15px;
+      }
+    }
+  }
+
+  &-txns {
+    &--title {
+      font-size: 20px;
+      font-weight: bold;
+      padding: 20px;
+      line-height: 20px;
+
+      span {
+        color: @red;
+      }
+    }
+
+    &--table {
+      border-radius: 5px;
+      border: 1px solid @border-main-color;
+
+      table {
+        width: 100%;
+
+        tr {
+          border-bottom: 1px solid @border-main-color;
+
+          &:last-of-type {
+            border: none;
+          }
+
+          td {
+            padding: 15px;
+
+            &.icon {
+              // text-align: right;
+              width: 50px;
+              font-size: 16px;
+              padding-left: 25px;
+            }
+
+            .label {
+              font-size: 14px;
+            }
+
+            a {
+              color: @txt-main-color;
+              text-decoration: underline;
+            }
+
+            .value {
+              font-size: 16px;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+
+    &--more {
+      margin-top: 20px;
+      text-align: center;
+
+      a.btn-viewmore {
+        padding: 10px 25px;
+        background: @btn-default-color;
+        font-size: 14px;
+        line-height: 15px;
+        border-radius: 20px;
+        text-transform: uppercase;
+        color: @txt-main-color;
+        display: inline-ledger;
+      }
+    }
+  }
+}

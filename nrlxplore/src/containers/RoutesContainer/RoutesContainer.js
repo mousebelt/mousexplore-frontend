@@ -122,6 +122,7 @@ class RoutesContainer extends PureComponent {
       <Switch>
         <Route exact path="/:currency" component={HomeContainer}/>
         <Route exact path="/:currency/blocks" component={BlockTableContainer}/>
+        <Route exact path="/:currency/ledger/:blockHash" component={BlockContainer}/>
         <Route exact path="/:currency/block/:blockHash" component={BlockContainer}/>
         <Route exact path="/:currency/transactions" component={TxnTableContainer}/>
         <Route exact path="/:currency/transaction/:txnHash" component={TxnContainer}/>
