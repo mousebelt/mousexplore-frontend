@@ -1,60 +1,9 @@
 import React, { PureComponent } from 'react';
-import List from 'components/List/List';
-import { connectSettings } from 'core';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 
-import { Link } from 'react-router-dom';
-
-const mockOperations = [
-  {   
-    "operation": "8febfdb00d2920f65af42d4f28d118742a95b0f3ea134ebd980cf302e7818317",
-    "account": "GARMAQQ45FYTFSCLBREX5M3JTTBZ5MWDMU5DOGZRHXU6SG2GX4CB7IAF",
-    "type": "payment",
-    "asset_type": 'credit_alphanum12',
-      "asset_code": 'nCntGameCoin',
-      "asset_issuer": 'GDLMDXI6EVVUIXWRU4S2YVZRMELHUEX3WKOX6XFW77QQC6KZJ4CZ7NRB',
-      "from": 'GAK3NSB43EVCZKDH4PYGJPCVPOYZ7X7KIR3ZTWSYRKRMJWGG5TABM6TH',
-      "to": 'GCHKKQ5VWJBRQZHNMODO5BWYZKPNM2HDSJ26T4O644CNEQBYK7IXATKM',
-      "amount": '2.0000000',
-    "timeStamp": "2015-09-24T10:07:09Z",
-  },
-  {   
-    "operation": "8febfdb00d2920f65af42d4f28d118742a95b0f3ea134ebd980cf302e7818317",
-    "account": "GARMAQQ45FYTFSCLBREX5M3JTTBZ5MWDMU5DOGZRHXU6SG2GX4CB7IAF",
-    "type": "payment",
-    "asset_type": 'credit_alphanum12',
-    "asset_issuer": 'GDLMDXI6EVVUIXWRU4S2YVZRMELHUEX3WKOX6XFW77QQC6KZJ4CZ7NRB',
-    "asset_code": 'nCntGameCoin',
-      "from": 'GAK3NSB43EVCZKDH4PYGJPCVPOYZ7X7KIR3ZTWSYRKRMJWGG5TABM6TH',
-      "to": 'GCHKKQ5VWJBRQZHNMODO5BWYZKPNM2HDSJ26T4O644CNEQBYK7IXATKM',
-      "amount": '2.0000000',
-    "timeStamp": "2015-09-24T10:07:09Z",
-  },
-  {   
-    "operation": "8febfdb00d2920f65af42d4f28d118742a95b0f3ea134ebd980cf302e7818317",
-    "account": "GARMAQQ45FYTFSCLBREX5M3JTTBZ5MWDMU5DOGZRHXU6SG2GX4CB7IAF",
-    "type": "payment",
-    "asset_type": 'credit_alphanum12',
-      "asset_code": 'nCntGameCoin',
-      "asset_issuer": 'GDLMDXI6EVVUIXWRU4S2YVZRMELHUEX3WKOX6XFW77QQC6KZJ4CZ7NRB',
-      "from": 'GAK3NSB43EVCZKDH4PYGJPCVPOYZ7X7KIR3ZTWSYRKRMJWGG5TABM6TH',
-      "to": 'GCHKKQ5VWJBRQZHNMODO5BWYZKPNM2HDSJ26T4O644CNEQBYK7IXATKM',
-      "amount": '2.0000000',
-    "timeStamp": "2015-09-24T10:07:09Z",
-  },
-  {   
-    "operation": "8febfdb00d2920f65af42d4f28d118742a95b0f3ea134ebd980cf302e7818317",
-    "account": "GARMAQQ45FYTFSCLBREX5M3JTTBZ5MWDMU5DOGZRHXU6SG2GX4CB7IAF",
-    "type": "payment",
-    "asset_type": 'credit_alphanum12',
-      "asset_code": 'nCntGameCoin',
-      "asset_issuer": 'GDLMDXI6EVVUIXWRU4S2YVZRMELHUEX3WKOX6XFW77QQC6KZJ4CZ7NRB',
-      "from": 'GAK3NSB43EVCZKDH4PYGJPCVPOYZ7X7KIR3ZTWSYRKRMJWGG5TABM6TH',
-      "to": 'GCHKKQ5VWJBRQZHNMODO5BWYZKPNM2HDSJ26T4O644CNEQBYK7IXATKM',
-      "amount": '2.0000000',
-    "timeStamp": "2015-09-24T10:07:09Z",
-  },
-]
+import { connectSettings } from 'core';
+import List from 'components/List/List';
 
 class LatestOperations extends PureComponent {
   state = {
