@@ -58,7 +58,7 @@ class LatestLedgers extends PureComponent {
             </Link>
           </div>
           <div className="hash">
-            <Link to={`/${currency}/ledger/${ledger.hash}`}>
+            <Link to={`/${currency}/ledger/${ledger.height}`}>
               {ledger.hash}
             </Link>
           </div>
