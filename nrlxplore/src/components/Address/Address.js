@@ -29,7 +29,7 @@ class Address extends React.PureComponent {
                 <tr className="txn" key={index}>
                   <td className="in-out">
                     {
-                      <img src={txn.value < 0 ? icOut : icIn}/>
+                      <img src={txn.value < 0 ? icOut : icIn} alt=""/>
                     }
                   </td>
                   <td className="hash txn-hash">
@@ -64,7 +64,7 @@ class Address extends React.PureComponent {
       <div className={`nrl__address${className ? ' ' + className : ''}`}>
         <div className="nrl__address-info">
           <div className="nrl__address-info--icon">
-            <img src={icCoin}/>
+            <img src={icCoin} alt=""/>
           </div>
           <div className="nrl__address-info--balance">
             <p>Balance: {balance} {currency}&nbsp;<i className="fa fa-angle-down"/></p>

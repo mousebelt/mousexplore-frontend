@@ -36,14 +36,12 @@ class LatestTransactons extends PureComponent {
         return ;
 
       let txns = res.data.data.result;
-
-      console.log(txns);
       
-      // txns = txns.map(txn => {
-      //   return formatTxnData(txn, currency);
-      // });
+      txns = txns.map(txn => {
+        return formatTxnData(txn, currency);
+      });
 
-      // this.setState({ txns });
+      this.setState({ txns });
     });
   }
   
@@ -61,15 +59,27 @@ class LatestTransactons extends PureComponent {
               {transaction.hash}
             </Link>
           </div>
-          <div className="block-hash">
-            Block: &nbsp;
-            <Link to={`/${currency}/block/${transaction.blockHash}`}>
-              {transaction.blockHash}
-            </Link>
-          </div>
+          {
+            currency === 'xlm' ? (
+              <div className="ledger-hash">
+                Ledger: &nbsp;
+                <Link to={`/${currency}/ledger/${transaction.ledger}`}>
+                  #{transaction.ledger}
+                </Link>
+              </div>
+            ) : (
+              <div className="block-hash">
+                Block: &nbsp;
+                <Link to={`/${currency}/block/${transaction.blockHash}`}>
+                  {transaction.blockHash}
+                </Link>
+              </div>
+            )
+          }
         </div>
         <span className="time">
-          <i className="fa fa-clock-o"/> {transaction.timestamp ? moment.unix(transaction.timestamp).fromNow() : 'n/a'}
+          <i className="fa fa-clock-o"/>&nbsp;
+          {currency === 'xlm' ? moment(transaction.timestamp).fromNow() : moment.unix(transaction.timestamp).fromNow()}
         </span>
       </div>
     );

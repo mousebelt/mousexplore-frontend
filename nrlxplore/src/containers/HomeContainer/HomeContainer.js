@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import { Row, Col } from 'antd';
 import { connectSettings } from 'core';
 
 import LatestBlocks from './LatestBlocks/LatestBlocks';

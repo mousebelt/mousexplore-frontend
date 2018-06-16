@@ -79,7 +79,7 @@ class LatestOperations extends PureComponent {
 
   getLatestOperations (apiObject, currency) {
 
-    if (currency !== 'XML')
+    if (currency !== 'XLM')
       return;
     
     apiObject.get('/operations', {
@@ -91,13 +91,18 @@ class LatestOperations extends PureComponent {
 
       let operations = res.data.data.result;
       
-      // operations = operations.map(operation => {
-      //   return formatOperationData(operation, currency);
-      // });
+      operations = operations.map(operation => {
+        return {
+          id: operation.id,
+          txnHash: operation.transaction_hash,
+          account: operation.source_account,
+          type: operation.type,
+          timestamp: operation.created_at
+        }
+      });
 
       
-      // this.setState({ operations });
-      console.log(operations);
+      this.setState({ operations });
     });
   }
   
@@ -108,22 +113,22 @@ class LatestOperations extends PureComponent {
 
     return (
       <div className="operation">
-        <i className="fa fa-credit-card icon"/>
+        <i className="fa fa-link icon"/>
         <div className="detail">
           <div className="hash">
-            <Link to={`/${currency}/operation/${operation.hash}`}>
-              {operation.hash}
+            <Link to={`/${currency}/operation/${operation.id}`}>
+              #{operation.id}
             </Link>
           </div>
           <div className="block-hash">
-            Block: &nbsp;
-            <Link to={`/${currency}/block/${operation.blockHash}`}>
-              {operation.blockHash}
+            Txn: &nbsp;
+            <Link to={`/${currency}/transaction/${operation.txnHash}`}>
+              {operation.txnHash}
             </Link>
           </div>
         </div>
         <span className="time">
-          <i className="fa fa-clock-o"/> {operation.timestamp ? moment.unix(operation.timestamp).fromNow() : 'n/a'}
+          <i className="fa fa-clock-o"/> {operation.timestamp ? moment(operation.timestamp).fromNow() : 'n/a'}
         </span>
       </div>
     );
@@ -133,7 +138,7 @@ class LatestOperations extends PureComponent {
     return (
       <List
         className="latest-operations"
-        icon={<i className="fa fa-credit-card"/>}
+        icon={<i className="fa fa-link"/>}
         title="Operations"
         linkToAll="#"
         data={this.state.operations}
