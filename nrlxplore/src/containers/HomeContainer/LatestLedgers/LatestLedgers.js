@@ -1,37 +1,48 @@
- import React, { PureComponent } from 'react';
-import List from 'components/List/List';
-import { connectSettings } from 'core';
+import React, { PureComponent } from 'react';
+import moment from 'moment';
 import { Link } from 'react-router-dom';
 
-const mockLedgers = [
-  {
-    id: 1297315,
-    hash: "bdde95e350cf7e4805bd9c44d05566175e7f08847d82f09de3b6d837970b1065",
-    timestamp: 'n/a'
-  },
-  {
-    id: 1297315,
-    hash: "0x000000000000171dd048645bbeee7e123093e5f4e68d38ed17fc24d34fa7142",
-    timestamp: 'n/a'
-  },
-  {
-    id: 1297315,
-    hash: "0x000000000000171dd048645bbeee7e123093e5f4e68d38ed17fc24d34fa7142",
-    timestamp: 'n/a'
-  },
-  {
-    id: 1297315,
-    hash: "0x000000000000171dd048645bbeee7e123093e5f4e68d38ed17fc24d34fa7142",
-    timestamp: 'n/a'
-  },
-  {
-    id: 1297315,
-    hash: "0x000000000000171dd048645bbeee7e123093e5f4e68d38ed17fc24d34fa7142",
-    timestamp: 'n/a'
-  },
-]
+import List from 'components/List/List';
+import { connectSettings } from 'core';
+import { formatBlockData } from 'core/utils';
 
 class LatestLedgers extends PureComponent {
+  state = {
+    ledgers: []
+  };
+
+  componentDidMount() {
+    const { apiObject, currency } = this.props;
+    
+    this.getLatestLedgers(apiObject, currency);
+  }
+
+  componentWillReceiveProps (newProps) {
+    this.setState({
+      ledgers: []
+    });
+    
+    const { apiObject, currency } = newProps;
+    
+    this.getLatestLedgers(apiObject, currency);
+  }
+
+  getLatestLedgers (apiObject, currency) {
+    
+    apiObject.get('/ledgers', {
+      params: { count: 5}
+    })
+    .then(res => {
+      let ledgers = res.data.data.result;
+      
+      ledgers = ledgers.map(ledger => {
+        return formatBlockData(ledger, currency);
+      });
+ 
+      this.setState({ ledgers });
+    });
+  }
+
   _renderLedger = (ledger) => {
     let { currency } = this.props;
 
@@ -39,11 +50,11 @@ class LatestLedgers extends PureComponent {
     
     return (
       <div className="ledger">
-        <i className="fa fa-file-text-o icon"/>
+        <i className="fa fa-cube icon"/>
         <div className="detail">
-          <div className="id">
-            <Link to={`/${currency}/ledger/${ledger.id}`}>
-              #{ledger.id}
+          <div className="height">
+            <Link to={`/${currency}/ledger/${ledger.height}`}>
+              #{ledger.height}
             </Link>
           </div>
           <div className="hash">
@@ -53,26 +64,22 @@ class LatestLedgers extends PureComponent {
           </div>
         </div>
         <span className="time">
-          <i className="fa fa-clock-o"/> {ledger.timestamp}
+          <i className="fa fa-clock-o"/> {
+            currency === 'xlm' ? moment(ledger.timestamp).fromNow() : moment.unix(ledger.timestamp).fromNow()
+          }
         </span>
       </div>
     );
   }
 
   render() {
-    let { currency } = this.props;
-
-    if (currency !== 'XLM') {
-      return null;
-    }
-
     return (
       <List
         className="latest-ledgers"
-        icon={<i className="fa fa-book"/>}
+        icon={<i className="fa fa-cubes"/>}
         title="Ledgers"
         linkToAll="#"
-        data={mockLedgers}
+        data={this.state.ledgers}
         renderItem={this._renderLedger}
       />
     );
@@ -80,7 +87,8 @@ class LatestLedgers extends PureComponent {
 }
 
 const mapStateToProps = ({settings}) => ({
-  currency: settings.currency
+  currency: settings.currency,
+  apiObject: settings.apiObject
 });
 
 export default connectSettings(mapStateToProps, {})(LatestLedgers);

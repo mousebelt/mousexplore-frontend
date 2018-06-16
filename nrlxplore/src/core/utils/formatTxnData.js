@@ -28,7 +28,9 @@ const mapTxnKeys = {
     'vsize': 'vsize',
   },
   'XML': {
-
+    'hash': 'id',
+    'opCount': 'operation_count',
+    'fee': 'fee_paid'
   }
 };
 
