@@ -29,7 +29,7 @@ const mapTxnKeys = {
   },
   'XML': {
     'hash': 'id',
-    'operationCount': 'operation_count',
+    'opCount': 'operation_count',
     'fee': 'fee_paid'
   }
 };

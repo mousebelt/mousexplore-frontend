@@ -55,8 +55,17 @@ const mapBlockKeys = {
     // 'bits': 'bits',
     'size': 'size',
   },
-  'XML': {
-
+  'XLM': {
+    'height': 'sequence',
+    'hash': 'hash',
+    'prevHash': 'prev_hash',
+    'txnCount': 'transaction_count',
+    'opCount': 'operation_count',
+    'totalCoins': 'total_coins',
+    'fee': 'fee_pool',
+    'baseFee': 'base_fee_in_stroops',
+    'baseReserve': 'base_reserve_in_stroops',
+    'timestamp': 'closed_at'
   }
 };
 
