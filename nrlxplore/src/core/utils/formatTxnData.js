@@ -27,10 +27,14 @@ const mapTxnKeys = {
     'confirmations': 'confirmations',
     'vsize': 'vsize',
   },
-  'XML': {
+  'XLM': {
     'hash': 'id',
     'opCount': 'operation_count',
-    'fee': 'fee_paid'
+    'fee': 'fee_paid',
+    'timestamp': 'created_at',
+    'account': 'source_account',
+    'accountSequence': 'source_account_sequence',
+    'ledger': 'ledger_attr'
   }
 };
 

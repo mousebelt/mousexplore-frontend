@@ -76,6 +76,13 @@ class Ledger extends PureComponent {
                             {txn.hash || txn}
                           </Link>
                         </td>
+                        <td className="operations">
+                          <p className="label">Operations</p>
+                          {/* <Link to={`/${currency.toLowerCase()}/transaction/${txn.hash || txn}`} className="value">
+                            {txn.hash || txn}
+                          </Link> */}
+                          <span className="value">{txn.opCount}</span>
+                        </td>
                         <td className="time">
                           <p className="label">Time</p>
                           <span className="value">{moment(ledger.timestamp).fromNow()}</span>
