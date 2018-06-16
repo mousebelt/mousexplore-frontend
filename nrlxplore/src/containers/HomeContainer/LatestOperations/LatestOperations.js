@@ -115,12 +115,13 @@ class LatestOperations extends PureComponent {
       <div className="operation">
         <i className="fa fa-link icon"/>
         <div className="detail">
-          <div className="hash">
+          <div className="id">
             <Link to={`/${currency}/operation/${operation.id}`}>
               #{operation.id}
             </Link>
+            &nbsp;({operation.type})
           </div>
-          <div className="block-hash">
+          <div className="txn-hash">
             Txn: &nbsp;
             <Link to={`/${currency}/transaction/${operation.txnHash}`}>
               {operation.txnHash}
