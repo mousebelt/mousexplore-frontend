@@ -11,6 +11,7 @@ import { connectSettings, settingsActionCreators } from 'core';
 import HomeContainer from 'containers/HomeContainer/HomeContainer';
 import BlockTableContainer from 'containers/BlockTableContainer/BlockTableContainer';
 import BlockContainer from 'containers/BlockContainer/BlockContainer';
+import LedgerContainer from 'containers/LedgerContainer/LedgerContainer';
 import TxnTableContainer from 'containers/TxnTableContainer/TxnTableContainer';
 import TxnContainer from 'containers/TxnContainer/TxnContainer';
 import AddressContainer from 'containers/AddressContainer/AddressContainer';
@@ -122,7 +123,7 @@ class RoutesContainer extends PureComponent {
       <Switch>
         <Route exact path="/:currency" component={HomeContainer}/>
         <Route exact path="/:currency/blocks" component={BlockTableContainer}/>
-        <Route exact path="/:currency/ledger/:blockHash" component={BlockContainer}/>
+        <Route exact path="/xlm/ledger/:ledgerHash" component={LedgerContainer}/>
         <Route exact path="/:currency/block/:blockHash" component={BlockContainer}/>
         <Route exact path="/:currency/transactions" component={TxnTableContainer}/>
         <Route exact path="/:currency/transaction/:txnHash" component={TxnContainer}/>

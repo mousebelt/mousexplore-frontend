@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react';
 import Ledger from 'components/Ledger/Ledger';
 import NotFound from 'components/NotFound/NotFound';
-import { connectSettings, formatLedgerData } from 'core';
+import { connectSettings, formatBlockData, formatTxnData } from 'core';
 
 class LedgerContainer extends PureComponent {
   state = {
-    ledger: undefined
+    ledger: undefined,
+    txns: []
   };
 
   componentDidMount() {
@@ -30,7 +31,8 @@ class LedgerContainer extends PureComponent {
 
   getLedger(apiObject, currency, ledgerHash) {
     this.setState({
-      ledger: undefined
+      ledger: undefined,
+      txns: []
     });
 
     apiObject.get(`/ledger/${ledgerHash}`)
@@ -39,16 +41,31 @@ class LedgerContainer extends PureComponent {
           return;
         }
         let ledger = res.data.data;
+        
+        ledger = formatBlockData(ledger, currency);
 
-        ledger = formatLedgerData(ledger, currency);
+        this.setState({ ledger });
+      });
 
-        this.setState({ ledger: ledger });
-      })
+    apiObject.get(`/ledger/txs/${ledgerHash}`)
+      .then(res => {
+        if (res.data.status !== 200) {
+          return;
+        }
+
+        let txns = res.data.data.result;
+
+        txns = txns.map(txn => {
+          return formatTxnData(txn, currency);
+        });
+
+        this.setState({txns});
+      });
   }
   
   render () {
     const { currency } = this.props;
-    const { ledger } = this.state;
+    const { ledger, txns } = this.state;
     
     return (
       <div className="ledger-container">
@@ -57,6 +74,7 @@ class LedgerContainer extends PureComponent {
             <Ledger
               currency={currency}
               ledger={ledger}
+              txns={txns}
             />
           ) : (
             <NotFound/>

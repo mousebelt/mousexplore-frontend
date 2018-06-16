@@ -4,22 +4,11 @@ import { formatTxnData } from 'core';
 import moment from 'moment';
 
 class Ledger extends PureComponent {
-  state = {
-    visibleTxnCount: 10
-  };
-
-  handleViewMore = () => {
-    this.setState({
-      visibleTxnCount: this.state.visibleTxnCount + 10
-    });
-  }
-
   render() {
     const { className } = this.props;
-    const { ledger } = this.props;
-    const { currency } = this.props;
+    const { currency, ledger, txns } = this.props;
 
-    const txns = ledger.txns.slice(0, this.state.visibleTxnCount);
+    console.log(ledger);
 
     return (
       <div>
@@ -29,8 +18,8 @@ class Ledger extends PureComponent {
               <i className="fa fa-cubes"/>
             </div>
             <div className="summary">
-              <p className="height">Height: {ledger.height}</p>
-              <span className="txn-count">Transactions: {ledger.txns.length}</span>
+              <p className="height">Sequence: {ledger.height}</p>
+              <span className="txn-count">Transactions: {ledger.txnCount}, Operations: {ledger.opCount} </span>
             </div>
           </div>
           <div className="nrl__ledger-info--detail">
@@ -39,60 +28,24 @@ class Ledger extends PureComponent {
                 <p className="property">
                   Ledger Hash: <Link to={`/${currency.toLowerCase()}/ledger/${ledger.hash}`}>{ledger.hash}</Link>
                 </p>
-                {
-                  ledger.previousledgerhash && (
-                    <p className="property">
-                      Previous Hash: <Link to={`/${currency.toLowerCase()}/ledger/${ledger.prevHash}`}>{ledger.prevHash}</Link>
-                    </p>
-                  )
-                }
-                {
-                  ledger.nextledgerhash && (
-                    <p className="property">
-                      Next Hash: <Link to={`/${currency.toLowerCase()}/ledger/${ledger.nextHash}`}>{ledger.nextHash}</Link>
-                    </p>
-                  )
-                }
-                {
-                  ledger.merkleroot && (
-                    <p className="property">
-                      Merkle Root: <Link to={`/${currency.toLowerCase()}/ledger/${ledger.merkleRoot}`}>{ledger.merkleRoot}</Link>
-                    </p>
-                  )
-                }
+                
+                <p className="property">
+                  Previous Hash: <Link to={`/${currency.toLowerCase()}/ledger/${ledger.prevHash}`}>{ledger.prevHash}</Link>
+                </p>
               </div>
               <div className="right">
-                {
-                  ledger.confirmations && (
-                    <p className="property">
-                      Confirmations: {ledger.confirmations}
-                    </p>
-                  )
-                }
-                {
-                  ledger.size && (
-                    <p className="property">
-                      Ledger Size: {ledger.size}
-                    </p>
-                  )
-                }
-                {
-                  ledger.bits && (
-                    <p className="property">
-                      Bits: {ledger.bits}
-                    </p>
-                  )
-                }
-                {
-                  ledger.nonce && (
-                    <p className="property">
-                      Nonce: {ledger.nonce}
-                    </p>
-                  )
-                }
+                <p className="property">
+                  Fee: {ledger.fee}
+                </p>
+                <p className="property">
+                  Base Fee: {ledger.baseFee} Stroops
+                </p>
+                <p className="property">
+                  Total Coins: {(+ledger.totalCoins).toFixed(2)}
+                </p>
               </div>
               <div className="time">
-                <p className="property">Timestamp: { moment.unix(ledger.time).format('YYYY-M-D h:mm:ss a') }</p>
+                <p className="property">Timestamp: { moment(ledger.timestamp).format('YYYY-M-D h:mm:ss a') }</p>
               </div>
             </div>
           </div>
@@ -112,7 +65,7 @@ class Ledger extends PureComponent {
                           <i className="fa fa-cubes"/>
                         </td>
                         <td className="ledger-height">
-                          <p className="label">Ledger Height</p>
+                          <p className="label">Ledger</p>
                           <Link to={`/${currency.toLowerCase()}/ledger/${ledger.height}`} className="value">
                             {ledger.height}
                           </Link>
@@ -125,7 +78,7 @@ class Ledger extends PureComponent {
                         </td>
                         <td className="time">
                           <p className="label">Time</p>
-                          <span className="value">{moment.unix(ledger.timestamp).fromNow()}</span>
+                          <span className="value">{moment(ledger.timestamp).fromNow()}</span>
                         </td>
                       </tr>
                     );
@@ -133,9 +86,6 @@ class Ledger extends PureComponent {
                 }
               </tbody>
             </table>
-          </div>
-          <div className="nrl__ledger-txns--more">
-            <a className="btn-viewmore" onClick={this.handleViewMore}>View More</a>
           </div>
         </div>
       </div>
