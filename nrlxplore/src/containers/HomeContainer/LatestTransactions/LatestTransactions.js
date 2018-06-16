@@ -36,12 +36,14 @@ class LatestTransactons extends PureComponent {
         return ;
 
       let txns = res.data.data.result;
-      
-      txns = txns.map(txn => {
-        return formatTxnData(txn, currency);
-      });
 
-      this.setState({ txns });
+      console.log(txns);
+      
+      // txns = txns.map(txn => {
+      //   return formatTxnData(txn, currency);
+      // });
+
+      // this.setState({ txns });
     });
   }
   

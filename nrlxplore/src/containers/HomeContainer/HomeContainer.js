@@ -5,6 +5,7 @@ import { connectSettings } from 'core';
 import LatestBlocks from './LatestBlocks/LatestBlocks';
 import LatestTransactions from './LatestTransactions/LatestTransactions';
 import LatestLedgers from './LatestLedgers/LatestLedgers';
+import LatestOperations from './LatestOperations/LatestOperations'
 
 class HomeContainer extends PureComponent {
 
@@ -14,15 +15,22 @@ class HomeContainer extends PureComponent {
     if (currency === 'XLM') {
       return (
         <div className="home">
-          <LatestLedgers/>
-          <LatestTransactions/>
+          <div className="flex-layout">
+            <LatestOperations/>
+          </div>
+          <div className="flex-layout">
+            <LatestLedgers/>
+            <LatestTransactions/>
+          </div>
         </div>
       );
     } else {
       return (
         <div className="home">
-          <LatestBlocks/>
-          <LatestTransactions/>
+          <div className="flex-layout">
+            <LatestBlocks/>
+            <LatestTransactions/>
+          </div>
         </div>
       );
     }
