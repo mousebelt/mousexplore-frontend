@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { connectSettings, formatTxnData } from 'core';
+import BTCTxn from './BTCTxn';
+import LTCTxn from './LTCTxn';
 
 import Txn from 'components/Txn/Txn';
 import NotFound from 'components/NotFound/NotFound';
@@ -237,6 +239,12 @@ class TxnContainer extends PureComponent {
     return (
       <div className="txn-container">
         {
+          currency === 'BTC' && <BTCTxn/>
+        }
+        {
+          currency === 'LTC' && <LTCTxn/>
+        }
+        {/* {
           txn ? (
             <Txn
               currency={currency}
@@ -249,7 +257,7 @@ class TxnContainer extends PureComponent {
           ) : (
             <NotFound/>
           )
-        }
+        } */}
       </div>
     );
   }
