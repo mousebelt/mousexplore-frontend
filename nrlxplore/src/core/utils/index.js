@@ -1,3 +1,4 @@
-export { createPromiseAction } from './createPromiseAction';
-export { formatBlockData } from './formatBlockData';
-export { formatTxnData } from './formatTxnData';
+export * from './createPromiseAction';
+export * from './formatBlockData';
+export * from './formatTxnData';
+export * from './base64Decode';
