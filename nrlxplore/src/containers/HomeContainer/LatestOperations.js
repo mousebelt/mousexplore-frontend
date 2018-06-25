@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import { mapKeys, camelCase } from 'lodash';
 
 import { connectSettings } from 'core';
 import List from 'components/List/List';
+import OperationTable from 'components/Operations/OperationTable';
 
 class LatestOperations extends PureComponent {
   state = {
@@ -32,7 +34,7 @@ class LatestOperations extends PureComponent {
       return;
     
     apiObject.get('/operations', {
-      params: { count: 5}
+      params: { count: 10}
     })
     .then(res => {
       if (res.data.status !== 200)
@@ -41,13 +43,9 @@ class LatestOperations extends PureComponent {
       let operations = res.data.data.result;
       
       operations = operations.map(operation => {
-        return {
-          id: operation.id,
-          txnHash: operation.transaction_hash,
-          account: operation.source_account,
-          type: operation.type,
-          timestamp: operation.created_at
-        }
+        operation.time = operation.created_at;
+
+        return mapKeys(operation, (v, k) => camelCase(k));
       });
 
       
@@ -85,16 +83,23 @@ class LatestOperations extends PureComponent {
   }
 
   render() {
+    // return (
+    //   <List
+    //     className="latest-operations"
+    //     icon={<i className="fa fa-link"/>}
+    //     title="Operations"
+    //     linkToAll="#"
+    //     data={this.state.operations}
+    //     renderItem={this._renderOperation}
+    //   />
+    // );
     return (
-      <List
-        className="latest-operations"
-        icon={<i className="fa fa-link"/>}
-        title="Operations"
-        linkToAll="#"
-        data={this.state.operations}
-        renderItem={this._renderOperation}
+      <OperationTable
+        records={this.state.operations}
+        parentRenderTimestamp={Date.now()}
+        compact={false}
       />
-    );
+    )
   }
 }
 

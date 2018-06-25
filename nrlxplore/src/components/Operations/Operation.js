@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import AccountLink from './shared/AccountLink'
-import TimeSynchronisedFormattedRelative from '../shared/TimeSynchronizedFormattedRelative'
-import TransactionHash from '../shared/TransactionHash'
+import TimeSynchronisedFormattedRelative from './shared/TimeSynchronizedFormattedRelative'
+import TransactionHash from './shared/TransactionHash'
 
 import AccountMerge from './AccountMerge'
 import AllowTrust from './AllowTrust'
@@ -37,7 +37,7 @@ const SubOperation = ({op}) => {
   return <SubOpComponent {...op} />
 }
 
-const Operation = ({compact, op, opURLFn, parentRenderTimestamp}) => {
+const Operation = ({compact, op, parentRenderTimestamp}) => {
   const acc =
     op.type !== 'account_merge' ? (
       <AccountLink account={op.sourceAccount} />
@@ -81,7 +81,6 @@ Operation.propTypes = {
     type: PropTypes.oneOf(opTypes).isRequired,
     time: PropTypes.string,
   }).isRequired,
-  opURLFn: PropTypes.func.isRequired,
   parentRenderTimestamp: PropTypes.number,
 }
 

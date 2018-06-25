@@ -35,11 +35,15 @@ class LatestTransactons extends PureComponent {
       if (res.data.status !== 200)
         return ;
 
+      console.log(res);
+
       let txns = res.data.data.result;
       
       txns = txns.map(txn => {
         return formatTxnData(txn, currency);
       });
+
+      console.log(txns);
 
       this.setState({ txns });
     });

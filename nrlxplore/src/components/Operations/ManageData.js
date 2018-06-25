@@ -2,7 +2,7 @@ import React from 'react'
 import {FormattedMessage} from 'react-intl'
 import PropTypes from 'prop-types'
 import truncate from 'lodash/truncate'
-import {base64Decode} from '../../lib/utils'
+import {base64Decode} from 'core/utils'
 
 const MSG_KEY_PREFIX = 'operation.manage.data'
 

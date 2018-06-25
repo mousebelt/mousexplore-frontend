@@ -8,7 +8,7 @@ const TransactionHash = ({hash, compact = true}) => {
   const className = !compact ? 'monospace' : ''
   return (
     <span title={hash} className={className}>
-      <Link to={`/tx/${hash}`}>{hashLabel}</Link>
+      <Link to={`/xlm/transaction/${hash}`}>{hashLabel}</Link>
     </span>
   )
 }

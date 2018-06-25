@@ -1,6 +1,6 @@
 import React from 'react'
 import Payment from './Payment'
-import Asset from '../shared/Asset'
+import Asset from './shared/Asset'
 import {FormattedMessage} from 'react-intl'
 
 const PathPayment = props =>

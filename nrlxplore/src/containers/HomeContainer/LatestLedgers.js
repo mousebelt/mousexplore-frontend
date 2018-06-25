@@ -38,7 +38,7 @@ class LatestLedgers extends PureComponent {
       ledgers = ledgers.map(ledger => {
         return formatBlockData(ledger, currency);
       });
- 
+
       this.setState({ ledgers });
     });
   }

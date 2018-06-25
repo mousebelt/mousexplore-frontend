@@ -52,7 +52,7 @@ export const coins = [
       { tokenName: 'THKEY', ticker: 'TKY' },
     ],
     api: {
-      live: 'http://18.205.122.159:8001/api/v1',
+      live: 'http://18.232.163.132/api/v1',
       test: 'http://18.205.122.159:8001/api/v1'
     },
   },

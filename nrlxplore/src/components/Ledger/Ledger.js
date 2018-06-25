@@ -8,8 +8,6 @@ class Ledger extends PureComponent {
     const { className } = this.props;
     const { currency, ledger, txns } = this.props;
 
-    console.log(ledger);
-
     return (
       <div>
         <div className={`nrl__ledger${className ? ' ' + className : ''}`}>
