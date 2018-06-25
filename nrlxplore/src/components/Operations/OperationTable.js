@@ -6,7 +6,7 @@ import {FormattedMessage} from 'react-intl'
 import mapKeys from 'lodash/mapKeys'
 import camelCase from 'lodash/camelCase'
 
-import Operation from './operations/Operation'
+import Operation from './Operation'
 
 const OperationTable = props => (
   <table

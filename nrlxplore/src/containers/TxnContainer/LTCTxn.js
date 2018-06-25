@@ -21,7 +21,7 @@ class LTCTxn extends PureComponent {
     const { txnHash } = match.params;
 
     if (txnHash) {
-      this.getTxn(apiObject, currency, txnHash);    
+      this.getTxn(apiObject, currency, txnHash);
     }
   }
 
