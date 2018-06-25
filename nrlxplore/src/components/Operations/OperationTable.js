@@ -9,40 +9,41 @@ import camelCase from 'lodash/camelCase'
 import Operation from './Operation'
 
 const OperationTable = props => (
-  <table
-    id="operation-table"
-    className="table-striped table-hover table-condensed"
-  >
-    <thead>
-      <tr>
-        <th>
-          <FormattedMessage id="account" />
-        </th>
-        <th>
-          <FormattedMessage id="operation" />
-        </th>
-        {props.compact === false && (
+  <div className="nrl__operations">
+    <table
+      id="operation-table"
+      className="nrl__operations-table"
+    >
+      <thead>
+        <tr>
           <th>
-            <FormattedMessage id="transaction" />
+            <FormattedMessage id="account" />
           </th>
-        )}
-        <th>
-          <FormattedMessage id="time" />
-        </th>
-        <th />
-      </tr>
-    </thead>
-    <tbody>
-      {props.records.map(op => (
-        <Operation
-          key={op.id}
-          compact={props.compact}
-          op={op}
-          parentRenderTimestamp={props.parentRenderTimestamp}
-        />
-      ))}
-    </tbody>
-  </table>
+          <th>
+            <FormattedMessage id="operation" />
+          </th>
+          {props.compact === false && (
+            <th>
+              <FormattedMessage id="transaction" />
+            </th>
+          )}
+          <th>
+            <FormattedMessage id="time" />
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {props.records.map(op => (
+          <Operation
+            key={op.id}
+            compact={props.compact}
+            op={op}
+            parentRenderTimestamp={props.parentRenderTimestamp}
+          />
+        ))}
+      </tbody>
+    </table>
+  </div>
 )
 
 OperationTable.propTypes = {

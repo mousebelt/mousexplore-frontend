@@ -11,7 +11,7 @@ const AccountLink = ({account, label, hideKnown = false}) => {
   }
   return (
     <span title={account}>
-      <Link to={`/account/${account}`}>{accLabel}</Link>
+      <Link to={`/xlm/address/${account}`}>{accLabel}</Link>
     </span>
   )
 }
