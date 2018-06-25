@@ -70,7 +70,7 @@ class XLMTxn extends PureComponent {
     }
 
     return (
-      <div className="txn-detail txn-ltc">
+      <div className="txn-detail txn-xlm">
         <div className="status">
           <span className="label">TxReceipt Status:</span>
           <span className='value success'>Success</span>
@@ -86,15 +86,15 @@ class XLMTxn extends PureComponent {
           <span className="label">Operations:</span>
           <span className="value">{txnDetail.opCount}</span>
         </div>
+        <div className="fee">
+          <span className="label">Fee:</span>
+          <span className="value">{txnDetail.fee_paid} Stroops</span>
+        </div>
         <div className="time">
           <span className="label">Included In Blocks:</span>
           <span className="value">
             Sent on {moment(txnDetail.timestamp).format('lll')} ({moment(txnDetail.timestamp).fromNow()})
           </span>
-        </div>
-        <div className="fee">
-          <span className="label">Fee:</span>
-          <span className="value">{txnDetail.fee_paid} Stroops</span>
         </div>
         <div className="block-hash">
           <span className="label">Ledger Sequence:</span>

@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import AccountLink from './shared/AccountLink'
-import TimeSynchronisedFormattedRelative from '../shared/TimeSynchronizedFormattedRelative'
-import TransactionHash from '../shared/TransactionHash'
+import TimeSynchronisedFormattedRelative from './shared/TimeSynchronizedFormattedRelative'
+import TransactionHash from './shared/TransactionHash'
 
 import AccountMerge from './AccountMerge'
 import AllowTrust from './AllowTrust'
