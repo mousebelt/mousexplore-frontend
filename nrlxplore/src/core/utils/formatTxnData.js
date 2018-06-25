@@ -34,7 +34,7 @@ const mapTxnKeys = {
     'timestamp': 'created_at',
     'account': 'source_account',
     'accountSequence': 'source_account_sequence',
-    'ledger': 'ledger_attr'
+    'ledger': 'ledger'
   }
 };
 

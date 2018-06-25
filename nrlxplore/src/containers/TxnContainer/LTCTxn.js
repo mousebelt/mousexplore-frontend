@@ -92,7 +92,7 @@ class LTCTxn extends PureComponent {
     });  
 
     return (
-      <div className="txn-detail txn-btc">
+      <div className="txn-detail txn-ltc">
         <div className="status">
           <span className="label">
             TxReceipt Status:&nbsp;

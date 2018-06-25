@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
-import { formatTxnData } from 'core';
 import moment from 'moment';
 
 class Block extends PureComponent {
