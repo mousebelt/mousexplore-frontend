@@ -51,4 +51,4 @@ OperationTable.propTypes = {
   records: PropTypes.array.isRequired,
 }
 
-export default enhance(OperationTable)
+export default OperationTable

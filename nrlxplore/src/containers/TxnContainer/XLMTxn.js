@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react';
-import { compose } from 'recompose';
+import { compose, flattenProp } from 'recompose';
 import { Link, withRouter } from 'react-router-dom';
 import moment from 'moment';
 import { connectSettings, formatTxnData } from 'core';
+import { camelCase, mapKeys } from 'lodash';
 
 import Txn from 'components/Txn/Txn';
+import OperationTable from 'components/Operations/OperationTable';
 import Spinner from 'components/Spinner/Spinner';
 
 
@@ -22,7 +24,8 @@ class XLMTxn extends PureComponent {
     const { txnHash } = match.params;
 
     if (txnHash) {
-      this.getTxn(apiObject, currency, txnHash);    
+      this.getTxn(apiObject, currency, txnHash);
+      this.getOperations(apiObject, currency, txnHash);
     }
   }
 
@@ -32,8 +35,9 @@ class XLMTxn extends PureComponent {
     const { txnHash } = match.params;
 
     if (txnHash) {
-      this.getTxn(apiObject, currency, txnHash);    
-    }
+      this.getTxn(apiObject, currency, txnHash);
+      this.getOperations(apiObject, currency, txnHash);
+    } 
   }
 
   getTxn (apiObject, currency, txnHash) {
@@ -60,8 +64,32 @@ class XLMTxn extends PureComponent {
       })
   }
 
-  getOperations() {
+  getOperations(apiObject, currency, txnHash) {
+    this.setState({
+      opeartions: [],
+      isLoading: true
+    });
 
+    apiObject.get(`/tx/operations/${txnHash}`)
+      .then(res => {
+        if (res.data.status !== 200) {
+          return;
+        }
+
+        let operations = res.data.data.result;
+        operations = operations.map(operation => {
+          operation.time=operation.created_at;
+          return mapKeys(operation, (v, k) => camelCase(k))
+        });
+
+        this.setState({
+          operations,
+          isLoading: false
+        });
+      })
+      .finally(() => {
+        this.setState({ isLoading: false });
+      })
   }
 
   _renderDetail = (txnDetail, currency) => {
@@ -80,7 +108,9 @@ class XLMTxn extends PureComponent {
         </div>
         <div className="account">
           <span className="label">Account:</span>
-          <Link className="value" to={`/${currency.toLowerCase()}/address/${txnDetail.account}`}>{txnDetail.account}</Link>
+          <Link className="value" to={`/${currency.toLowerCase()}/address/${txnDetail.account}`}>
+            {txnDetail.account}
+          </Link>
         </div>
         <div className="operation-count">
           <span className="label">Operations:</span>
@@ -106,23 +136,34 @@ class XLMTxn extends PureComponent {
     );
   }
 
+  _renderOperations = () => {
+
+  }
+
   render() {
     const { currency } = this.props;
 
     if (currency !== 'XLM') return null;
 
-    const { txn } = this.state;
+    const { txn, operations } = this.state;
 
     if (txn) {
       return (
-        <Txn
-          currency={currency}
-          txnHash={this.state.txn.hash}
-        >
-          {
-            this._renderDetail(txn, currency)
-          }
-        </Txn>
+        <div>
+          <Txn
+            currency={currency}
+            txnHash={this.state.txn.hash}
+          >
+            {
+              this._renderDetail(txn, currency)
+            }
+          </Txn>
+          <OperationTable
+            compact={false}
+            parentRenderTimestamp={Date.now()}
+            records={operations}
+          />
+        </div>
       );
     } else {
       return <Spinner/>;

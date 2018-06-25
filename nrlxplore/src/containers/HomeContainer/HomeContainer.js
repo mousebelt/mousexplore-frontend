@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
 import { connectSettings } from 'core';
 
-import LatestBlocks from './LatestBlocks/LatestBlocks';
-import LatestTransactions from './LatestTransactions/LatestTransactions';
-import LatestLedgers from './LatestLedgers/LatestLedgers';
-import LatestOperations from './LatestOperations/LatestOperations'
+import LatestBlocks from './LatestBlocks';
+import LatestTransactions from './LatestTransactions';
+import LatestLedgers from './LatestLedgers';
+import LatestOperations from './LatestOperations'
 
 class HomeContainer extends PureComponent {
 
@@ -15,11 +15,11 @@ class HomeContainer extends PureComponent {
       return (
         <div className="home">
           <div className="flex-layout">
-            <LatestOperations/>
-          </div>
-          <div className="flex-layout">
             <LatestLedgers/>
             <LatestTransactions/>
+          </div>
+          <div className="flex-layout">
+            <LatestOperations/>
           </div>
         </div>
       );

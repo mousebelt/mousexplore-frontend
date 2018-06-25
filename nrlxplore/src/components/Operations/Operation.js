@@ -37,7 +37,7 @@ const SubOperation = ({op}) => {
   return <SubOpComponent {...op} />
 }
 
-const Operation = ({compact, op, opURLFn, parentRenderTimestamp}) => {
+const Operation = ({compact, op, parentRenderTimestamp}) => {
   const acc =
     op.type !== 'account_merge' ? (
       <AccountLink account={op.sourceAccount} />
@@ -81,7 +81,6 @@ Operation.propTypes = {
     type: PropTypes.oneOf(opTypes).isRequired,
     time: PropTypes.string,
   }).isRequired,
-  opURLFn: PropTypes.func.isRequired,
   parentRenderTimestamp: PropTypes.number,
 }
 

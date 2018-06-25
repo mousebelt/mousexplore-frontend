@@ -3,7 +3,7 @@ import {FormattedMessage} from 'react-intl'
 import PropTypes from 'prop-types'
 
 import AccountLink from './shared/AccountLink'
-import Asset from '../shared/Asset'
+import Asset from './shared/Asset'
 
 const BuyingAsset = ({buyingAssetCode, buyingAssetIssuer, buyingAssetType}) => (
   <Asset
