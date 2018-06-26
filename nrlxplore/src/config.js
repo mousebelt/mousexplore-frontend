@@ -35,8 +35,8 @@ export const coins = [
     hasTokens: false,
     tokens: [],
     api: {
-      live: 'http://34.205.147.124/api/v1/',
-      test: 'http://34.205.147.124/api/v1/'
+      live: 'http://34.207.140.33/api/v1/',
+      test: 'http://34.207.140.33/api/v1/'
     },
   },
 
