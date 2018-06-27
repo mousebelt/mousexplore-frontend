@@ -3,7 +3,7 @@ import { connectSettings } from 'core';
 
 import Address from 'components/Address/Address';
 
-class ETHAddress extends PureComponent {
+class XLMAddress extends PureComponent {
   state = {
     address: undefined,
     balance: undefined,
@@ -37,8 +37,11 @@ class ETHAddress extends PureComponent {
     
     const { txnHistory } = this.state;
 
-    apiObject.get(`/address/txs/${address}`, {
-      offset: txnHistory.length
+    apiObject.get(`/account/txs`, {
+      params: {
+        account: address,
+        offset: txnHistory.length
+      }
     })
       .then(res => {
         if (res.data.status !== 200)
@@ -92,4 +95,4 @@ const mapStateToProps = ({settings}) => ({
 });
 
 
-export default connectSettings(mapStateToProps, {})(ETHAddress);
+export default connectSettings(mapStateToProps, {})(XLMAddress);

@@ -38,7 +38,9 @@ class NEOAddress extends PureComponent {
     const { txnHistory } = this.state;
 
     apiObject.get(`/address/txs/${address}`, {
-      offset: txnHistory.length
+      params: {
+        offset: txnHistory.length
+      }
     })
       .then(res => {
         if (res.data.status !== 200) return;
