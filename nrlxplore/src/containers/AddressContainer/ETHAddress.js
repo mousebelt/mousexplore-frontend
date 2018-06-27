@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connectSettings } from 'core';
+import { find } from 'lodash';
 
 import Address from 'components/Address/Address';
 
@@ -8,7 +9,8 @@ class ETHAddress extends PureComponent {
     address: undefined,
     balance: undefined,
     totalTxns: undefined,
-    txnHistory: []
+    txnHistory: [],
+    tokenBalances: []
   };
 
   componentDidMount() {
@@ -26,8 +28,12 @@ class ETHAddress extends PureComponent {
       .then(res => {
         if (res.data.status !== 200) return;
 
+        const tokenBalances = res.data.data.balances;
+        const balanceObj = find(tokenBalances, { symbol: currency });
+        
         this.setState({
-          balance: res.data.data.balance
+          balance: balanceObj.balance,
+          tokenBalances
         });
       })
     this.getAddressTxns(apiObject, currency, address)
@@ -74,7 +80,7 @@ class ETHAddress extends PureComponent {
 
   render () {
     const { currency } = this.props;
-    const { address, balance, txnHistory, totalTxns } = this.state;
+    const { address, balance, txnHistory, totalTxns, tokenBalances } = this.state;
     return (
       <Address
         currency={currency}
@@ -82,6 +88,7 @@ class ETHAddress extends PureComponent {
         balance={balance}
         txnHistory={txnHistory}
         totalTxns={totalTxns}
+        tokenBalances={tokenBalances}
         onViewMore={this.handleViewMore}
       />
     );

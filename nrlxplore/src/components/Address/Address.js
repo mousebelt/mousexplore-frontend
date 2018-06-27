@@ -59,7 +59,11 @@ class Address extends React.PureComponent {
 
   render () {
     const { className } = this.props;
-    const { currency, address, balance, txnHistory, totalTxns, renderTXNHistory, onViewMore } = this.props;
+    const {
+      currency, address, balance, txnHistory, totalTxns,
+      renderTXNHistory, onViewMore, tokenBalances
+    } = this.props;
+    
     return (
       <div className={`nrl__address${className ? ' ' + className : ''}`}>
         <div className="nrl__address-info">
@@ -67,13 +71,24 @@ class Address extends React.PureComponent {
             <img src={icCoin} alt=""/>
           </div>
           <div className="nrl__address-info--balance">
-            <p>Balance: {balance} {currency}&nbsp;<i className="fa fa-angle-down"/></p>
+            <p>Balance: {(+balance).toFixed(8)} {currency}&nbsp;<i className="fa fa-angle-down"/></p>
             <span>{totalTxns} Transactions</span>
           </div>
           <div className="nrl__address-info--account">
             <p>Address</p>
             <span>{address}</span>
           </div>
+          {
+            (tokenBalances && tokenBalances.length > 1) && (
+              <div className="nrl__address-info-tokens">
+                {
+                  tokenBalances.map(token => (
+                    <p>{token.symbol}: {token.balance}</p>
+                  ))
+                }
+              </div>
+            )
+          }
         </div>
         <div className="nrl__address-txns">
           {
@@ -81,11 +96,11 @@ class Address extends React.PureComponent {
           }
         </div>
         {
-          (totalTxns && totalTxns > txnHistory.length) && (
+          (totalTxns && (totalTxns > txnHistory.length)) ? (
             <div className="nrl__address-txns--more">
               <a className="btn-viewmore" onClick={onViewMore}>View More</a>
             </div>
-          )
+          ) : null
         }
       </div>
     );
