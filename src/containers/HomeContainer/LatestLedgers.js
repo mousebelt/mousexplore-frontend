@@ -44,8 +44,6 @@ class LatestLedgers extends PureComponent {
   }
 
   _renderLedger = (ledger) => {
-
-    
     return (
       <div className="ledger">
         <i className="fa fa-cube icon"/>
@@ -62,9 +60,7 @@ class LatestLedgers extends PureComponent {
           </div>
         </div>
         <span className="time">
-          <i className="fa fa-clock-o"/> {
-            currency === 'xlm' ? moment(ledger.timestamp).fromNow() : moment.unix(ledger.timestamp).fromNow()
-          }
+          <i className="fa fa-clock-o"/> {moment(ledger.timestamp).fromNow()}
         </span>
       </div>
     );

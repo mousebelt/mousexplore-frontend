@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import { Link } from 'react-router-dom';
 import moment from 'moment';
+import HashLink from 'components/HashLink/HashLink';
 
 class Block extends PureComponent {
   state = {
@@ -16,7 +16,6 @@ class Block extends PureComponent {
   render() {
     const { className } = this.props;
     const { block } = this.props;
-    const { currency } = this.props;
 
     const txns = block.txns.slice(0, this.state.visibleTxnCount);
 
@@ -36,26 +35,26 @@ class Block extends PureComponent {
             <div className="detail">
               <div className="left">
                 <p className="property">
-                  Block Hash: <Link to={`/${currency.toLowerCase()}/block/${block.hash}`}>{block.hash}</Link>
+                  Block Hash: <HashLink hash={block.hash} type="block">{block.hash}</HashLink>
                 </p>
                 {
                   block.previousblockhash && (
                     <p className="property">
-                      Previous Hash: <Link to={`/${currency.toLowerCase()}/block/${block.prevHash}`}>{block.prevHash}</Link>
+                      Previous Hash: <HashLink hash={block.prevHash} type="block">{block.prevHash}</HashLink>
                     </p>
                   )
                 }
                 {
                   block.nextblockhash && (
                     <p className="property">
-                      Next Hash: <Link to={`/${currency.toLowerCase()}/block/${block.nextHash}`}>{block.nextHash}</Link>
+                      Next Hash: <HashLink hash={block.nextHash} type="block">{block.nextHash}</HashLink>
                     </p>
                   )
                 }
                 {
                   block.merkleroot && (
                     <p className="property">
-                      Merkle Root: <Link to={`/${currency.toLowerCase()}/block/${block.merkleRoot}`}>{block.merkleRoot}</Link>
+                      Merkle Root: <HashLink hash={block.merkleRoot} type="block">{block.merkleRoot}</HashLink>
                     </p>
                   )
                 }
@@ -112,15 +111,11 @@ class Block extends PureComponent {
                         </td>
                         <td className="block-height">
                           <p className="label">Block Height</p>
-                          <Link to={`/${currency.toLowerCase()}/block/${block.height}`} className="value">
-                            {block.height}
-                          </Link>
+                          <HashLink className="value" hash={block.height} type="block">{block.height}</HashLink>
                         </td>
                         <td className="hash">
                           <p className="label">TX Hash</p>
-                          <Link to={`/${currency.toLowerCase()}/transaction/${txn.hash || txn}`} className="value">
-                            {txn.hash || txn}
-                          </Link>
+                          <HashLink className="value" hash={txn.hash || txn} type="block">{txn.hash || txn}</HashLink>
                         </td>
                         <td className="time">
                           <p className="label">Time</p>
