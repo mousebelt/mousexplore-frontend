@@ -1,10 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {compose} from 'recompose'
 import {FormattedMessage} from 'react-intl'
-
-import mapKeys from 'lodash/mapKeys'
-import camelCase from 'lodash/camelCase'
 
 import Operation from './Operation'
 

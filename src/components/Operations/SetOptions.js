@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
-import AccountLink from './shared/AccountLink'
 import snakeCase from 'lodash/snakeCase'
 
 const propTypes = {

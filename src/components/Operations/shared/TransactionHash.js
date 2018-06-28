@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Link} from 'react-router-dom'
-import {shortHash} from 'core/utils'
+import { shortHash } from 'core/utils'
+import HashLink from 'components/HashLink/HashLink'
 
 const TransactionHash = ({hash, compact = true}) => {
   const hashLabel = compact ? shortHash(hash) : hash
   const className = !compact ? 'monospace' : ''
   return (
     <span title={hash} className={className}>
-      <Link to={`/xlm/transaction/${hash}`}>{hashLabel}</Link>
+      <HashLink hash={hash} type="transaction">{hashLabel}</HashLink>
     </span>
   )
 }

@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Link} from 'react-router-dom'
-import has from 'lodash/has'
+import HashLink from 'components/HashLink/HashLink'
 
 const AccountLink = ({account, label, hideKnown = false}) => {
   if (!account || account == null) return null
@@ -11,7 +10,7 @@ const AccountLink = ({account, label, hideKnown = false}) => {
   }
   return (
     <span title={account}>
-      <Link to={`/xlm/address/${account}`}>{accLabel}</Link>
+      <HashLink hash={account} type="address">{accLabel}</HashLink>
     </span>
   )
 }
