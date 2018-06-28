@@ -1,12 +1,11 @@
 import React, { PureComponent } from 'react';
-import { Link } from 'react-router-dom';
-import { formatTxnData } from 'core';
+import HashLink from 'components/HashLink/HashLink';
 import moment from 'moment';
 
 class Ledger extends PureComponent {
   render() {
     const { className } = this.props;
-    const { currency, ledger, txns } = this.props;
+    const { ledger, txns } = this.props;
 
     return (
       <div>
@@ -24,11 +23,11 @@ class Ledger extends PureComponent {
             <div className="detail">
               <div className="left">
                 <p className="property">
-                  Ledger Hash: <Link to={`/${currency.toLowerCase()}/ledger/${ledger.hash}`}>{ledger.hash}</Link>
+                  Ledger Hash: <HashLink hash={ledger.hash} type="ledger">{ledger.hash}</HashLink>
                 </p>
                 
                 <p className="property">
-                  Previous Hash: <Link to={`/${currency.toLowerCase()}/ledger/${ledger.prevHash}`}>{ledger.prevHash}</Link>
+                  Previous Hash: <HashLink hash={ledger.prevHash} type="ledger">{ledger.prevHash}</HashLink>
                 </p>
               </div>
               <div className="right">
@@ -43,7 +42,9 @@ class Ledger extends PureComponent {
                 </p>
               </div>
               <div className="time">
-                <p className="property">Timestamp: { moment(ledger.timestamp).format('YYYY-M-D h:mm:ss a') }</p>
+                <p className="property">
+                  Timestamp: { moment(ledger.timestamp).format('YYYY-M-D h:mm:ss a') }
+                </p>
               </div>
             </div>
           </div>
@@ -64,21 +65,18 @@ class Ledger extends PureComponent {
                         </td>
                         <td className="ledger-height">
                           <p className="label">Ledger</p>
-                          <Link to={`/${currency.toLowerCase()}/ledger/${ledger.height}`} className="value">
+                          <HashLink hash={ledger.height} type="ledger" className="value">
                             {ledger.height}
-                          </Link>
+                          </HashLink>
                         </td>
                         <td className="hash">
                           <p className="label">TX Hash</p>
-                          <Link to={`/${currency.toLowerCase()}/transaction/${txn.hash || txn}`} className="value">
+                          <HashLink hash={txn.hash || txn} type="transaction" className="value">
                             {txn.hash || txn}
-                          </Link>
+                          </HashLink>
                         </td>
                         <td className="operations">
                           <p className="label">Operations</p>
-                          {/* <Link to={`/${currency.toLowerCase()}/transaction/${txn.hash || txn}`} className="value">
-                            {txn.hash || txn}
-                          </Link> */}
                           <span className="value">{txn.opCount}</span>
                         </td>
                         <td className="time">
