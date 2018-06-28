@@ -1,10 +1,6 @@
 import React, { PureComponent } from 'react';
-import { Link } from 'react-router-dom';
-import moment from 'moment';
 import { mapKeys, camelCase } from 'lodash';
-
 import { connectSettings } from 'core';
-import List from 'components/List/List';
 import OperationTable from 'components/Operations/OperationTable';
 
 class LatestOperations extends PureComponent {
@@ -52,47 +48,8 @@ class LatestOperations extends PureComponent {
       this.setState({ operations });
     });
   }
-  
-  _renderOperation = (operation) => {
-    let { currency } = this.props;
-
-    currency = currency.toLowerCase();
-
-    return (
-      <div className="operation">
-        <i className="fa fa-link icon"/>
-        <div className="detail">
-          <div className="id">
-            <Link to={`/${currency}/operation/${operation.id}`}>
-              #{operation.id}
-            </Link>
-            &nbsp;({operation.type})
-          </div>
-          <div className="txn-hash">
-            Txn: &nbsp;
-            <Link to={`/${currency}/transaction/${operation.txnHash}`}>
-              {operation.txnHash}
-            </Link>
-          </div>
-        </div>
-        <span className="time">
-          <i className="fa fa-clock-o"/> {operation.timestamp ? moment(operation.timestamp).fromNow() : 'n/a'}
-        </span>
-      </div>
-    );
-  }
 
   render() {
-    // return (
-    //   <List
-    //     className="latest-operations"
-    //     icon={<i className="fa fa-link"/>}
-    //     title="Operations"
-    //     linkToAll="#"
-    //     data={this.state.operations}
-    //     renderItem={this._renderOperation}
-    //   />
-    // );
     return (
       <OperationTable
         records={this.state.operations}

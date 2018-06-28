@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'; 
-import { Link } from 'react-router-dom';
-import { connectSettings, formatTxnData } from 'core';
 import moment from 'moment';
+import { connectSettings, formatTxnData } from 'core';
 
 import List from 'components/List/List';
+import HashLink from 'components/HashLink/HashLink';
 
 class LatestTransactons extends PureComponent {
   state = {
@@ -29,21 +29,17 @@ class LatestTransactons extends PureComponent {
   getLatestTxns (apiObject, currency) {
     
     apiObject.get('/transactions', {
-      params: { count: 5}
+      params: { count: 5 }
     })
     .then(res => {
       if (res.data.status !== 200)
         return ;
-
-      console.log(res);
 
       let txns = res.data.data.result;
       
       txns = txns.map(txn => {
         return formatTxnData(txn, currency);
       });
-
-      console.log(txns);
 
       this.setState({ txns });
     });
@@ -52,38 +48,36 @@ class LatestTransactons extends PureComponent {
   _renderTransaction = (transaction) => {
     let { currency } = this.props;
 
-    currency = currency.toLowerCase();
-
     return (
       <div className="transaction">
         <i className="fa fa-credit-card icon"/>
         <div className="detail">
           <div className="hash">
-            <Link to={`/${currency}/transaction/${transaction.hash}`}>
+            <HashLink hash={transaction.hash} type="transaction">
               {transaction.hash}
-            </Link>
+            </HashLink>
           </div>
           {
-            currency === 'xlm' ? (
+            currency === 'XLM' ? (
               <div className="ledger-hash">
                 Ledger: &nbsp;
-                <Link to={`/${currency}/ledger/${transaction.ledger}`}>
+                <HashLink hash={transaction.ledger} type="ledger">
                   #{transaction.ledger}
-                </Link>
+                </HashLink>
               </div>
             ) : (
               <div className="block-hash">
                 Block: &nbsp;
-                <Link to={`/${currency}/block/${transaction.blockHash}`}>
+                <HashLink hash={transaction.blockHash} type="block">
                   {transaction.blockHash}
-                </Link>
+                </HashLink>
               </div>
             )
           }
         </div>
         <span className="time">
           <i className="fa fa-clock-o"/>&nbsp;
-          {currency === 'xlm' ? moment(transaction.timestamp).fromNow() : moment.unix(transaction.timestamp).fromNow()}
+          {currency === 'XLM' ? moment(transaction.timestamp).fromNow() : moment.unix(transaction.timestamp).fromNow()}
         </span>
       </div>
     );
