@@ -1,12 +1,10 @@
 import React, { PureComponent } from 'react';
-import { compose } from 'recompose';
-import { Link, withRouter } from 'react-router-dom';
 import moment from 'moment';
 import { connectSettings, formatTxnData } from 'core';
 
 import Txn from 'components/Txn/Txn';
 import Spinner from 'components/Spinner/Spinner';
-
+import HashLink  from 'components/HashLink/HashLink';
 
 class BTCTxn extends PureComponent {
 
@@ -16,9 +14,7 @@ class BTCTxn extends PureComponent {
   };
 
   componentDidMount() {
-    const { apiObject, currency, match } = this.props;
-
-    const { txnHash } = match.params;
+    const { apiObject, currency, txnHash } = this.props;
 
     if (txnHash) {
       this.getTxn(apiObject, currency, txnHash);    
@@ -110,9 +106,9 @@ class BTCTxn extends PureComponent {
                   if (!item.isCoinbase) 
                     return (
                       <p className="item" key={index}>
-                        <Link className="item-address" to={`/${currency.toLowerCase()}/address/${item.address}`}>
+                        <HashLink className="item-address" hash={item.address} type="address">
                           {item.address}
-                        </Link>
+                        </HashLink>
                         <span className="item-value">{item.value} {currency}</span>
                       </p>
                     );
@@ -133,9 +129,9 @@ class BTCTxn extends PureComponent {
             {
               vouts.map((item, index) => (
                 <p className="item" key={index}>
-                  <Link className="item-address" to={`/${currency.toLowerCase()}/address/${item.address}`}>
+                  <HashLink className="item-address" hash={item.address} type="address">
                     {item.address}
-                  </Link>
+                  </HashLink>
                   <span className="item-value">{item.value} {currency}</span>
                 </p>
               ))
@@ -158,9 +154,9 @@ class BTCTxn extends PureComponent {
         </div>
         <div className="block-hash">
           <span className="label">Block Hash:</span>
-          <Link className="value" to={`/${currency.toLowerCase()}/block/${txnDetail.blockHash}`}>
+          <HashLink className="value" hash={txnDetail.blockHash} type="block">
             {txnDetail.blockHash}
-          </Link>
+          </HashLink>
         </div>
       </div>
     );
@@ -195,7 +191,4 @@ const mapStateToProps = ({settings}) => ({
   apiObject: settings.apiObject
 });
 
-export default compose(
-  connectSettings(mapStateToProps, {}),
-  withRouter
-)(BTCTxn);
+export default connectSettings(mapStateToProps, {})(BTCTxn);
