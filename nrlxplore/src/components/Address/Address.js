@@ -24,33 +24,58 @@ class Address extends React.PureComponent {
       <table className="txn-table">
         <tbody>
           {
-            txnHistory.map((txn, index) => {
-              return (
-                <tr className="txn" key={index}>
-                  <td className="in-out">
-                    {
-                      <img src={txn.value < 0 ? icOut : icIn} alt=""/>
-                    }
-                  </td>
-                  <td className="hash txn-hash">
-                    <p className="label">TX Hash</p>
-                    <Link className="value" to={`/${currency.toLowerCase()}/transaction/${txn.hash}`}>{txn.hash}</Link>
-                  </td>
-                  <td className="hash block-hash">
-                    <p className="label">Block Hash</p>
-                    <Link className="value" to={`/${currency.toLowerCase()}/block/${txn.blockHash}`}>{txn.blockHash}</Link>
-                  </td>
-                  <td className="time">
-                    <p className="label">Time</p>
-                    <span className="value">{moment.unix(txn.timestamp).fromNow()}</span>
-                  </td>
-                  <td className="amount">
-                    <p className="label">Amount</p>
-                    <span className={`value ${txn.value < 0 ? 'out' : 'in'}`}>{`${txn.value.toFixed(2)} ${currency}`}</span>
-                  </td>
-                </tr>
-              );
-            })
+            currency !== 'XLM' ? (
+              txnHistory.map((txn, index) => {
+                return (
+                  <tr className="txn" key={index}>
+                    <td className="in-out">
+                      {
+                        <img src={txn.value < 0 ? icOut : icIn} alt=""/>
+                      }
+                    </td>
+                    <td className="hash txn-hash">
+                      <p className="label">TX Hash</p>
+                      <Link className="value" to={`/${currency.toLowerCase()}/transaction/${txn.hash}`}>{txn.hash}</Link>
+                    </td>
+                    <td className="hash block-hash">
+                      <p className="label">Block Hash</p>
+                      <Link className="value" to={`/${currency.toLowerCase()}/block/${txn.blockHash}`}>{txn.blockHash}</Link>
+                    </td>
+                    <td className="time">
+                      <p className="label">Time</p>
+                      <span className="value">{moment.unix(txn.timestamp).fromNow()}</span>
+                    </td>
+                    <td className="amount">
+                      <p className="label">Amount</p>
+                      <span className={`value ${txn.value < 0 ? 'out' : 'in'}`}>{`${txn.value.toFixed(2)} ${currency}`}</span>
+                    </td>
+                  </tr>
+                );
+              })
+            ) : (
+              txnHistory.map((txn, index) => {
+                return (
+                  <tr className="txn" key={index}>
+                    <td className="hash txn-hash">
+                      <p className="label">TX Hash</p>
+                      <Link className="value" to={`/${currency.toLowerCase()}/transaction/${txn.hash}`}>{txn.hash}</Link>
+                    </td>
+                    <td className="hash block-hash">
+                      <p className="label">Ledger Sequence</p>
+                      <Link className="value" to={`/${currency.toLowerCase()}/block/${txn.ledger}`}>{txn.ledger}</Link>
+                    </td>
+                    <td className="time">
+                      <p className="label">Time</p>
+                      <span className="value">{moment(txn.timestamp).fromNow()}</span>
+                    </td>
+                    <td className="amount">
+                      <p className="label">Operations</p>
+                      <span className="value">{txn.opCount}</span>
+                    </td>
+                  </tr>
+                );
+              })
+            )
           }
         </tbody>
       </table>
@@ -84,7 +109,7 @@ class Address extends React.PureComponent {
             <div className="nrl__address-info--tokens">
               {
                 tokenBalances.map(token => (
-                  <p className="token">
+                  <p className="token" key={token.symbol}>
                     <span className="symbol">{token.symbol || `Unknown Asset(${token.asset})`}: </span>
                     <span className="balance">{token.balance}</span>
                   </p>
@@ -99,11 +124,14 @@ class Address extends React.PureComponent {
           }
         </div>
         {
-          (totalTxns && (totalTxns > txnHistory.length)) ? (
-            <div className="nrl__address-txns--more">
-              <a className="btn-viewmore" onClick={onViewMore}>View More</a>
-            </div>
-          ) : null
+          <div className="nrl__address-txns--more">
+            <a className="btn-viewmore" onClick={onViewMore}>View More</a>
+          </div>
+          // (totalTxns && (totalTxns > txnHistory.length)) ? (
+          //   <div className="nrl__address-txns--more">
+          //     <a className="btn-viewmore" onClick={onViewMore}>View More</a>
+          //   </div>
+          // ) : null
         }
       </div>
     );

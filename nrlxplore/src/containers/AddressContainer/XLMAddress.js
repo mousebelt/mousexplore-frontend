@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
-import { connectSettings } from 'core';
+import { connectSettings, formatTxnData } from 'core';
+import { find } from 'lodash';
 
 import Address from 'components/Address/Address';
 
@@ -8,7 +9,9 @@ class XLMAddress extends PureComponent {
     address: undefined,
     balance: undefined,
     totalTxns: undefined,
-    txnHistory: []
+    txnHistory: [],
+    tokenBalances: undefined,
+    cursor: undefined
   };
 
   componentDidMount() {
@@ -26,8 +29,18 @@ class XLMAddress extends PureComponent {
       .then(res => {
         if (res.data.status !== 200) return;
 
+        let tokenBalances = res.data.data;
+
+        tokenBalances = tokenBalances.map(({ asset_code, balance, asset_type }) =>({
+          symbol: (asset_type === 'native') ? 'XLM' : asset_code,
+          balance: balance
+        }));
+
+        const balanceObj = find(tokenBalances, { symbol: currency });
+        
         this.setState({
-          balance: res.data.data.balance
+          balance: balanceObj.balance,
+          tokenBalances
         });
       })
     this.getAddressTxns(apiObject, currency, address)
@@ -35,31 +48,25 @@ class XLMAddress extends PureComponent {
 
   getAddressTxns (apiObject, currency, address) {
     
-    const { txnHistory } = this.state;
+    const { cursor, txnHistory } = this.state;
 
-    apiObject.get(`/account/txs`, {
+    apiObject.get(`/address/txs/${address}`, {
       params: {
-        account: address,
-        offset: txnHistory.length
+        cursor: cursor
       }
     })
       .then(res => {
         if (res.data.status !== 200)
           return;
 
-        let { total: totalTxns, result: newTxns } = res.data.data;
+        let { result: newTxns, next: cursor } = res.data.data;
 
         newTxns = newTxns.map(txn => {
-          return {
-            hash: txn.hash,
-            value: (+txn.value) / Math.pow(10, 18) * (txn.from === address ? -1 : 1),
-            blockHash: txn.blockHash,
-            timestamp: txn.timestamp
-          };
+          return formatTxnData(txn, currency);
         })
 
         this.setState({
-          totalTxns, 
+          cursor,
           txnHistory: txnHistory.concat(newTxns)
         });
       })
@@ -75,7 +82,7 @@ class XLMAddress extends PureComponent {
 
   render () {
     const { currency } = this.props;
-    const { address, balance, txnHistory, totalTxns } = this.state;
+    const { address, balance, txnHistory, totalTxns, tokenBalances } = this.state;
     return (
       <Address
         currency={currency}
@@ -83,6 +90,7 @@ class XLMAddress extends PureComponent {
         balance={balance}
         txnHistory={txnHistory}
         totalTxns={totalTxns}
+        tokenBalances={tokenBalances}
         onViewMore={this.handleViewMore}
       />
     );
