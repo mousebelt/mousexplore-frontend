@@ -87,7 +87,7 @@ class ETHTxn extends PureComponent {
           <span className="label">
             Amount:
           </span>
-          <span className="value">{txnDetail.value} ETH</span>
+          <span className="value">{txnDetail.value / Math.pow(10, 18)} ETH</span>
         </div>
         <div className="gas-limit">
           <span className="label">Gas:</span>
@@ -95,11 +95,11 @@ class ETHTxn extends PureComponent {
         </div>
         <div className="gas-price">
           <span className="label">Gas Price:</span>
-          <span className="value">{txnDetail.gasPrice} Gwei</span>
+          <span className="value">{txnDetail.gasPrice / Math.pow(10, 9)} Gwei</span>
         </div>
         <div className="fee">
           <span className="label">Fee:</span>
-          <span className="value">{txnDetail.fee / Math.pow(10, 16)} ETH</span>
+          <span className="value">{txnDetail.fee / Math.pow(10, 18)} ETH</span>
         </div>
         <div className="time">
           <span className="label">

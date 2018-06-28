@@ -27,9 +27,6 @@ const getMessages = locale => {
 
 const initialLanguage = 'en';
 
-
-
-
 class App extends Component {
   render() {
     return (
