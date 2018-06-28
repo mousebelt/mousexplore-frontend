@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connectSettings } from 'core';
+import { find } from 'lodash';
 
 import Address from 'components/Address/Address';
 
@@ -8,7 +9,8 @@ class NEOAddress extends PureComponent {
     address: undefined,
     balance: undefined,
     totalTxns: undefined,
-    txnHistory: []
+    txnHistory: [],
+    tokenBalances: undefined
   };
 
   componentDidMount() {
@@ -26,8 +28,19 @@ class NEOAddress extends PureComponent {
       .then(res => {
         if (res.data.status !== 200) return;
 
+        let tokenBalances = res.data.data.balance;
+
+        tokenBalances = tokenBalances.map(({ ticker, value, asset }) =>({
+          symbol: ticker,
+          balance: value,
+          asset: asset
+        }));
+
+        const balanceObj = find(tokenBalances, { symbol: currency });
+        
         this.setState({
-          balance: res.data.data.balance
+          balance: balanceObj.balance,
+          tokenBalances
         });
       })
     this.getAddressTxns(apiObject, currency, address)
@@ -85,7 +98,7 @@ class NEOAddress extends PureComponent {
 
   render () {
     const { currency } = this.props;
-    const { address, balance, txnHistory, totalTxns } = this.state;
+    const { address, balance, txnHistory, totalTxns, tokenBalances } = this.state;
     return (
       <Address
         currency={currency}
@@ -93,6 +106,7 @@ class NEOAddress extends PureComponent {
         balance={balance}
         txnHistory={txnHistory}
         totalTxns={totalTxns}
+        tokenBalances={tokenBalances}
         onViewMore={this.handleViewMore}
       />
     );

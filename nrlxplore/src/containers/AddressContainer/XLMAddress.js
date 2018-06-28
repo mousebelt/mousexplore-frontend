@@ -63,9 +63,6 @@ class XLMAddress extends PureComponent {
           txnHistory: txnHistory.concat(newTxns)
         });
       })
-      .catch(err => {
-        console.log(err);
-      })
   }
 
   handleViewMore = () => {

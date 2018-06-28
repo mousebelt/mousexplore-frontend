@@ -10,7 +10,7 @@ class ETHAddress extends PureComponent {
     balance: undefined,
     totalTxns: undefined,
     txnHistory: [],
-    tokenBalances: []
+    tokenBalances: undefined
   };
 
   componentDidMount() {

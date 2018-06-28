@@ -71,7 +71,7 @@ class Address extends React.PureComponent {
             <img src={icCoin} alt=""/>
           </div>
           <div className="nrl__address-info--balance">
-            <p>Balance: {(+balance).toFixed(4)} {currency}&nbsp;<i className="fa fa-angle-down"/></p>
+            <p>Balance: {(+balance).toFixed(4)} {currency}&nbsp;</p>
             <span>{totalTxns} Transactions</span>
           </div>
           <div className="nrl__address-info--account">
@@ -85,7 +85,7 @@ class Address extends React.PureComponent {
               {
                 tokenBalances.map(token => (
                   <p className="token">
-                    <span className="symbol">{token.symbol}: </span>
+                    <span className="symbol">{token.symbol || `Unknown Asset(${token.asset})`}: </span>
                     <span className="balance">{token.balance}</span>
                   </p>
                 ))
