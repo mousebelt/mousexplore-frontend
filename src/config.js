@@ -53,7 +53,7 @@ export const coins = [
     ],
     api: {
       live: 'http://54.152.5.218/api/v1',
-      test: 'http://18.205.122.159:8001/api/v1'
+      test: 'http://54.152.5.218/api/v1'
     },
   },
   
