@@ -7,26 +7,23 @@ import ETHTxn from './ETHTxn';
 import NEOTxn from './NEOTxn';
 import XLMTxn from './XLMTxn';
 
+const TxnComponentMap = {
+  BTC: BTCTxn,
+  LTC: LTCTxn,
+  ETH: ETHTxn,
+  NEO: NEOTxn,
+  XLM: XLMTxn,
+}
+
 class TxnContainer extends PureComponent {
   render() {
-    const { currency } = this.props;
+    const { currency, match } = this.props;
+
+    const TxnComponent = TxnComponentMap[currency] || null;
+
     return (
       <div className="txn-container">
-        {
-          currency === 'BTC' && <BTCTxn/>
-        }
-        {
-          currency === 'LTC' && <LTCTxn/>
-        }
-        {
-          currency === 'ETH' && <ETHTxn/>
-        }
-        {
-          currency === 'NEO' && <NEOTxn/>
-        }
-        {
-          currency === 'XLM' && <XLMTxn/>
-        }
+        <TxnComponent txnHash={match.params.txnHash}/>
       </div>
     );
   }

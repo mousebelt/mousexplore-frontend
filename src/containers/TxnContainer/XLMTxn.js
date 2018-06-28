@@ -1,6 +1,4 @@
 import React, { PureComponent } from 'react';
-import { compose, flattenProp } from 'recompose';
-import { Link, withRouter } from 'react-router-dom';
 import moment from 'moment';
 import { connectSettings, formatTxnData } from 'core';
 import { camelCase, mapKeys } from 'lodash';
@@ -8,6 +6,7 @@ import { camelCase, mapKeys } from 'lodash';
 import Txn from 'components/Txn/Txn';
 import OperationTable from 'components/Operations/OperationTable';
 import Spinner from 'components/Spinner/Spinner';
+import HashLink  from 'components/HashLink/HashLink';
 
 
 class XLMTxn extends PureComponent {
@@ -19,25 +18,12 @@ class XLMTxn extends PureComponent {
   };
 
   componentDidMount() {
-    const { apiObject, currency, match } = this.props;
-
-    const { txnHash } = match.params;
+    const { apiObject, currency, txnHash } = this.props;
 
     if (txnHash) {
       this.getTxn(apiObject, currency, txnHash);
       this.getOperations(apiObject, currency, txnHash);
     }
-  }
-
-  componentWillReceiveProps (newProps) {
-    const { apiObject, currency, match } = newProps;
-
-    const { txnHash } = match.params;
-
-    if (txnHash) {
-      this.getTxn(apiObject, currency, txnHash);
-      this.getOperations(apiObject, currency, txnHash);
-    } 
   }
 
   getTxn (apiObject, currency, txnHash) {
@@ -72,9 +58,7 @@ class XLMTxn extends PureComponent {
 
     apiObject.get(`/tx/operations/${txnHash}`)
       .then(res => {
-        if (res.data.status !== 200) {
-          return;
-        }
+        if (res.data.status !== 200) return;
 
         let operations = res.data.data.result;
         operations = operations.map(operation => {
@@ -102,15 +86,12 @@ class XLMTxn extends PureComponent {
         <div className="status">
           <span className="label">TxReceipt Status:</span>
           <span className='value success'>Success</span>
-          {/* <span className={`value ${txnDetail.confirmations > 1 ? 'success' : 'failure'}`}>
-            {txnDetail.confirmations > 1 ? 'Success' : 'Failed'}
-          </span> */}
         </div>
         <div className="account">
           <span className="label">Account:</span>
-          <Link className="value" to={`/${currency.toLowerCase()}/address/${txnDetail.account}`}>
+          <HashLink className="value" hash={txnDetail.account} type="address">
             {txnDetail.account}
-          </Link>
+          </HashLink>
         </div>
         <div className="operation-count">
           <span className="label">Operations:</span>
@@ -128,9 +109,9 @@ class XLMTxn extends PureComponent {
         </div>
         <div className="block-hash">
           <span className="label">Ledger Sequence:</span>
-          <Link className="value" to={`/${currency.toLowerCase()}/ledger/${txnDetail.ledger_attr}`}>
+          <HashLink className="value" hash={txnDetail.ledger_attr} type="ledger">
             {txnDetail.ledger_attr}
-          </Link>
+          </HashLink>
         </div>
       </div>
     );
@@ -171,12 +152,10 @@ class XLMTxn extends PureComponent {
   }
 }
 
+
 const mapStateToProps = ({settings}) => ({
   currency: settings.currency,
   apiObject: settings.apiObject
 });
 
-export default compose(
-  connectSettings(mapStateToProps, {}),
-  withRouter
-)(XLMTxn);
+export default connectSettings(mapStateToProps, {})(XLMTxn);
