@@ -8,7 +8,6 @@ import OperationTable from 'components/Operations/OperationTable';
 import Spinner from 'components/Spinner/Spinner';
 import HashLink  from 'components/HashLink/HashLink';
 
-
 class XLMTxn extends PureComponent {
 
   state = {

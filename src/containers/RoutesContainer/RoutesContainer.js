@@ -58,7 +58,7 @@ class RoutesContainer extends PureComponent {
   }
 
   componentWillReceiveProps(newProps) {
-    const { history, location } = newProps;
+    const { history } = newProps;
 
     const newSettings = newProps.settings;
     const curSettings = this.props.settings;
@@ -69,15 +69,9 @@ class RoutesContainer extends PureComponent {
         ticker: newSettings.ticker ? newSettings.ticker.toLowerCase() : undefined,
       });
 
-      const matchParams = location.pathname.split('/');
-      matchParams[1] = newSettings.currency.toLowerCase();
-      const newPathName = matchParams.join('/');
-
       const newLocation = history.createHref({
-        hash: '',
-        pathname: newPathName,
+        pathname: `/${newSettings.currency.toLowerCase()}`,
         search: queryString,
-        state: undefined
       });
 
       history.push(newLocation);
