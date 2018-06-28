@@ -1,12 +1,10 @@
 import React, { PureComponent } from 'react';
-import { compose } from 'recompose';
-import { Link, withRouter } from 'react-router-dom';
 import moment from 'moment';
 import { connectSettings, formatTxnData } from 'core';
 
 import Txn from 'components/Txn/Txn';
 import Spinner from 'components/Spinner/Spinner';
-
+import HashLink  from 'components/HashLink/HashLink';
 
 class ETHTxn extends PureComponent {
 
@@ -16,19 +14,7 @@ class ETHTxn extends PureComponent {
   };
 
   componentDidMount() {
-    const { apiObject, currency, match } = this.props;
-
-    const { txnHash } = match.params;
-
-    if (txnHash) {
-      this.getTxn(apiObject, currency, txnHash);    
-    }
-  }
-
-  componentWillReceiveProps (newProps) {
-    const { apiObject, currency, match } = newProps;
-
-    const { txnHash } = match.params;
+    const { apiObject, currency, txnHash } = this.props;
 
     if (txnHash) {
       this.getTxn(apiObject, currency, txnHash);    
@@ -77,11 +63,11 @@ class ETHTxn extends PureComponent {
         </div>
         <div className="to">
           <span className="label">To:</span>
-          <Link className="value" to={`/eth/address/${txnDetail.to}`}>{txnDetail.to}</Link>
+          <HashLink className="value" hash={txnDetail.to} type="address">{txnDetail.to}</HashLink>
         </div>
         <div className="from">
           <span className="label">From:</span>
-          <Link className="value" to={`/eth/address/${txnDetail.from}`}>{txnDetail.from}</Link>
+          <HashLink className="value" hash={txnDetail.from} type="address">{txnDetail.from}</HashLink>
         </div>
         <div className="amount">
           <span className="label">
@@ -111,7 +97,7 @@ class ETHTxn extends PureComponent {
         </div>
         <div className="block-hash">
           <span className="label">Block Hash:</span>
-          <Link className="value" to={`/eth/block/${txnDetail.blockHash}`}>{txnDetail.blockHash}</Link>
+          <HashLink className="value" hash={txnDetail.blockHash} type="block">{txnDetail.blockHash}</HashLink>
         </div>
       </div>
     );
@@ -146,7 +132,4 @@ const mapStateToProps = ({settings}) => ({
   apiObject: settings.apiObject
 });
 
-export default compose(
-  connectSettings(mapStateToProps, {}),
-  withRouter
-)(ETHTxn);
+export default connectSettings(mapStateToProps, {})(ETHTxn);
