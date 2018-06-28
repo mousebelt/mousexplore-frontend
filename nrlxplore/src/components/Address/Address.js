@@ -71,25 +71,28 @@ class Address extends React.PureComponent {
             <img src={icCoin} alt=""/>
           </div>
           <div className="nrl__address-info--balance">
-            <p>Balance: {(+balance).toFixed(8)} {currency}&nbsp;<i className="fa fa-angle-down"/></p>
+            <p>Balance: {(+balance).toFixed(4)} {currency}&nbsp;<i className="fa fa-angle-down"/></p>
             <span>{totalTxns} Transactions</span>
           </div>
           <div className="nrl__address-info--account">
             <p>Address</p>
             <span>{address}</span>
           </div>
-          {
-            (tokenBalances && tokenBalances.length > 1) && (
-              <div className="nrl__address-info-tokens">
-                {
-                  tokenBalances.map(token => (
-                    <p>{token.symbol}: {token.balance}</p>
-                  ))
-                }
-              </div>
-            )
-          }
         </div>
+        {
+          (tokenBalances && tokenBalances.length > 1) && (
+            <div className="nrl__address-info--tokens">
+              {
+                tokenBalances.map(token => (
+                  <p className="token">
+                    <span className="symbol">{token.symbol}: </span>
+                    <span className="balance">{token.balance}</span>
+                  </p>
+                ))
+              }
+            </div>
+          )
+        }
         <div className="nrl__address-txns">
           {
             renderTXNHistory ? renderTXNHistory() : this._renderTXNHistory()
