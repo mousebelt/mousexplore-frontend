@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import HashLink  from 'components/HashLink/HashLink';
 
 import icCoin from 'assets/img/ic_coin.png';
 import icIn from 'assets/img/ic_in.png';
@@ -35,11 +35,11 @@ class Address extends React.PureComponent {
                     </td>
                     <td className="hash txn-hash">
                       <p className="label">TX Hash</p>
-                      <Link className="value" to={`/${currency.toLowerCase()}/transaction/${txn.hash}`}>{txn.hash}</Link>
+                      <HashLink className="value" hash={txn.hash} type="transaction">{txn.hash}</HashLink>
                     </td>
                     <td className="hash block-hash">
                       <p className="label">Block Hash</p>
-                      <Link className="value" to={`/${currency.toLowerCase()}/block/${txn.blockHash}`}>{txn.blockHash}</Link>
+                      <HashLink className="value" hash={txn.blockHash} type="block">{txn.blockHash}</HashLink>
                     </td>
                     <td className="time">
                       <p className="label">Time</p>
@@ -58,11 +58,11 @@ class Address extends React.PureComponent {
                   <tr className="txn" key={index}>
                     <td className="hash txn-hash">
                       <p className="label">TX Hash</p>
-                      <Link className="value" to={`/${currency.toLowerCase()}/transaction/${txn.hash}`}>{txn.hash}</Link>
+                      <HashLink className="value" hash={txn.hash} type="transaction">{txn.hash}</HashLink>
                     </td>
                     <td className="hash block-hash">
                       <p className="label">Ledger Sequence</p>
-                      <Link className="value" to={`/${currency.toLowerCase()}/block/${txn.ledger}`}>{txn.ledger}</Link>
+                      <HashLink className="value" hash={txn.blockHash} type="block">{txn.ledger}</HashLink>
                     </td>
                     <td className="time">
                       <p className="label">Time</p>
@@ -85,7 +85,7 @@ class Address extends React.PureComponent {
   render () {
     const { className } = this.props;
     const {
-      currency, address, balance, txnHistory, totalTxns,
+      currency, address, balance, totalTxns,
       renderTXNHistory, onViewMore, tokenBalances
     } = this.props;
     

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
+import HashLink from 'components/HashLink/HashLink';
 
 import List from 'components/List/List';
 import { connectSettings } from 'core';
@@ -18,16 +18,13 @@ class LatestBlocks extends PureComponent {
   }
 
   componentWillReceiveProps (newProps) {
-    this.setState({
-      blocks: []
-    });
-    
     const { apiObject, currency } = newProps;
     
     this.getLatestBlocks(apiObject, currency);
   }
 
   getLatestBlocks (apiObject, currency) {
+    this.setState({ blocks: [] });
     
     apiObject.get('/blocks', {
       params: { count: 5}
@@ -44,23 +41,19 @@ class LatestBlocks extends PureComponent {
   }
 
   _renderBlock = (block) => {
-    let { currency } = this.props;
-
-    currency = currency.toLowerCase();
-    
     return (
       <div className="block">
         <i className="fa fa-cube icon"/>
         <div className="detail">
           <div className="height">
-            <Link to={`/${currency}/block/${block.height}`}>
+            <HashLink hash={block.height} type="block">
               #{block.height}
-            </Link>
+            </HashLink>
           </div>
           <div className="hash">
-            <Link to={`/${currency}/block/${block.hash}`}>
+            <HashLink hash={block.hash} type="block">
               {block.hash}
-            </Link>
+            </HashLink>
           </div>
         </div>
         <span className="time">

@@ -9,10 +9,10 @@ import { findCoinByCurrency, findTokenByTicker } from 'config';
 import { connectSettings, settingsActionCreators } from 'core';
 
 import HomeContainer from 'containers/HomeContainer/HomeContainer';
-import BlockTableContainer from 'containers/BlockTableContainer/BlockTableContainer';
+// import BlockTableContainer from 'containers/BlockTableContainer/BlockTableContainer';
 import BlockContainer from 'containers/BlockContainer/BlockContainer';
 import LedgerContainer from 'containers/LedgerContainer/LedgerContainer';
-import TxnTableContainer from 'containers/TxnTableContainer/TxnTableContainer';
+// import TxnTableContainer from 'containers/TxnTableContainer/TxnTableContainer';
 import TxnContainer from 'containers/TxnContainer/TxnContainer';
 import AddressContainer from 'containers/AddressContainer/AddressContainer';
 
@@ -58,7 +58,7 @@ class RoutesContainer extends PureComponent {
   }
 
   componentWillReceiveProps(newProps) {
-    const { history, location } = newProps;
+    const { history } = newProps;
 
     const newSettings = newProps.settings;
     const curSettings = this.props.settings;
@@ -69,15 +69,9 @@ class RoutesContainer extends PureComponent {
         ticker: newSettings.ticker ? newSettings.ticker.toLowerCase() : undefined,
       });
 
-      const matchParams = location.pathname.split('/');
-      matchParams[1] = newSettings.currency.toLowerCase();
-      const newPathName = matchParams.join('/');
-
       const newLocation = history.createHref({
-        hash: '',
-        pathname: newPathName,
+        pathname: `/${newSettings.currency.toLowerCase()}`,
         search: queryString,
-        state: undefined
       });
 
       history.push(newLocation);
@@ -122,10 +116,10 @@ class RoutesContainer extends PureComponent {
     return (
       <Switch>
         <Route exact path="/:currency" component={HomeContainer}/>
-        <Route exact path="/:currency/blocks" component={BlockTableContainer}/>
+        {/* <Route exact path="/:currency/blocks" component={BlockTableContainer}/> */}
         <Route exact path="/xlm/ledger/:ledgerHash" component={LedgerContainer}/>
         <Route exact path="/:currency/block/:blockHash" component={BlockContainer}/>
-        <Route exact path="/:currency/transactions" component={TxnTableContainer}/>
+        {/* <Route exact path="/:currency/transactions" component={TxnTableContainer}/> */}
         <Route exact path="/:currency/transaction/:txnHash" component={TxnContainer}/>
         <Route exact path="/:currency/address/:addrHash" component={AddressContainer}/>
         <Redirect to="/404"/>

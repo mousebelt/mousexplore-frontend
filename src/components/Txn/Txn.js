@@ -1,10 +1,9 @@
 import React, { PureComponent } from 'react';
-import { Button } from 'antd';
-import { Link } from 'react-router-dom';
+import HashLink from 'components/HashLink/HashLink'
 
 class Txn extends PureComponent {
   render() {
-    const { className, currency, txnHash, onPrevClick, onNextClick, children } = this.props;
+    const { className, currency, txnHash, children } = this.props;
 
     return (
       <div className={`nrl__txn${className ? ' ' + className : ''}`}>
@@ -16,7 +15,7 @@ class Txn extends PureComponent {
             <h5>{currency} Transaction Information</h5>
             <p>
               TXN Hash:&nbsp;
-              <Link to={`/${currency.toLowerCase()}/transaction/${txnHash}`}>{txnHash}</Link>
+              <HashLink hash={txnHash} type="transaction">{txnHash}</HashLink>
             </p>
           </div>
         </div>

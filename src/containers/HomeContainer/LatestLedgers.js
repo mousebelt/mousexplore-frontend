@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
+import HashLink from 'components/HashLink/HashLink';
 
 import List from 'components/List/List';
 import { connectSettings } from 'core';
@@ -44,29 +44,23 @@ class LatestLedgers extends PureComponent {
   }
 
   _renderLedger = (ledger) => {
-    let { currency } = this.props;
-
-    currency = currency.toLowerCase();
-    
     return (
       <div className="ledger">
         <i className="fa fa-cube icon"/>
         <div className="detail">
           <div className="height">
-            <Link to={`/${currency}/ledger/${ledger.height}`}>
+            <HashLink hash={ledger.height} type="ledger">
               #{ledger.height}
-            </Link>
+            </HashLink>
           </div>
           <div className="hash">
-            <Link to={`/${currency}/ledger/${ledger.height}`}>
+            <HashLink hash={ledger.height} type="ledger">
               {ledger.hash}
-            </Link>
+            </HashLink>
           </div>
         </div>
         <span className="time">
-          <i className="fa fa-clock-o"/> {
-            currency === 'xlm' ? moment(ledger.timestamp).fromNow() : moment.unix(ledger.timestamp).fromNow()
-          }
+          <i className="fa fa-clock-o"/> {moment(ledger.timestamp).fromNow()}
         </span>
       </div>
     );
