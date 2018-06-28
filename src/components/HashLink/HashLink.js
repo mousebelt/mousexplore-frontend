@@ -12,7 +12,7 @@ const HashLink = ({settings, type, hash, children, ...props}) => {
   });
 
   const toObject = {
-    pathname: `/${currency.toLowerCase()}/${type.toLowerCase()}/${hash}`,
+    pathname: `/${currency.toLowerCase()}${type ? '/' + type.toLowerCase() : ''}${hash ? '/' + hash : ''}`,
     search: queryString
   };
 

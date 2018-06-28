@@ -21,16 +21,6 @@ class BTCTxn extends PureComponent {
     }
   }
 
-  componentWillReceiveProps (newProps) {
-    const { apiObject, currency, match } = newProps;
-
-    const { txnHash } = match.params;
-
-    if (txnHash) {
-      this.getTxn(apiObject, currency, txnHash);    
-    }
-  }
-
   getTxn (apiObject, currency, txnHash) {
     this.setState({
       txn: undefined,
