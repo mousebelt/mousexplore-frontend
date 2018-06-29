@@ -62,11 +62,11 @@ export const coins = [
     currency: 'XLM',
     hasTokens: true,
     tokens: [
-      { tokenName: 'Mobius', ticker: 'MOBI' },
-      { tokenName: 'Repocoin', ticker: 'REPO' },
-      { tokenName: 'Firefly', ticker: 'XCN' },
-      { tokenName: 'Diruna', ticker: 'DRA' },
-      { tokenName: 'Smartlands', ticker: 'SLT' },
+      // { tokenName: 'Mobius', ticker: 'MOBI' },
+      // { tokenName: 'Repocoin', ticker: 'REPO' },
+      // { tokenName: 'Firefly', ticker: 'XCN' },
+      // { tokenName: 'Diruna', ticker: 'DRA' },
+      // { tokenName: 'Smartlands', ticker: 'SLT' },
     ],
     api: {
       live: 'http://18.205.122.159:2000/api/v1',
