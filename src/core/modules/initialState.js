@@ -5,6 +5,7 @@ const settings = {
   netType: 'live',
   ticker: undefined,
   apiObject: undefined,
+  initializedRoute: false,
 };
 
 export const initialState = {
