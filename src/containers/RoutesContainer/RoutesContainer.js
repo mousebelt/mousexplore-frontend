@@ -61,16 +61,16 @@ class RoutesContainer extends PureComponent {
   }
 
   componentWillReceiveProps(newProps) {
-    if (!newProps.settings.initializedRoute) {
-      return;
-    }
-
-    const { history } = newProps;
-
     const newSettings = newProps.settings;
     const curSettings = this.props.settings;
 
+    if (!curSettings.initializedRoute) {
+      return;
+    }
+
     if (!isEqual(curSettings, newSettings)) {
+      const { history } = newProps;
+
       const queryString = qs.stringify({
         net: (newSettings.netType.toLowerCase() === 'test') ? newSettings.netType.toLowerCase() : undefined,
         ticker: newSettings.ticker ? newSettings.ticker.toLowerCase() : undefined,
