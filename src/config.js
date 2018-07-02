@@ -25,7 +25,7 @@ export const coins = [
     ],
     api: {
       live: 'http://18.232.254.235/api/v1',
-      test: 'http://18.232.254.235/api/v1'
+      test: 'http://18.209.104.0/api/v1'
     },
   },
 
