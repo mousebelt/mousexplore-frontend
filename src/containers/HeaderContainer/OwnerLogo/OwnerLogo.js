@@ -3,7 +3,7 @@ import HashLink from 'components/HashLink/HashLink'
 
 import logoImg  from'assets/img/logo.png';
 
-const OwnerLogo = (props) => (
+const OwnerLogo = () => (
   <div className="logo">
     <HashLink>
       <img className="logo__img" src={logoImg} alt="App Logo"/>

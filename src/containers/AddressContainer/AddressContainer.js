@@ -29,5 +29,4 @@ const mapStateToProps = ({settings}) => ({
   currency: settings.currency,
 });
 
-
 export default connectSettings(mapStateToProps, {})(AddressContainer);
