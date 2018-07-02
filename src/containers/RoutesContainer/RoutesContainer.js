@@ -37,7 +37,7 @@ import AddressContainer from 'containers/AddressContainer/AddressContainer';
  */
 
 class RoutesContainer extends PureComponent {
-
+  
   componentWillMount() {
     const { history, setSettings } = this.props;
 
@@ -51,13 +51,20 @@ class RoutesContainer extends PureComponent {
      */
     const newSettings = this.getSettingsFromURL();
 
-    if (!newSettings)
+    if (!newSettings) {
       history.replace('/404');
-    else
+    }
+    else {
+      newSettings.initializedRoute = true;
       setSettings(newSettings);
+    }
   }
 
   componentWillReceiveProps(newProps) {
+    if (!newProps.settings.initializedRoute) {
+      return;
+    }
+
     const { history } = newProps;
 
     const newSettings = newProps.settings;
@@ -76,7 +83,6 @@ class RoutesContainer extends PureComponent {
 
       history.push(newLocation);
     }
-
   }
 
   getSettingsFromURL () {
@@ -134,7 +140,8 @@ RoutesContainer.propTypes = {
   settings: PropTypes.shape({
     currency: PropTypes.string,
     netType: PropTypes.string,
-    ticker: PropTypes.string
+    ticker: PropTypes.string,
+    initializedRoute: PropTypes.bool
   }),
 
   // Action dispatcher to set the state of settings
