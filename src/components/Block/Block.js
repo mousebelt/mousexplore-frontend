@@ -127,7 +127,7 @@ class Block extends PureComponent {
                 }
               </tbody>
             </table>
-          </div>
+          </div>                                                        
           <div className="nrl__block-txns--more">
             <a className="btn-viewmore" onClick={this.handleViewMore}>View More</a>
           </div>
@@ -137,4 +137,4 @@ class Block extends PureComponent {
   }
 }
 
-export default Block;
+export default Block;                                                                                                                                                                                                                                                                                     
