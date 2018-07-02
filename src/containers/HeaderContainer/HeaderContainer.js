@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import OwnerLogo from './OwnerLogo/OwnerLogo';
 
 class HeaderContainer extends Component {
   render() {
     return (
       <div className="header">
-        <h2 className="header__title">Header title</h2>
+        <OwnerLogo/>
       </div>
     );
   }

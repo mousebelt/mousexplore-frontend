@@ -5,7 +5,6 @@ import { connectSettings } from 'core';
 import { notification } from 'antd';
 import qs from 'query-string';
 
-import OwnerLogo from './OwnerLogo/OwnerLogo';
 import CurrencySelect from './CurrencySelect/CurrencySelect';
 import NetTypeToggle from './NetTypeToggle/NetTypeToggle';
 import TokenSelect from './TokenSelect/TokenSelect';
@@ -48,7 +47,6 @@ class SettingsContainer extends PureComponent {
     const { settings, setCurrency, setNetType, setTicker } = this.props;
     return (
       <div className="settings">
-        <OwnerLogo currency={this.props.settings.currency}/>  
         <div className="settings__filter">
           <CurrencySelect
             currency={settings.currency}
@@ -71,21 +69,6 @@ class SettingsContainer extends PureComponent {
     );
   }
 }
-
-// SettingsContainer.propTypes = {
-
-//   // Current state of settings in redux
-//   settings: PropTypes.shape({
-//     currency: PropTypes.string,
-//     netType: PropTypes.string,
-//     ticker: PropTypes.string,
-//     apiObject: PropTypes.object
-//   }),
-
-//   // Action dispatcher to set the state of settings
-//   setSettings: PropTypes.func
-  
-// }
 
 export default compose(
   connectSettings(),
