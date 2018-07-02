@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import qs from 'query-string';
+import qs from 'qs';
 import { isEqual } from 'lodash';
 
 import { findCoinByCurrency, findTokenByTicker } from 'config';

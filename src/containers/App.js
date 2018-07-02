@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import { store } from 'core';
-import HeaderContainer from 'containers/HeaderContainer/HeaderContainer';
 import SettingsContainer from 'containers/SettingsContainer/SettingsContainer';
 import RoutesContainer from 'containers/RoutesContainer/RoutesContainer';
 import PageNotFound from 'components/PageNotFound/PageNotFound';
@@ -38,7 +37,7 @@ class App extends Component {
         <Provider store={store}>
           <Router>
             <div className="App">
-              <HeaderContainer />
+              {/* <HeaderContainer /> */}
               <div className="content">
                 <SettingsContainer />
                 <Switch>

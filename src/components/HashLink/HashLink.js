@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connectSettings } from 'core';
-import qs from 'query-string';
+import qs from 'qs';
 
 const HashLink = ({settings, type, hash, children, ...props}) => {
   const { currency, netType, ticker } = settings;

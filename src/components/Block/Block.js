@@ -38,14 +38,14 @@ class Block extends PureComponent {
                   Block Hash: <HashLink hash={block.hash} type="block">{block.hash}</HashLink>
                 </p>
                 {
-                  block.previousblockhash && (
+                  block.prevHash && (
                     <p className="property">
                       Previous Hash: <HashLink hash={block.prevHash} type="block">{block.prevHash}</HashLink>
                     </p>
                   )
                 }
                 {
-                  block.nextblockhash && (
+                  block.nextHash && (
                     <p className="property">
                       Next Hash: <HashLink hash={block.nextHash} type="block">{block.nextHash}</HashLink>
                     </p>
@@ -90,7 +90,7 @@ class Block extends PureComponent {
                 }
               </div>
               <div className="time">
-                <p className="property">Timestamp: { moment.unix(block.time).format('YYYY-M-D h:mm:ss a') }</p>
+                <p className="property">Timestamp: { moment.unix(block.timestamp).format('YYYY-M-D h:mm:ss a') }</p>
               </div>
             </div>
           </div>
@@ -127,7 +127,7 @@ class Block extends PureComponent {
                 }
               </tbody>
             </table>
-          </div>
+          </div>                                                        
           <div className="nrl__block-txns--more">
             <a className="btn-viewmore" onClick={this.handleViewMore}>View More</a>
           </div>
@@ -137,4 +137,4 @@ class Block extends PureComponent {
   }
 }
 
-export default Block;
+export default Block;                                                                                                                                                                                                                                                                                     

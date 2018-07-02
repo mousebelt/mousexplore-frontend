@@ -3,7 +3,7 @@ import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import { connectSettings } from 'core';
 import { notification } from 'antd';
-import qs from 'query-string';
+import qs from 'qs';
 
 import OwnerLogo from './OwnerLogo/OwnerLogo';
 import CurrencySelect from './CurrencySelect/CurrencySelect';

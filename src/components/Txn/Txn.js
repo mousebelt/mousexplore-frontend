@@ -8,9 +8,9 @@ class Txn extends PureComponent {
     return (
       <div className={`nrl__txn${className ? ' ' + className : ''}`}>
         <div className="nrl__txn-header">
-          <div className="nrl__txn-header--icon">
+          {/* <div className="nrl__txn-header--icon">
             <i className="fa fa-long-arrow-left"/>
-          </div>
+          </div> */}
           <div className="nrl__txn-header--title">
             <h5>{currency} Transaction Information</h5>
             <p>
