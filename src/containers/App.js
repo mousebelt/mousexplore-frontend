@@ -38,7 +38,7 @@ class App extends Component {
         <Provider store={store}>
           <Router>
             <div className="App">
-              <HeaderContainer />
+              {/* <HeaderContainer /> */}
               <div className="content">
                 <SettingsContainer />
                 <Switch>
