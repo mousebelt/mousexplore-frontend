@@ -12,6 +12,8 @@ class LatestLedgers extends PureComponent {
   };
 
   componentDidMount() {
+    this._isMounted = true;
+
     const { apiObject, currency } = this.props;
     
     this.getLatestLedgers(apiObject, currency);
@@ -25,6 +27,10 @@ class LatestLedgers extends PureComponent {
     const { apiObject, currency } = newProps;
     
     this.getLatestLedgers(apiObject, currency);
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   getLatestLedgers (apiObject, currency) {

@@ -11,6 +11,8 @@ class LatestTransactons extends PureComponent {
   };
 
   componentDidMount() {
+    this._isMounted = true;
+
     const { apiObject, currency } = this.props;
     
     this.getLatestTxns(apiObject, currency);
@@ -26,7 +28,11 @@ class LatestTransactons extends PureComponent {
     this.getLatestTxns(apiObject, currency);
   }
 
-  getLatestTxns (apiObject, currency) {
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
+  async getLatestTxns (apiObject, currency) {
     
     apiObject.get('/transactions', {
       params: { count: 5 }
@@ -41,7 +47,8 @@ class LatestTransactons extends PureComponent {
         return formatTxnData(txn, currency);
       });
 
-      this.setState({ txns });
+      if (this._isMounted)
+        this.setState({ txns });
     });
   }
   

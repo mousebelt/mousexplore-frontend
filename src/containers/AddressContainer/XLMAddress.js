@@ -15,6 +15,8 @@ class XLMAddress extends PureComponent {
   };
 
   componentDidMount() {
+    this._isMounted = true;
+
     const { apiObject, currency, address } = this.props;
 
     if (address) {                            
@@ -22,12 +24,17 @@ class XLMAddress extends PureComponent {
     }
   }
 
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   getAddressInfo (apiObject, currency, address) {
     this.setState({address});
 
     apiObject.get(`/balance/${address}`)
       .then(res => {
-        if (res.data.status !== 200) return;
+        if (res.data.status !== 200 || !this._isMounted)
+          return;
 
         let tokenBalances = res.data.data;
 
@@ -56,7 +63,7 @@ class XLMAddress extends PureComponent {
       }
     })
       .then(res => {
-        if (res.data.status !== 200)
+        if (res.data.status !== 200 || !this._isMounted)
           return;
 
         let { result: newTxns, next: cursor } = res.data.data;
@@ -101,6 +108,5 @@ const mapStateToProps = ({settings}) => ({
   currency: settings.currency,
   apiObject: settings.apiObject
 });
-
 
 export default connectSettings(mapStateToProps, {})(XLMAddress);

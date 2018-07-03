@@ -10,6 +10,8 @@ class LedgerContainer extends PureComponent {
   };
 
   componentDidMount() {
+    this._isMounted = true;
+
     const { apiObject, currency, match } = this.props;
 
     const { ledgerHash } = match.params;
@@ -19,7 +21,7 @@ class LedgerContainer extends PureComponent {
     }
   }
 
-  componentWillReceiveProps (newProps) {
+  componentWillReceiveProps(newProps) {
     const { apiObject, currency, match } = newProps;
 
     const { ledgerHash } = match.params;
@@ -27,6 +29,10 @@ class LedgerContainer extends PureComponent {
     if (ledgerHash) {
       this.getLedger(apiObject, currency, ledgerHash);    
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   getLedger(apiObject, currency, ledgerHash) {
@@ -44,7 +50,8 @@ class LedgerContainer extends PureComponent {
         
         ledger = formatBlockData(ledger, currency);
 
-        this.setState({ ledger });
+        if (this._isMounted)
+          this.setState({ ledger });
       });
 
     apiObject.get(`/ledger/txs/${ledgerHash}`)
@@ -58,8 +65,9 @@ class LedgerContainer extends PureComponent {
         txns = txns.map(txn => {
           return formatTxnData(txn, currency);
         });
-
-        this.setState({txns});
+        
+        if (this._isMounted)
+          this.setState({txns});
       });
   }
   
