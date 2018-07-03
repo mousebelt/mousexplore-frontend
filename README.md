@@ -1,4 +1,4 @@
-# NRL Block Explorer
+# MouseXplore Block Explorer
 ![Alt text](/public/logo.png?raw=true "Logo")
 
 
