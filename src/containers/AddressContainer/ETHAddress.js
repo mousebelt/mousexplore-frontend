@@ -14,6 +14,8 @@ class ETHAddress extends PureComponent {
   };
 
   componentDidMount() {
+    this._isMounted = true;
+
     const { apiObject, currency, address } = this.props;
 
     if (address) {                            
@@ -21,12 +23,17 @@ class ETHAddress extends PureComponent {
     }
   }
 
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   getAddressInfo (apiObject, currency, address) {
     this.setState({address});
 
     apiObject.get(`/balance/${address}`)
       .then(res => {
-        if (res.data.status !== 200) return;
+        if (res.data.status !== 200 || !this._isMounted)
+          return;
 
         const tokenBalances = res.data.data.balances;
         const balanceObj = find(tokenBalances, { symbol: currency });
@@ -49,7 +56,7 @@ class ETHAddress extends PureComponent {
       }
     })
       .then(res => {
-        if (res.data.status !== 200)
+        if (res.data.status !== 200 || !this._isMounted)
           return;
 
         let { total: totalTxns, result: newTxns } = res.data.data;

@@ -12,6 +12,8 @@ class LatestBlocks extends PureComponent {
   };
 
   componentDidMount() {
+    this._isMounted = true;
+
     const { apiObject, currency } = this.props;
     
     this.getLatestBlocks(apiObject, currency);

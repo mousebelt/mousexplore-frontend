@@ -17,6 +17,8 @@ class XLMTxn extends PureComponent {
   };
 
   componentDidMount() {
+    this._isMounted = true;
+
     const { apiObject, currency, txnHash } = this.props;
 
     if (txnHash) {
@@ -24,11 +26,14 @@ class XLMTxn extends PureComponent {
       this.getOperations(apiObject, currency, txnHash);
     }
   }
+ 
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
 
   getTxn (apiObject, currency, txnHash) {
     this.setState({
       txn: undefined,
-      isLoading: true
     });
 
     apiObject.get(`/tx/${txnHash}`)
@@ -40,19 +45,14 @@ class XLMTxn extends PureComponent {
 
         txn = formatTxnData(txn, currency);
 
-        this.setState({ txn: txn });
-      })
-      .finally(() => {
-        this.setState({
-          isLoading: false
-        });
+        if (this._isMounted)
+          this.setState({ txn: txn });
       })
   }
 
   getOperations(apiObject, currency, txnHash) {
     this.setState({
       opeartions: [],
-      isLoading: true
     });
 
     apiObject.get(`/tx/operations/${txnHash}`)
@@ -65,13 +65,10 @@ class XLMTxn extends PureComponent {
           return mapKeys(operation, (v, k) => camelCase(k))
         });
 
-        this.setState({
-          operations,
-          isLoading: false
-        });
-      })
-      .finally(() => {
-        this.setState({ isLoading: false });
+        if (this._isMounted)
+          this.setState({
+            operations,
+          });
       })
   }
 
@@ -114,10 +111,6 @@ class XLMTxn extends PureComponent {
         </div>
       </div>
     );
-  }
-
-  _renderOperations = () => {
-
   }
 
   render() {

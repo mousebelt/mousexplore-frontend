@@ -3,12 +3,14 @@ import Block from 'components/Block/Block';
 import NotFound from 'components/NotFound/NotFound';
 import { connectSettings, formatBlockData } from 'core';
 
-class BlockContainer extends PureComponent {
+class BlockContainer extends PureComponent { 
   state = {
     block: undefined
   };
 
   componentDidMount() {
+    this._isMounted = true;
+
     const { apiObject, currency, match } = this.props;
 
     const { blockHash } = match.params;
@@ -18,7 +20,7 @@ class BlockContainer extends PureComponent {
     }
   }
 
-  componentWillReceiveProps (newProps) {
+  componentWillReceiveProps(newProps) {
     const { apiObject, currency, match } = newProps;
 
     const { blockHash } = match.params;
@@ -26,6 +28,10 @@ class BlockContainer extends PureComponent {
     if (blockHash) {
       this.getBlock(apiObject, currency, blockHash);    
     }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   getBlock(apiObject, currency, blockHash) {
@@ -42,7 +48,8 @@ class BlockContainer extends PureComponent {
 
         block = formatBlockData(block, currency);
 
-        this.setState({ block: block });
+        if (this._isMounted)
+          this.setState({ block: block });
       })
   }
   

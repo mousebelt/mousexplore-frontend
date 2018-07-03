@@ -12,6 +12,8 @@ class LatestLedgers extends PureComponent {
   };
 
   componentDidMount() {
+    this._isMounted = true;
+
     const { apiObject, currency } = this.props;
     
     this.getLatestLedgers(apiObject, currency);

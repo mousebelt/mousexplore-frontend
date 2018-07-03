@@ -12,6 +12,8 @@ class BTCAddress extends PureComponent {
   };
 
   componentDidMount() {
+    this._isMounted = true;
+
     const { apiObject, currency, address } = this.props;
 
     if (address) {                            
@@ -19,12 +21,17 @@ class BTCAddress extends PureComponent {
     }
   }
 
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   getAddressInfo (apiObject, currency, address) {
     this.setState({ address });
 
     apiObject.get(`/balance/${address}`)
       .then(res => {
-        if (res.data.status !== 200) return;
+        if (res.data.status !== 200 || !this._isMounted)
+          return;
 
         this.setState({
           balance: res.data.data.balance
@@ -43,7 +50,7 @@ class BTCAddress extends PureComponent {
       }
     })
       .then(res => {
-        if (res.data.status !== 200)
+        if (res.data.status !== 200 || !this._isMounted)
           return;
 
         let { total: totalTxns, result: newTxns } = res.data.data;

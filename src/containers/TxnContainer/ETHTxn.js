@@ -10,10 +10,11 @@ class ETHTxn extends PureComponent {
 
   state = {
     txn: undefined,
-    isLoading: false
   };
 
   componentDidMount() {
+    this._isMounted = true;
+
     const { apiObject, currency, txnHash } = this.props;
 
     if (txnHash) {
@@ -21,10 +22,13 @@ class ETHTxn extends PureComponent {
     }
   }
 
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   getTxn (apiObject, currency, txnHash) {
     this.setState({
       txn: undefined,
-      isLoading: true
     });
 
     apiObject.get(`/txdetails/${txnHash}`)
@@ -36,12 +40,8 @@ class ETHTxn extends PureComponent {
 
         txn = formatTxnData(txn, currency);
 
-        this.setState({ txn: txn });
-      })
-      .finally(() => {
-        this.setState({
-          isLoading: false
-        });
+        if (this._isMounted)
+          this.setState({ txn: txn });
       })
   }
   
