@@ -27,6 +27,10 @@ class LatestLedgers extends PureComponent {
     this.getLatestLedgers(apiObject, currency);
   }
 
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   getLatestLedgers (apiObject, currency) {
     
     apiObject.get('/ledgers', {

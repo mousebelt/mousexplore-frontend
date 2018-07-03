@@ -23,6 +23,10 @@ class LatestBlocks extends PureComponent {
     this.getLatestBlocks(apiObject, currency);
   }
 
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   getLatestBlocks (apiObject, currency) {
     this.setState({ blocks: [] });
     

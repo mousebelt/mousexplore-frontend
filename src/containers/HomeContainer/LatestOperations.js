@@ -9,6 +9,8 @@ class LatestOperations extends PureComponent {
   };
 
   componentDidMount() {
+    this._isMounted = true;
+
     const { apiObject, currency } = this.props;
     
     this.getLatestOperations(apiObject, currency);
@@ -22,6 +24,10 @@ class LatestOperations extends PureComponent {
     const { apiObject, currency } = newProps;
     
     this.getLatestOperations(apiObject, currency);
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   getLatestOperations (apiObject, currency) {
@@ -44,8 +50,8 @@ class LatestOperations extends PureComponent {
         return mapKeys(operation, (v, k) => camelCase(k));
       });
 
-      
-      this.setState({ operations });
+      if (this._isMounted)
+        this.setState({ operations });
     });
   }
 
