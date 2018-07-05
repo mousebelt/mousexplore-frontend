@@ -35,8 +35,8 @@ export const coins = [
     hasTokens: false,
     tokens: [],
     api: {
-      live: 'http://34.207.140.33/api/v1/',
-      test: 'http://34.207.140.33/api/v1/'
+      live: 'http://34.239.180.150/api/v1/',
+      test: 'http://34.239.180.150/api/v1/'
     },
   },
 
@@ -69,8 +69,8 @@ export const coins = [
       // { tokenName: 'Smartlands', ticker: 'SLT' },
     ],
     api: {
-      live: 'http://18.205.122.159:2000/api/v1',
-      test: 'http://18.205.122.159:2000/api/v1'
+      live: 'http://18.205.122.159/api/v1',
+      test: 'http://18.205.122.159/api/v1'
     },
   },
 ];
