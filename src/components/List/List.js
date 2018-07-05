@@ -8,16 +8,18 @@ class List extends PureComponent {
 
     const defaultHeader = (
       <div className="nrl__list-header--content">
-        { 
-          icon && (
-            <span className="nrl__list-header--icon">
-              {icon}
-            </span>
-          )
-        }
         {
           title && (
-            <h5 className="nrl__list-header--title">{title}</h5>
+            <h5 className="nrl__list-header--title">
+              { 
+                icon && (
+                  <span className="nrl__list-header--icon">
+                    {icon} 
+                  </span>
+                )
+              }
+              {title}
+            </h5>
           )
         }
         {
