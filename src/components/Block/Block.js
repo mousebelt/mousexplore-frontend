@@ -54,7 +54,7 @@ class Block extends PureComponent {
                 {
                   block.merkleroot && (
                     <p className="property">
-                      Merkle Root: <HashLink hash={block.merkleRoot} type="block">{block.merkleRoot}</HashLink>
+                      Merkle Root: {block.merkleRoot}
                     </p>
                   )
                 }
