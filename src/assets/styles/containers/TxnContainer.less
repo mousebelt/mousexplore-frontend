@@ -27,6 +27,15 @@
       a.value {
         color: @txt-main-color;
         text-decoration: underline;
+        width: 100%;
+        word-wrap: break-word;
+      }
+
+      &.block-hash {
+/*        a.value {
+          width: 100%;
+          word-wrap: break-word;
+        }*/
       }
     }
 
@@ -41,14 +50,14 @@
       }
 
       .input,.output {
-        padding: 30px;
+        /*padding: 30px;*/
         width: 50%;
 
         @media all and (max-width: 1000px) {
           padding: 0;
           width: 100%;
           margin-bottom: 30px;
-          padding: 15px;
+          /*padding: 15px;*/
         }
 
         h5 {
@@ -63,29 +72,35 @@
         }
 
         .item {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          width: 100%;
+
           .item-address {
             color: @txt-main-color;
             text-decoration: underline;
             display: inline-block;
-            min-width: 60%;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
+            max-width: 60%;
+            /*min-width: 60%;*/
+            /*white-space: nowrap;*/
+            /*text-overflow: ellipsis;*/
+            /*overflow: hidden;*/
+            word-wrap: break-word;
             line-height: 40px;
-            margin-right: 10%;
+            /*margin-right: 10%;*/
             vertical-align: top;
 
             @media all and (max-width: 1000px) {
               line-height: normal;
               margin-bottom: 10px;
-              width: 40%;
             }
           }
 
           .item-value {
             color: @txt-main-color;
             display: inline-block;
-            max-width: 30%;
+            min-width: 30%;
             line-height: 40px;
             vertical-align: top; 
             text-align: right;
@@ -93,7 +108,7 @@
             @media all and (max-width: 1000px) {
               line-height: normal;
               margin-bottom: 10px;
-              width: 50%;
+              /*width: 50%;*/
             }
           }
         }

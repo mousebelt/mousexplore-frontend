@@ -26,14 +26,16 @@
 
       p {
         font-size: 14px;
+        width: 100%;
 
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        font-weight: normal;
-        max-width: 100%;
+        span {
+          display: inline-block;
+        }
 
         a {
+          min-width: 100px;
+          word-wrap: break-word;
+          
           color: @txt-main-color;
           text-decoration: underline;
         }
