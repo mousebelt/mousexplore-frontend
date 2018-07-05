@@ -58,6 +58,9 @@ class LatestLedgers extends PureComponent {
             <HashLink hash={ledger.height} type="ledger">
               #{ledger.height}
             </HashLink>
+            <span className="time">
+              <i className="fa fa-clock-o"/> {moment(ledger.timestamp).fromNow()}
+            </span>
           </div>
           <div className="hash">
             <HashLink hash={ledger.height} type="ledger">
@@ -65,9 +68,6 @@ class LatestLedgers extends PureComponent {
             </HashLink>
           </div>
         </div>
-        <span className="time">
-          <i className="fa fa-clock-o"/> {moment(ledger.timestamp).fromNow()}
-        </span>
       </div>
     );
   }
