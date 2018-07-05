@@ -18,12 +18,20 @@
     }
 
     &--title {
+      width: 100%;
+      
       h5 {
         font-size: 20px;
       }
 
       p {
         font-size: 14px;
+
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        font-weight: normal;
+        max-width: 100%;
 
         a {
           color: @txt-main-color;
