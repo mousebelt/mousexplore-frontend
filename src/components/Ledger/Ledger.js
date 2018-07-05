@@ -27,7 +27,7 @@ class Ledger extends PureComponent {
                 </p>
                 
                 <p className="property">
-                  Previous Hash: <HashLink hash={ledger.prevHash} type="ledger">{ledger.prevHash}</HashLink>
+                  Previous Hash: <HashLink hash={ledger.height-1} type="ledger">{ledger.prevHash}</HashLink>
                 </p>
               </div>
               <div className="right">
