@@ -6,15 +6,35 @@
   padding: 20px;
 
   &-info {
-    padding: 20px;
+    padding-bottom: 20px;
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
+
+    @media all and (max-width: 900px) {
+      flex-direction: column;
+      height: 170px;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    &--header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
 
     &--icon {
       width: 80px;
       height: 80px;
       background: #eaebea;
       border-radius: 50%;
+      margin-right: 30px;
+
+      @media all and (max-width: 550px) {
+        display: none;
+      }
 
       img {
         position: relative;
@@ -25,14 +45,22 @@
     }
 
     &--balance, &--account {  
-      margin: 0px 30px;
+      /*margin: 0px 30px;*/
+      width: 100%;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
 
       p {
         font-size: 20px;
         font-weight: bold;
+        @media all and (max-width: 550px) {
+          font-size: 17px;
+        }
       }
 
       span {
+        width: 100%;
         font-size: 16px;
       }
     }
@@ -55,9 +83,11 @@
   &-txns {
     border-radius: 5px;
     border: 1px solid @border-light-color;
+    overflow-x: auto;
 
     .txn-table {
       width: 100%;
+      min-width: 800px;
 
       tr {
         border-bottom: 1px solid @border-light-color;
@@ -67,7 +97,7 @@
         }
 
         .hash {
-          width: 30%;
+          width: 25%;
         }
 
         td {
@@ -96,7 +126,7 @@
         
         a.value {
           text-decoration: underline;
-          max-width: 250px;
+          max-width: 180px;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;

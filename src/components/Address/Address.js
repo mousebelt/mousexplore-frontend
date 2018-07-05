@@ -33,6 +33,10 @@ class Address extends React.PureComponent {
                         <img src={txn.value < 0 ? icOut : icIn} alt=""/>
                       }
                     </td>
+                    <td className="amount">
+                      <p className="label">Amount</p>
+                      <span className={`value ${txn.value < 0 ? 'out' : 'in'}`}>{`${txn.value.toFixed(2)} ${currency}`}</span>
+                    </td>
                     <td className="hash txn-hash">
                       <p className="label">TX Hash</p>
                       <HashLink className="value" hash={txn.hash} type="transaction">{txn.hash}</HashLink>
@@ -44,10 +48,6 @@ class Address extends React.PureComponent {
                     <td className="time">
                       <p className="label">Time</p>
                       <span className="value">{moment.unix(txn.timestamp).fromNow()}</span>
-                    </td>
-                    <td className="amount">
-                      <p className="label">Amount</p>
-                      <span className={`value ${txn.value < 0 ? 'out' : 'in'}`}>{`${txn.value.toFixed(2)} ${currency}`}</span>
                     </td>
                   </tr>
                 );
@@ -92,12 +92,14 @@ class Address extends React.PureComponent {
     return (
       <div className={`nrl__address${className ? ' ' + className : ''}`}>
         <div className="nrl__address-info">
-          <div className="nrl__address-info--icon">
-            <img src={icCoin} alt=""/>
-          </div>
-          <div className="nrl__address-info--balance">
-            <p>Balance: {(+balance).toFixed(4)} {currency}&nbsp;</p>
-            <span>{totalTxns} Transactions</span>
+          <div className="nrl__address-info--header">
+            <div className="nrl__address-info--icon">
+              <img src={icCoin} alt=""/>
+            </div>
+            <div className="nrl__address-info--balance">
+              <p>Balance: {(+balance).toFixed(4)} {currency}&nbsp;</p>
+              <span>{totalTxns} Transactions</span>
+            </div>
           </div>
           <div className="nrl__address-info--account">
             <p>Address</p>

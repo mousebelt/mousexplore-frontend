@@ -14,7 +14,7 @@ class Txn extends PureComponent {
           <div className="nrl__txn-header--title">
             <h5>{currency} Transaction Information</h5>
             <p>
-              TXN Hash:&nbsp;
+              <span>TXN Hash:&nbsp;</span>
               <HashLink hash={txnHash} type="transaction">{txnHash}</HashLink>
             </p>
           </div>

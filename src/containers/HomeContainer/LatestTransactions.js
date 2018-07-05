@@ -61,8 +61,21 @@ class LatestTransactons extends PureComponent {
         <div className="detail">
           <div className="hash">
             <HashLink hash={transaction.hash} type="transaction">
-              {transaction.hash}
+              {
+                transaction.hash &&
+                transaction.hash.length < 15 &&
+                transaction.hash
+              }
+              {
+                transaction.hash &&
+                transaction.hash.length > 14 &&
+                transaction.hash.substring(0, 15) + '...'
+              }
             </HashLink>
+            <span className="time">
+              <i className="fa fa-clock-o"/>&nbsp;
+              {currency === 'XLM' ? moment(transaction.timestamp).fromNow() : moment.unix(transaction.timestamp).fromNow()}
+            </span>
           </div>
           {
             currency === 'XLM' ? (
@@ -82,10 +95,6 @@ class LatestTransactons extends PureComponent {
             )
           }
         </div>
-        <span className="time">
-          <i className="fa fa-clock-o"/>&nbsp;
-          {currency === 'XLM' ? moment(transaction.timestamp).fromNow() : moment.unix(transaction.timestamp).fromNow()}
-        </span>
       </div>
     );
   }

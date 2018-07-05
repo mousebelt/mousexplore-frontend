@@ -18,14 +18,24 @@
     }
 
     &--title {
+      width: 100%;
+      
       h5 {
         font-size: 20px;
       }
 
       p {
         font-size: 14px;
+        width: 100%;
+
+        span {
+          display: inline-block;
+        }
 
         a {
+          min-width: 100px;
+          word-wrap: break-word;
+          
           color: @txt-main-color;
           text-decoration: underline;
         }

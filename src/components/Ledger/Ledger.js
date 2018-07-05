@@ -23,12 +23,14 @@ class Ledger extends PureComponent {
             <div className="detail">
               <div className="left">
                 <p className="property">
-                  Ledger Hash: <HashLink hash={ledger.hash} type="ledger">{ledger.hash}</HashLink>
+                  Ledger Hash: {ledger.hash}
                 </p>
-                
-                <p className="property">
-                  Previous Hash: <HashLink hash={ledger.prevHash} type="ledger">{ledger.prevHash}</HashLink>
-                </p>
+                {
+                  ledger.prevHash &&
+                  <p className="property">
+                    Previous Hash: <HashLink hash={ledger.height-1} type="ledger">{ledger.prevHash}</HashLink>
+                  </p>
+                }
               </div>
               <div className="right">
                 <p className="property">

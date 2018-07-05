@@ -17,6 +17,11 @@
       height: 80px;
       border-radius: 50%;
       background: @bg-grey-color;
+      margin-right: 30px;
+
+      @media all and (max-width: 550px) {
+        display: none;
+      }
 
       i {
         font-size: 25px;
@@ -30,6 +35,10 @@
 
     .summary {
       padding: 20px 0px;
+
+      @media all and (max-width: 550px) {
+        padding-left: 15px;
+      }
 
       .height {
         font-size: 20px;
@@ -50,8 +59,8 @@
         padding: 20px 0px;
 
         .left {
-          width: 60%;
-          right: 30%;
+          /*width: 60%;*/
+          /*right: 30%;*/
 
           @media all and (max-width: 900px) {
             width: 100%;
@@ -59,16 +68,18 @@
         }
 
         .left,.right {
-          display: inline-block;
-          vertical-align: top;
-          padding-right: 10%;
+          /*display: inline-block;*/
+          /*vertical-align: top;*/
+          /*padding-right: 10%;*/
         }
 
         .property {
           font-size: 16px;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          overflow: hidden;
+          /*white-space: nowrap;*/
+          /*text-overflow: ellipsis;*/
+          /*overflow: hidden;*/
+          width: 100%;
+          word-wrap: break-word;
 
           a {
             color: @txt-main-color;
@@ -102,9 +113,11 @@
     &--table {
       border-radius: 5px;
       border: 1px solid @border-main-color;
+      overflow-x: auto;
 
       table {
         width: 100%;
+        min-width: 800px;
 
         tr {
           border-bottom: 1px solid @border-main-color;
@@ -125,6 +138,12 @@
 
             .label {
               font-size: 14px;
+            }
+
+            .hash {
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
             }
 
             a {

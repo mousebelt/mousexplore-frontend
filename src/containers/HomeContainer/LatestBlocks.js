@@ -55,6 +55,9 @@ class LatestBlocks extends PureComponent {
             <HashLink hash={block.height} type="block">
               #{block.height}
             </HashLink>
+            <span className="time">
+              <i className="fa fa-clock-o"/> {moment.unix(block.timestamp).fromNow()}
+            </span>
           </div>
           <div className="hash">
             <HashLink hash={block.hash} type="block">
@@ -62,9 +65,6 @@ class LatestBlocks extends PureComponent {
             </HashLink>
           </div>
         </div>
-        <span className="time">
-          <i className="fa fa-clock-o"/> {moment.unix(block.timestamp).fromNow()}
-        </span>
       </div>
     );
   }
