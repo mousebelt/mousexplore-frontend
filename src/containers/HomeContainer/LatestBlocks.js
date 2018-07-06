@@ -8,7 +8,8 @@ import { formatBlockData } from 'core/utils';
 
 class LatestBlocks extends PureComponent {
   state = {
-    blocks: []
+    blocks: [],
+    isLoading: false
   };
 
   componentDidMount() {
@@ -30,7 +31,10 @@ class LatestBlocks extends PureComponent {
   }
 
   getLatestBlocks (apiObject, currency) {
-    this.setState({ blocks: [] });
+    this.setState({
+      blocks: [],
+      isLoading: true
+    });
     
     apiObject.get('/blocks', {
       params: { count: 5}
@@ -38,11 +42,14 @@ class LatestBlocks extends PureComponent {
     .then(res => {
       let blocks = res.data.data.result;
       
-      blocks = blocks.map(block => {
-        return formatBlockData(block, currency);
-      });
+      blocks = blocks.map(block => formatBlockData(block, currency));
  
-      this.setState({ blocks });
+      if (this._isMounted)
+        this.setState({ blocks });
+    })
+    .finally(() => {
+      if (this._isMounted)
+        this.setState({ isLoading: false });
     });
   }
 
@@ -75,9 +82,9 @@ class LatestBlocks extends PureComponent {
         className="latest-blocks"
         icon={<i className="fa fa-cubes"/>}
         title="Blocks"
-        linkToAll="#"
         data={this.state.blocks}
         renderItem={this._renderBlock}
+        isLoading={this.state.isLoading}
       />
     );
   }

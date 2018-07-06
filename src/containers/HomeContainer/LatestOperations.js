@@ -5,7 +5,8 @@ import OperationTable from 'components/Operations/OperationTable';
 
 class LatestOperations extends PureComponent {
   state = {
-    operations: []
+    operations: [],
+    isLoading: false
   };
 
   componentDidMount() {
@@ -16,11 +17,7 @@ class LatestOperations extends PureComponent {
     this.getLatestOperations(apiObject, currency);
   }
 
-  componentWillReceiveProps (newProps) {
-    this.setState({
-      operations: []
-    });
-    
+  componentWillReceiveProps (newProps) {   
     const { apiObject, currency } = newProps;
     
     this.getLatestOperations(apiObject, currency);
@@ -31,28 +28,36 @@ class LatestOperations extends PureComponent {
   }
 
   getLatestOperations (apiObject, currency) {
-
     if (currency !== 'XLM')
       return;
     
+    this.setState({
+      operations: [],
+      isLoading: true
+    });
+
     apiObject.get('/operations', {
       params: { count: 10}
     })
-    .then(res => {
-      if (res.data.status !== 200)
-        return ;
+      .then(res => {
+        if (res.data.status !== 200)
+          return ;
 
-      let operations = res.data.data.result;
-      
-      operations = operations.map(operation => {
-        operation.time = operation.created_at;
+        let operations = res.data.data.result;
+        
+        operations = operations.map(operation => {
+          operation.time = operation.created_at;
 
-        return mapKeys(operation, (v, k) => camelCase(k));
+          return mapKeys(operation, (v, k) => camelCase(k));
+        });
+
+        if (this._isMounted)
+          this.setState({ operations });
+      })
+      .finally(() => {
+        if (this._isMounted)
+          this.setState({ isLoading: false });
       });
-
-      if (this._isMounted)
-        this.setState({ operations });
-    });
   }
 
   render() {
@@ -61,6 +66,7 @@ class LatestOperations extends PureComponent {
         records={this.state.operations}
         parentRenderTimestamp={Date.now()}
         compact={false}
+        isLoading={this.state.isLoading}
       />
     )
   }

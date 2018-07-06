@@ -8,7 +8,8 @@ import { formatBlockData } from 'core/utils';
 
 class LatestLedgers extends PureComponent {
   state = {
-    ledgers: []
+    ledgers: [],
+    isLoading: false
   };
 
   componentDidMount() {
@@ -20,10 +21,7 @@ class LatestLedgers extends PureComponent {
   }
 
   componentWillReceiveProps (newProps) {
-    this.setState({
-      ledgers: []
-    });
-    
+   
     const { apiObject, currency } = newProps;
     
     this.getLatestLedgers(apiObject, currency);
@@ -34,19 +32,26 @@ class LatestLedgers extends PureComponent {
   }
 
   getLatestLedgers (apiObject, currency) {
-    
+    this.setState({
+      ledgers: [],
+      isLoading: true
+    })
+
     apiObject.get('/ledgers', {
       params: { count: 5}
     })
-    .then(res => {
-      let ledgers = res.data.data.result;
-      
-      ledgers = ledgers.map(ledger => {
-        return formatBlockData(ledger, currency);
-      });
+      .then(res => {
+        let ledgers = res.data.data.result;
+        
+        ledgers = ledgers.map(ledger => formatBlockData(ledger, currency));
 
-      this.setState({ ledgers });
-    });
+        if (this._isMounted)
+          this.setState({ ledgers });
+      })
+      .finally(() => {
+        if (this._isMounted)
+          this.setState({ isLoading: false });
+      });
   }
 
   _renderLedger = (ledger) => {
@@ -78,9 +83,9 @@ class LatestLedgers extends PureComponent {
         className="latest-ledgers"
         icon={<i className="fa fa-cubes"/>}
         title="Ledgers"
-        linkToAll="#"
         data={this.state.ledgers}
         renderItem={this._renderLedger}
+        isLoading={this.state.isLoading}
       />
     );
   }
