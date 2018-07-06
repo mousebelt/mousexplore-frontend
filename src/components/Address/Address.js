@@ -62,7 +62,7 @@ class Address extends React.PureComponent {
                     </td>
                     <td className="hash block-hash">
                       <p className="label">Ledger Sequence</p>
-                      <HashLink className="value" hash={txn.ledger} type="block">{txn.ledger}</HashLink>
+                      <HashLink className="value" hash={txn.ledger} type="ledger">{txn.ledger}</HashLink>
                     </td>
                     <td className="time">
                       <p className="label">Time</p>
