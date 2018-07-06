@@ -1,12 +1,13 @@
 import React, { PureComponent } from 'react';
 import Ledger from 'components/Ledger/Ledger';
-import NotFound from 'components/NotFound/NotFound';
 import { connectSettings, formatBlockData, formatTxnData } from 'core';
 
 class LedgerContainer extends PureComponent {
   state = {
     ledger: undefined,
-    txns: []
+    txns: [],
+    isLoadingLedger: false,
+    isLoadingTxns: false,
   };
 
   componentDidMount() {
@@ -38,7 +39,9 @@ class LedgerContainer extends PureComponent {
   getLedger(apiObject, currency, ledgerHash) {
     this.setState({
       ledger: undefined,
-      txns: []
+      txns: [],
+      isLoadingLedger: true,
+      isLoadingTxns: true,
     });
 
     apiObject.get(`/ledger/${ledgerHash}`)
@@ -52,6 +55,10 @@ class LedgerContainer extends PureComponent {
 
         if (this._isMounted)
           this.setState({ ledger });
+      })
+      .finally(() => {
+        if (this._isMounted)
+          this.setState({ isLoadingLedger: false })
       });
 
     apiObject.get(`/ledger/txs/${ledgerHash}`)
@@ -62,33 +69,30 @@ class LedgerContainer extends PureComponent {
 
         let txns = res.data.data.result;
 
-        txns = txns.map(txn => {
-          return formatTxnData(txn, currency);
-        });
+        txns = txns.map(txn => formatTxnData(txn, currency));
         
         if (this._isMounted)
           this.setState({txns});
+      })
+      .finally(() => {
+        if (this._isMounted)
+          this.setState({ isLoadingTxns: false })
       });
   }
   
   render () {
     const { currency } = this.props;
-    const { ledger, txns } = this.state;
+    const { ledger, txns, isLoadingLedger, isLoadingTxns } = this.state;
     
     return (
       <div className="ledger-container">
-        {
-          ledger ? (
-            <Ledger
-              currency={currency}
-              ledger={ledger}
-              txns={txns}
-            />
-          ) : (
-            <NotFound/>
-          )
-        }
-        
+        <Ledger
+          currency={currency}
+          ledger={ledger}
+          txns={txns}
+          isLoadingLedger={isLoadingLedger}
+          isLoadingTxns={isLoadingTxns}
+        />
       </div>
     );
   }

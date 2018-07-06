@@ -10,7 +10,7 @@ class BTCTxn extends PureComponent {
 
   state = {
     txn: undefined,
-    isLoading: false
+    isLoading: false,
   };
 
   componentDidMount() {
