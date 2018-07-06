@@ -117,7 +117,7 @@ class Block extends PureComponent {
                           <p className="label">TX Hash</p>
                           <HashLink className="value" hash={txn.hash || txn} type="transaction">
                             {
-                              txn.hash && txn.hash.substring(0,25) + '...' || txn.substring(0,25) + '...'
+                              txn.hash ? txn.hash.substring(0,25) + '...' : txn.substring(0,25) + '...'
                             }
                           </HashLink>
                         </td>
