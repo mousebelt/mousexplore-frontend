@@ -5,15 +5,15 @@ import { camelCase, mapKeys } from 'lodash';
 
 import Txn from 'components/Txn/Txn';
 import OperationTable from 'components/Operations/OperationTable';
-import Spinner from 'components/Spinner/Spinner';
 import HashLink  from 'components/HashLink/HashLink';
 
 class XLMTxn extends PureComponent {
 
   state = {
     txn: undefined,
-    isLoading: false,
-    operations: []
+    operations: [],
+    isLoadingTxns: false,
+    isLoadingOperations: false,
   };
 
   componentDidMount() {
@@ -34,6 +34,7 @@ class XLMTxn extends PureComponent {
   getTxn (apiObject, currency, txnHash) {
     this.setState({
       txn: undefined,
+      isLoadingTxns: true
     });
 
     apiObject.get(`/tx/${txnHash}`)
@@ -48,11 +49,16 @@ class XLMTxn extends PureComponent {
         if (this._isMounted)
           this.setState({ txn: txn });
       })
+      .finally(() => {
+        if (this._isMounted)
+          this.setState({ isLoadingTxns: false});
+      })
   }
 
   getOperations(apiObject, currency, txnHash) {
     this.setState({
       opeartions: [],
+      isLoadingOperations: true
     });
 
     apiObject.get(`/tx/operations/${txnHash}`)
@@ -69,6 +75,12 @@ class XLMTxn extends PureComponent {
           this.setState({
             operations,
           });
+      })
+      .finally(() => {
+        if (this._isMounted)
+          this.setState({
+            isLoadingOperations: false
+          })
       })
   }
 
@@ -120,27 +132,25 @@ class XLMTxn extends PureComponent {
 
     const { txn, operations } = this.state;
 
-    if (txn) {
-      return (
-        <div>
-          <Txn
-            currency={currency}
-            txnHash={this.state.txn.hash}
-          >
-            {
-              this._renderDetail(txn, currency)
-            }
-          </Txn>
-          <OperationTable
-            compact={false}
-            parentRenderTimestamp={Date.now()}
-            records={operations}
-          />
-        </div>
-      );
-    } else {
-      return <Spinner/>;
-    }
+    return (
+      <div>
+        <Txn
+          currency={currency}
+          txnHash={this.props.txnHash}
+          isLoading={this.state.isLoadingTxns}
+        >
+          {
+            this._renderDetail(txn, currency)
+          }
+        </Txn>
+        <OperationTable
+          compact={false}
+          parentRenderTimestamp={Date.now()}
+          records={operations}
+          isLoading={this.state.isLoadingOperations}
+        />
+      </div>
+    );
   }
 }
 
