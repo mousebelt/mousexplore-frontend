@@ -8,7 +8,9 @@ class BTCAddress extends PureComponent {
     address: undefined,
     balance: undefined,
     totalTxns: undefined,
-    txnHistory: []
+    txnHistory: [],
+    isLoadingBalance: false,
+    isLoadingTxns: false,
   };
 
   componentDidMount() {
@@ -16,8 +18,11 @@ class BTCAddress extends PureComponent {
 
     const { apiObject, currency, address } = this.props;
 
+    this.setState({ address });
+
     if (address) {                            
       this.getAddressInfo(apiObject, currency, address);
+      this.getAddressTxns(apiObject, currency, address); 
     }
   }
 
@@ -26,23 +31,32 @@ class BTCAddress extends PureComponent {
   }
 
   getAddressInfo (apiObject, currency, address) {
-    this.setState({ address });
+    this.setState({
+      balance: undefined,
+      isLoadingBalance: true
+    });
 
     apiObject.get(`/balance/${address}`)
       .then(res => {
-        if (res.data.status !== 200 || !this._isMounted)
+        if (res.data.status !== 200)
           return;
 
-        this.setState({
-          balance: res.data.data.balance
-        });
+        if (this._isMounted)
+          this.setState({ balance: res.data.data.balance });
       })
-    this.getAddressTxns(apiObject, currency, address)
+      .finally(() => {
+        if (this._isMounted)
+          this.setState({ isLoadingBalance: false })
+      })
   }
 
   getAddressTxns (apiObject, currency, address) {
     
     const { txnHistory } = this.state;
+
+    this.setState({
+      isLoadingTxns: true
+    });
 
     apiObject.get(`/address/txs/${address}`, {
       params: {
@@ -50,7 +64,7 @@ class BTCAddress extends PureComponent {
       }
     })
       .then(res => {
-        if (res.data.status !== 200 || !this._isMounted)
+        if (res.data.status !== 200)
           return;
 
         let { total: totalTxns, result: newTxns } = res.data.data;
@@ -76,10 +90,15 @@ class BTCAddress extends PureComponent {
           }
         });
         
-        this.setState({
-          totalTxns, 
-          txnHistory: txnHistory.concat(newTxns)
-        });
+        if (this._isMounted)
+          this.setState({
+            totalTxns, 
+            txnHistory: txnHistory.concat(newTxns)
+          });
+      })
+      .finally(() => {
+        if (this._isMounted) 
+          this.setState({ isLoadingTxns: false });
       })
   }
 
