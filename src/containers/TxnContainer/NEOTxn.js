@@ -136,13 +136,20 @@ class NEOTxn extends PureComponent {
           <span className="label">
             Confirmations:&nbsp;
           </span>
-          <span className="value">{txnDetail.confirmations}</span>
+          <span className="value">{txnDetail.confirmations || "0 (Unconfirmed)"}</span>
         </div>
         <div className="block-hash">
           <span className="label">Block Hash:</span>
-          <HashLink className="value" hash={txnDetail.blockHash} type="block">
-            {txnDetail.blockHash}
-          </HashLink>
+          {
+            txnDetail.blockHash ? 
+              <HashLink className="value" hash={txnDetail.blockHash} type="block">
+                <span style={{color: 'red'}}>{txnDetail.blockHash}</span>
+              </HashLink>
+              :
+              <span className={`value failure`}>
+                Unconfirmed
+              </span>
+          }
         </div>
       </div>
     );
