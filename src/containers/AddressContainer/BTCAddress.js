@@ -11,6 +11,7 @@ class BTCAddress extends PureComponent {
     txnHistory: [],
     isLoadingBalance: false,
     isLoadingTxns: false,
+    hasMoreTxns: true
   };
 
   componentDidMount() {
@@ -89,9 +90,12 @@ class BTCAddress extends PureComponent {
             value: value
           }
         });
+
+        const hasMoreTxns = newTxns.length < 10 ? false : true;
         
         if (this._isMounted)
           this.setState({
+            hasMoreTxns,
             totalTxns, 
             txnHistory: txnHistory.concat(newTxns)
           });
@@ -112,7 +116,7 @@ class BTCAddress extends PureComponent {
 
   render () {
     const { currency } = this.props;
-    const { address, balance, txnHistory, totalTxns } = this.state;
+    const { address, balance, txnHistory, totalTxns, isLoadingBalance, isLoadingTxns, hasMoreTxns } = this.state;
     return (
       <Address
         currency={currency}
@@ -120,6 +124,9 @@ class BTCAddress extends PureComponent {
         balance={balance}
         txnHistory={txnHistory}
         totalTxns={totalTxns}
+        isLoadingBalance={isLoadingBalance}
+        isLoadingTxns={isLoadingTxns}
+        hasMoreTxns={hasMoreTxns}
         onViewMore={this.handleViewMore}
       />
     );

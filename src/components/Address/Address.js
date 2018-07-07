@@ -2,6 +2,8 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import HashLink  from 'components/HashLink/HashLink';
+import Spinner from 'components/Spinner/Spinner';
+import NotFound from 'components/NotFound/NotFound';
 
 import icCoin from 'assets/img/ic_coin.png';
 import icIn from 'assets/img/ic_in.png';
@@ -13,11 +15,7 @@ class Address extends React.PureComponent {
     const { txnHistory, currency } = this.props;
 
     if (!(txnHistory && txnHistory.length)) {
-      return (
-        <span className="no-txn-history">
-          No transaction history
-        </span>
-      );
+      return null;
     }
       
     return (
@@ -86,8 +84,16 @@ class Address extends React.PureComponent {
     const { className } = this.props;
     const {
       currency, address, balance, totalTxns,
-      renderTXNHistory, onViewMore, tokenBalances
+      renderTXNHistory, onViewMore, tokenBalances,
+      isLoadingTxns, hasMoreTxns
     } = this.props;
+
+    // if (isLoadingTxns || isLoadingBalance) {
+    //   return (
+    //     <div className={`nrl__address${className ? ' ' + className : ''}`}>
+    //     </div>
+    //   )
+    // }
     
     return (
       <div className={`nrl__address${className ? ' ' + className : ''}`}>
@@ -106,7 +112,7 @@ class Address extends React.PureComponent {
             <span>{address}</span>
           </div>
         </div>
-        {
+        { 
           (tokenBalances && tokenBalances.length > 1) && (
             <div className="nrl__address-info--tokens">
               {
@@ -127,7 +133,15 @@ class Address extends React.PureComponent {
         </div>
         {
           <div className="nrl__address-txns--more">
-            <a className="btn-viewmore" onClick={onViewMore}>View More</a>
+            {
+              isLoadingTxns ? (
+                <Spinner/>
+              ) : (
+                hasMoreTxns && (
+                  <a className="btn-viewmore" onClick={onViewMore}>View More</a>
+                )
+              )
+            }
           </div>
           // (totalTxns && (totalTxns > txnHistory.length)) ? (
           //   <div className="nrl__address-txns--more">
