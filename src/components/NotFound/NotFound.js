@@ -1,8 +1,8 @@
 import React from 'react';
 
-const NotFound = () => (
+const NotFound = ({message}) => (
   <div className="nrl__notfound">
-    Entry Not Found...
+    { message ? message: 'Entry Not Found...'}
   </div>
 );
 

@@ -12,10 +12,10 @@ import icOut from 'assets/img/ic_out.png';
 class Address extends React.PureComponent {
 
   _renderTXNHistory = () => {
-    const { txnHistory, currency } = this.props;
+    const { txnHistory, currency, isLoadingTxns } = this.props;
 
-    if (!(txnHistory && txnHistory.length)) {
-      return null;
+    if (!isLoadingTxns && !(txnHistory && txnHistory.length)) {
+      return <NotFound message="No transaction history..."/>;
     }
       
     return (

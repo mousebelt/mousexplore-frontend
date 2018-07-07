@@ -11,7 +11,7 @@ class BTCAddress extends PureComponent {
     txnHistory: [],
     isLoadingBalance: false,
     isLoadingTxns: false,
-    hasMoreTxns: true
+    hasMoreTxns: false
   };
 
   componentDidMount() {
@@ -33,6 +33,7 @@ class BTCAddress extends PureComponent {
 
   getAddressInfo (apiObject, currency, address) {
     this.setState({
+      address,
       balance: undefined,
       isLoadingBalance: true
     });
@@ -48,7 +49,7 @@ class BTCAddress extends PureComponent {
       .finally(() => {
         if (this._isMounted)
           this.setState({ isLoadingBalance: false })
-      })
+      });
   }
 
   getAddressTxns (apiObject, currency, address) {
@@ -103,7 +104,7 @@ class BTCAddress extends PureComponent {
       .finally(() => {
         if (this._isMounted) 
           this.setState({ isLoadingTxns: false });
-      })
+      });
   }
 
   handleViewMore = () => {
