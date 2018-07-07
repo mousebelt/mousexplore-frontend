@@ -11,7 +11,10 @@ class XLMAddress extends PureComponent {
     totalTxns: undefined,
     txnHistory: [],
     tokenBalances: undefined,
-    cursor: undefined
+    cursor: undefined,
+    isLoadingBalance: false,
+    isLoadingTxns: false,
+    hasMoreTxns: false
   };
 
   componentDidMount() {
@@ -21,6 +24,7 @@ class XLMAddress extends PureComponent {
 
     if (address) {                            
       this.getAddressInfo(apiObject, currency, address);
+      this.getAddressTxns(apiObject, currency, address); 
     }
   }
 
@@ -29,11 +33,16 @@ class XLMAddress extends PureComponent {
   }
 
   getAddressInfo (apiObject, currency, address) {
-    this.setState({address});
+    this.setState({
+      address,
+      balance: undefined,
+      tokenBalances: undefined,
+      isLoadingBalance: true,
+    });
 
     apiObject.get(`/balance/${address}`)
       .then(res => {
-        if (res.data.status !== 200 || !this._isMounted)
+        if (res.data.status !== 200)
           return;
 
         let tokenBalances = res.data.data;
@@ -45,17 +54,24 @@ class XLMAddress extends PureComponent {
 
         const balanceObj = find(tokenBalances, { symbol: currency });
         
-        this.setState({
-          balance: balanceObj.balance,
-          tokenBalances
-        });
+        if (this._isMounted)
+          this.setState({
+            balance: balanceObj.balance,
+            tokenBalances
+          });
       })
-    this.getAddressTxns(apiObject, currency, address)
+      .finally(() => {
+        if (this._isMounted)
+          this.setState({ isLoadingBalance: false })
+      });
   }
 
   getAddressTxns (apiObject, currency, address) {
-    
     const { cursor, txnHistory } = this.state;
+
+    this.setState({
+      isLoadingTxns: true
+    });
 
     apiObject.get(`/address/txs/${address}`, {
       params: {
@@ -63,7 +79,7 @@ class XLMAddress extends PureComponent {
       }
     })
       .then(res => {
-        if (res.data.status !== 200 || !this._isMounted)
+        if (res.data.status !== 200)
           return;
 
         let { result: newTxns, next: cursor } = res.data.data;
@@ -72,11 +88,19 @@ class XLMAddress extends PureComponent {
           return formatTxnData(txn, currency);
         })
 
-        this.setState({
-          cursor,
-          txnHistory: txnHistory.concat(newTxns)
-        });
+        const hasMoreTxns = newTxns.length < 10 ? false : true;
+
+        if (this._isMounted)
+          this.setState({
+            hasMoreTxns,
+            cursor,
+            txnHistory: txnHistory.concat(newTxns)
+          });
       })
+      .finally(() => {
+        if (this._isMounted) 
+          this.setState({ isLoadingTxns: false });
+      });
   }
 
   handleViewMore = () => {
@@ -89,7 +113,7 @@ class XLMAddress extends PureComponent {
 
   render () {
     const { currency } = this.props;
-    const { address, balance, txnHistory, totalTxns, tokenBalances } = this.state;
+    const { address, balance, txnHistory, totalTxns, tokenBalances, isLoadingBalance, isLoadingTxns, hasMoreTxns } = this.state;
     return (
       <Address
         currency={currency}
@@ -98,6 +122,9 @@ class XLMAddress extends PureComponent {
         txnHistory={txnHistory}
         totalTxns={totalTxns}
         tokenBalances={tokenBalances}
+        isLoadingBalance={isLoadingBalance}
+        isLoadingTxns={isLoadingTxns}
+        hasMoreTxns={hasMoreTxns}
         onViewMore={this.handleViewMore}
       />
     );

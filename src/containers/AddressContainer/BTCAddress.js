@@ -35,7 +35,7 @@ class BTCAddress extends PureComponent {
     this.setState({
       address,
       balance: undefined,
-      isLoadingBalance: true
+      isLoadingBalance: true,
     });
 
     apiObject.get(`/balance/${address}`)
@@ -53,7 +53,6 @@ class BTCAddress extends PureComponent {
   }
 
   getAddressTxns (apiObject, currency, address) {
-    
     const { txnHistory } = this.state;
 
     this.setState({
