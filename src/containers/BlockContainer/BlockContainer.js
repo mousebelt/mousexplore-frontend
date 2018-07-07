@@ -4,6 +4,7 @@ import { connectSettings, formatBlockData } from 'core';
 
 class BlockContainer extends PureComponent { 
   state = {
+    blockHash: undefined,
     block: undefined,
     isLoading: false
   };
@@ -16,7 +17,7 @@ class BlockContainer extends PureComponent {
     const { blockHash } = match.params;
 
     if (blockHash) {
-      this.getBlock(apiObject, currency, blockHash);    
+      this.getBlock(apiObject, currency, blockHash);   
     }
   }
 
@@ -25,7 +26,7 @@ class BlockContainer extends PureComponent {
 
     const { blockHash } = match.params;
 
-    if (blockHash) {
+    if (blockHash && blockHash !== this.state.blockHash) {
       this.getBlock(apiObject, currency, blockHash);    
     }
   }
@@ -36,6 +37,7 @@ class BlockContainer extends PureComponent {
 
   getBlock(apiObject, currency, blockHash) {
     this.setState({
+      blockHash,
       block: undefined,
       isLoading: true,
     });

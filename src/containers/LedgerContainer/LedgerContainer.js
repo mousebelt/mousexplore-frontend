@@ -4,7 +4,7 @@ import { connectSettings, formatBlockData, formatTxnData } from 'core';
 
 class LedgerContainer extends PureComponent {
   state = {
-    ledgerHash: undefined,
+    ledgerHash: undefined, 
     ledger: undefined,
     txns: [],
     isLoadingLedger: false,
@@ -31,8 +31,14 @@ class LedgerContainer extends PureComponent {
 
     const { ledgerHash } = match.params;
 
-    if (ledgerHash) {
-      this.getLedger(apiObject, currency, ledgerHash);    
+    if (ledgerHash !== this.state.ledgerHash) {
+      this.setState({
+        txns: [],
+        hasMoreTxns: false,
+        cursor: undefined,
+      });
+      this.getLedger(apiObject, currency, ledgerHash);
+      this.getLedgerTxns(apiObject, currency, ledgerHash);
     }
   }
 

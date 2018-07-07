@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import  React, { PureComponent } from 'react';
 import HashLink from 'components/HashLink/HashLink';
 import Spinner from 'components/Spinner/Spinner';
 import NotFound from 'components/NotFound/NotFound';
@@ -9,11 +9,7 @@ class Ledger extends PureComponent {
     const { className, ledger, isLoadingLedger } = this.props;
 
     if (isLoadingLedger) {
-      return (
-        <div className={`nrl__ledger${className ? ' ' + className : ''}`}>
-          <Spinner/>
-        </div>
-      );
+      return null;
     }
 
     if (!ledger || !ledger.hash) {
@@ -71,14 +67,18 @@ class Ledger extends PureComponent {
   }
 
   _renderTxns = () => {
-    const { className, txns, ledger } = this.props;
+    const { className, txns, ledger, isLoadingTxns } = this.props;
 
     if (!txns || !txns.length) {
-      return (
-        <div className={`nrl__ledger-txns${className ? ' ' + className : ''}`}>
-          <NotFound/>
-        </div>
-      );
+      if (isLoadingTxns) {
+        return null;
+      } else {
+        return (
+          <div className={`nrl__ledger-txns${className ? ' ' + className : ''}`}>
+            <NotFound/>
+          </div>
+        );
+      }
     }
 
     return (
@@ -128,12 +128,12 @@ class Ledger extends PureComponent {
   }
 
   _renderViewMore = () => {
-    const { isLoadingTxns, hasMoreTxns, onViewMore } = this.props;
+    const { isLoadingTxns, isLoadingLedger, hasMoreTxns, onViewMore } = this.props;
 
     return (
       <div className="nrl__block-txns--more">
         {
-          isLoadingTxns ? (
+          (isLoadingTxns || isLoadingLedger) ? (
             <Spinner/>
           ) : (
             hasMoreTxns && (
