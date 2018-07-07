@@ -71,15 +71,7 @@ class Ledger extends PureComponent {
   }
 
   _renderTxns = () => {
-    const { className, txns, isLoadingTxns, ledger } = this.props;
-
-    if (isLoadingTxns) {
-      return (
-        <div className={`nrl__ledger-txns${className ? ' ' + className : ''}`}>
-          <Spinner/>
-        </div>
-      );
-    }
+    const { className, txns, ledger } = this.props;
 
     if (!txns || !txns.length) {
       return (
@@ -135,11 +127,30 @@ class Ledger extends PureComponent {
     );
   }
 
+  _renderViewMore = () => {
+    const { isLoadingTxns, hasMoreTxns, onViewMore } = this.props;
+
+    return (
+      <div className="nrl__block-txns--more">
+        {
+          isLoadingTxns ? (
+            <Spinner/>
+          ) : (
+            hasMoreTxns && (
+              <a className="btn-viewmore" onClick={onViewMore}>View More</a>
+            )
+          )
+        }
+      </div>
+    )
+  }
+
   render() {
     return (
       <div>
         {this._renderLedger()}
         {this._renderTxns()}
+        {this._renderViewMore()}
       </div>
     );
   }

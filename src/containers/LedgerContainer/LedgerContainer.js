@@ -4,10 +4,13 @@ import { connectSettings, formatBlockData, formatTxnData } from 'core';
 
 class LedgerContainer extends PureComponent {
   state = {
+    ledgerHash: undefined,
     ledger: undefined,
     txns: [],
     isLoadingLedger: false,
     isLoadingTxns: false,
+    hasMoreTxns: false,
+    cursor: undefined,
   };
 
   componentDidMount() {
@@ -18,7 +21,8 @@ class LedgerContainer extends PureComponent {
     const { ledgerHash } = match.params;
 
     if (ledgerHash) {
-      this.getLedger(apiObject, currency, ledgerHash);    
+      this.getLedger(apiObject, currency, ledgerHash);
+      this.getLedgerTxns(apiObject, currency, ledgerHash);
     }
   }
 
@@ -38,10 +42,9 @@ class LedgerContainer extends PureComponent {
 
   getLedger(apiObject, currency, ledgerHash) {
     this.setState({
+      ledgerHash: ledgerHash,
       ledger: undefined,
-      txns: [],
       isLoadingLedger: true,
-      isLoadingTxns: true,
     });
 
     apiObject.get(`/ledger/${ledgerHash}`)
@@ -60,29 +63,54 @@ class LedgerContainer extends PureComponent {
         if (this._isMounted)
           this.setState({ isLoadingLedger: false })
       });
+  }
 
-    apiObject.get(`/ledger/txs/${ledgerHash}`)
+  getLedgerTxns = (apiObject, currency, ledgerHash) => {
+    this.setState({
+      isLoadingTxns: true,
+    });
+
+    const { cursor, txns } = this.state;
+
+    apiObject.get(`/ledger/txs/${ledgerHash}`, {
+      params: { cursor }
+    })
       .then(res => {
         if (res.data.status !== 200) {
           return;
         }
 
-        let txns = res.data.data.result;
+        let { result: newTxns, next: cursor } = res.data.data;
 
-        txns = txns.map(txn => formatTxnData(txn, currency));
+        newTxns = newTxns.map(txn => formatTxnData(txn, currency));
+
+        const hasMoreTxns = newTxns.length < 10 ? false : true;
         
         if (this._isMounted)
-          this.setState({txns});
+          this.setState({
+            cursor,
+            txns: txns.concat(newTxns),
+            hasMoreTxns,
+          });
       })
       .finally(() => {
         if (this._isMounted)
           this.setState({ isLoadingTxns: false })
       });
   }
+
+  handleViewMore = () => {
+    const { apiObject, currency } = this.props;
+    const { ledgerHash } = this.state;
+
+    if (ledgerHash) {
+      this.getLedgerTxns(apiObject, currency, ledgerHash);    
+    }
+  }
   
   render () {
     const { currency } = this.props;
-    const { ledger, txns, isLoadingLedger, isLoadingTxns } = this.state;
+    const { ledger, txns, isLoadingLedger, isLoadingTxns, hasMoreTxns } = this.state;
     
     return (
       <div className="ledger-container">
@@ -92,6 +120,8 @@ class LedgerContainer extends PureComponent {
           txns={txns}
           isLoadingLedger={isLoadingLedger}
           isLoadingTxns={isLoadingTxns}
+          hasMoreTxns={hasMoreTxns}
+          onViewMore={this.handleViewMore}
         />
       </div>
     );
