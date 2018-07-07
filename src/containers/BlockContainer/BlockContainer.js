@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
 import Block from 'components/Block/Block';
-import NotFound from 'components/NotFound/NotFound';
 import { connectSettings, formatBlockData } from 'core';
 
 class BlockContainer extends PureComponent { 
   state = {
-    block: undefined
+    block: undefined,
+    isLoading: false
   };
 
   componentDidMount() {
@@ -36,7 +36,8 @@ class BlockContainer extends PureComponent {
 
   getBlock(apiObject, currency, blockHash) {
     this.setState({
-      block: undefined
+      block: undefined,
+      isLoading: true,
     });
 
     apiObject.get(`/block/${blockHash}`)
@@ -51,25 +52,23 @@ class BlockContainer extends PureComponent {
         if (this._isMounted)
           this.setState({ block: block });
       })
+      .finally(() => {
+        if (this._isMounted)
+          this.setState({ isLoading: false })
+      });
   }
   
   render () {
     const { currency } = this.props;
-    const { block } = this.state;
+    const { block, isLoading } = this.state;
     
     return (
       <div className="block-container">
-        {
-          block ? (
-            <Block
-              currency={currency}
-              block={block}
-            />
-          ) : (
-            <NotFound/>
-          )
-        }
-        
+        <Block
+          currency={currency}
+          block={block}
+          isLoading={isLoading}
+        />
       </div>
     );
   }

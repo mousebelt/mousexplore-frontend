@@ -7,7 +7,8 @@ import HashLink from 'components/HashLink/HashLink';
 
 class LatestTransactons extends PureComponent {
   state = {
-    txns: []
+    txns: [],
+    isLoading: false
   };
 
   componentDidMount() {
@@ -19,10 +20,6 @@ class LatestTransactons extends PureComponent {
   }
 
   componentWillReceiveProps (newProps) {
-    this.setState({
-      txns: []
-    });
-    
     const { apiObject, currency } = newProps;
     
     this.getLatestTxns(apiObject, currency);
@@ -33,23 +30,29 @@ class LatestTransactons extends PureComponent {
   }
 
   async getLatestTxns (apiObject, currency) {
-    
+    this.setState({
+      txns: [],
+      isLoading: true
+    });
+
     apiObject.get('/transactions', {
       params: { count: 5 }
     })
-    .then(res => {
-      if (res.data.status !== 200)
-        return ;
+      .then(res => {
+        if (res.data.status !== 200)
+          return ;
 
-      let txns = res.data.data.result;
-      
-      txns = txns.map(txn => {
-        return formatTxnData(txn, currency);
+        let txns = res.data.data.result;
+        
+        txns = txns.map(txn => formatTxnData(txn, currency));
+
+        if (this._isMounted)
+          this.setState({ txns });
+      })
+      .finally(() => {
+        if (this._isMounted)
+          this.setState({ isLoading: false });
       });
-
-      if (this._isMounted)
-        this.setState({ txns });
-    });
   }
   
   _renderTransaction = (transaction) => {
@@ -105,9 +108,9 @@ class LatestTransactons extends PureComponent {
         className="latest-transactions"
         icon={<i className="fa fa-credit-card"/>}
         title="Transactions"
-        linkToAll="#"
         data={this.state.txns}
         renderItem={this._renderTransaction}
+        isLoading={this.state.isLoading}
       />
     );
   }

@@ -8,7 +8,10 @@ class LTCAddress extends PureComponent {
     address: undefined,
     balance: undefined,
     totalTxns: undefined,
-    txnHistory: []
+    txnHistory: [],
+    isLoadingBalance: false,
+    isLoadingTxns: false,
+    hasMoreTxns: false
   };
 
   componentDidMount() {
@@ -18,6 +21,7 @@ class LTCAddress extends PureComponent {
 
     if (address) {                            
       this.getAddressInfo(apiObject, currency, address);
+      this.getAddressTxns(apiObject, currency, address)
     }
   }
 
@@ -26,11 +30,15 @@ class LTCAddress extends PureComponent {
   }
 
   getAddressInfo (apiObject, currency, address) {
-    this.setState({ address });
+    this.setState({
+      address,
+      balance: undefined,
+      isLoadingBalance: true
+    });
 
     apiObject.get(`/balance/${address}`)
       .then(res => {
-        if (res.data.status !== 200 || !this._isMounted)
+        if (res.data.status !== 200)
           return;
 
         if (this._isMounted)
@@ -38,12 +46,19 @@ class LTCAddress extends PureComponent {
             balance: res.data.data.balance
           });
       })
-    this.getAddressTxns(apiObject, currency, address)
+      .finally(() => {
+        if (this._isMounted)
+          this.setState({ isLoadingBalance: false })
+      });
   }
 
   getAddressTxns (apiObject, currency, address) {
     
     const { txnHistory } = this.state;
+
+    this.setState({
+      isLoadingTxns: true
+    });
 
     apiObject.get(`/address/txs/${address}`, {
       params: {
@@ -77,11 +92,19 @@ class LTCAddress extends PureComponent {
           }
         });
         
-        this.setState({
-          totalTxns, 
-          txnHistory: txnHistory.concat(newTxns)
-        });
+        const hasMoreTxns = newTxns.length < 10 ? false : true;
+        
+        if (this._isMounted)
+          this.setState({
+            hasMoreTxns,
+            totalTxns, 
+            txnHistory: txnHistory.concat(newTxns)
+          });
       })
+      .finally(() => {
+        if (this._isMounted) 
+          this.setState({ isLoadingTxns: false });
+      });
   }
 
   handleViewMore = () => {
@@ -94,7 +117,7 @@ class LTCAddress extends PureComponent {
 
   render () {
     const { currency } = this.props;
-    const { address, balance, txnHistory, totalTxns } = this.state;
+    const { address, balance, txnHistory, totalTxns, isLoadingBalance, isLoadingTxns, hasMoreTxns } = this.state;
     return (
       <Address
         currency={currency}
@@ -102,6 +125,9 @@ class LTCAddress extends PureComponent {
         balance={balance}
         txnHistory={txnHistory}
         totalTxns={totalTxns}
+        isLoadingBalance={isLoadingBalance}
+        isLoadingTxns={isLoadingTxns}
+        hasMoreTxns={hasMoreTxns}
         onViewMore={this.handleViewMore}
       />
     );

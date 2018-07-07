@@ -3,13 +3,14 @@ import moment from 'moment';
 import { connectSettings, formatTxnData } from 'core';
 
 import Txn from 'components/Txn/Txn';
-import Spinner from 'components/Spinner/Spinner';
+import NotFound from 'components/NotFound/NotFound';
 import HashLink  from 'components/HashLink/HashLink';
 
 class BTCTxn extends PureComponent {
 
   state = {
     txn: undefined,
+    isLoading: false,
   };
 
   componentDidMount() {
@@ -29,6 +30,7 @@ class BTCTxn extends PureComponent {
   getTxn (apiObject, currency, txnHash) {
     this.setState({
       txn: undefined,
+      isLoading: true
     });
 
     apiObject.get(`/txdetails/${txnHash}`)
@@ -41,13 +43,17 @@ class BTCTxn extends PureComponent {
         txn = formatTxnData(txn, currency);
 
         if (this._isMounted)
-          this.setState({ txn: txn });
+          this.setState({ txn });
       })
+      .finally(() => {
+        if (this._isMounted)
+          this.setState({ isLoading: false })
+      });
   }
   
   _renderDetail = (txnDetail, currency) => {
     if (!txnDetail) {
-      return <p>No content...</p>
+      return <NotFound/>
     }
 
     let vins = [], vouts = [];
@@ -153,26 +159,23 @@ class BTCTxn extends PureComponent {
   }
 
   render() {
-    const { currency } = this.props;
+    const { currency, txnHash } = this.props;
 
     if (currency !== 'BTC') return null;
 
-    const { txn } = this.state;
+    const { txn, isLoading } = this.state;
 
-    if (txn) {
-      return (
-        <Txn
-          currency={currency}
-          txnHash={this.state.txn.hash}
-        >
-          {
-            this._renderDetail(txn, currency)
-          }
-        </Txn>
-      );
-    } else {
-      return <Spinner/>;
-    }
+    return (
+      <Txn
+        currency={currency}
+        txnHash={txnHash}
+        isLoading={isLoading}
+      >
+        {
+          this._renderDetail(txn, currency)
+        }
+      </Txn>
+    );
   }
 }
 

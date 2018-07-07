@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
 import HashLink from 'components/HashLink/HashLink';
+import Spinner from 'components/Spinner/Spinner';
+import NotFound from 'components/NotFound/NotFound';
 
 class Block extends PureComponent {
   state = {
@@ -15,9 +17,18 @@ class Block extends PureComponent {
 
   render() {
     const { className } = this.props;
-    const { block } = this.props;
+    const { block, isLoading } = this.props;
+    const { visibleTxnCount } = this.state;
 
-    const txns = block.txns.slice(0, this.state.visibleTxnCount);
+    if (isLoading) {
+      return <Spinner/>
+    }
+
+    if (!block || !block.hash) {
+      return <NotFound/>
+    }
+
+    const txns = block.txns.slice(0, visibleTxnCount);
 
     return (
       <div>
@@ -117,7 +128,7 @@ class Block extends PureComponent {
                           <p className="label">TX Hash</p>
                           <HashLink className="value" hash={txn.hash || txn} type="transaction">
                             {
-                              txn.hash && txn.hash.substring(0,25) + '...' || txn.substring(0,25) + '...'
+                              txn.hash ? txn.hash.substring(0,25) + '...' : txn.substring(0,25) + '...'
                             }
                           </HashLink>
                         </td>
@@ -133,7 +144,11 @@ class Block extends PureComponent {
             </table>
           </div>                                                        
           <div className="nrl__block-txns--more">
-            <a className="btn-viewmore" onClick={this.handleViewMore}>View More</a>
+            {
+              (visibleTxnCount < block.txns.length) && (
+                <a className="btn-viewmore" onClick={this.handleViewMore}>View More</a>
+              )
+            }
           </div>
         </div>
       </div>

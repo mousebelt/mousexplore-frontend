@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
+import Spinner from 'components/Spinner/Spinner';
 
 class List extends PureComponent {
-
-  render() {
-    const { className, data, renderItem, icon, title, linkToAll, header, footer } = this.props;
+  _renderHeader = () => {
+    const { icon, title, linkToAll, header } = this.props;
 
     const defaultHeader = (
       <div className="nrl__list-header--content">
@@ -30,15 +30,40 @@ class List extends PureComponent {
       </div>
     );
 
+    return (
+      <div className="nrl__list-header">
+        {
+          header ? header : defaultHeader
+        }
+      </div>
+    );
+  }
+
+  _renderFooter = () => {
+    const { footer } = this.props;
+
     const defaultFooter = null;
 
     return (
-      <div className={`nrl__list${className ? ' ' + className : ''}`}>
-        <div className="nrl__list-header">
-          {
-            header ? header : defaultHeader
-          }
+      <div className="nrl__list-footer">
+        {
+          footer ? footer : defaultFooter
+        }
+      </div>
+    );
+  }
+
+  _renderContent = () => {
+    const { data, renderItem, isLoading } = this.props;
+
+    if (isLoading) {
+      return (
+        <div className="nrl__list-items">
+          <Spinner/>
         </div>
+      );
+    } else {
+      return (
         <div className="nrl__list-items">
           {
             (data && data.length) ? (
@@ -52,11 +77,18 @@ class List extends PureComponent {
             ) : "No items to show..."
           }
         </div>
-        <div className="nrl__list-footer">
-          {
-            footer ? footer : defaultFooter
-          }
-        </div>
+      );
+    }
+  }
+
+  render() {
+    const { className } = this.props;
+
+    return (
+      <div className={`nrl__list${className ? ' ' + className : ''}`}>
+        { this._renderHeader() }
+        { this._renderContent() }
+        { this._renderFooter() }
       </div>
     );
   }

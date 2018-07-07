@@ -2,6 +2,8 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import HashLink  from 'components/HashLink/HashLink';
+import Spinner from 'components/Spinner/Spinner';
+import NotFound from 'components/NotFound/NotFound';
 
 import icCoin from 'assets/img/ic_coin.png';
 import icIn from 'assets/img/ic_in.png';
@@ -10,14 +12,10 @@ import icOut from 'assets/img/ic_out.png';
 class Address extends React.PureComponent {
 
   _renderTXNHistory = () => {
-    const { txnHistory, currency } = this.props;
+    const { txnHistory, currency, isLoadingTxns } = this.props;
 
-    if (!(txnHistory && txnHistory.length)) {
-      return (
-        <span className="no-txn-history">
-          No transaction history
-        </span>
-      );
+    if (!isLoadingTxns && !(txnHistory && txnHistory.length)) {
+      return <NotFound message="No transaction history..."/>;
     }
       
     return (
@@ -62,7 +60,7 @@ class Address extends React.PureComponent {
                     </td>
                     <td className="hash block-hash">
                       <p className="label">Ledger Sequence</p>
-                      <HashLink className="value" hash={txn.blockHash} type="block">{txn.ledger}</HashLink>
+                      <HashLink className="value" hash={txn.ledger} type="ledger">{txn.ledger}</HashLink>
                     </td>
                     <td className="time">
                       <p className="label">Time</p>
@@ -86,8 +84,16 @@ class Address extends React.PureComponent {
     const { className } = this.props;
     const {
       currency, address, balance, totalTxns,
-      renderTXNHistory, onViewMore, tokenBalances
+      renderTXNHistory, onViewMore, tokenBalances,
+      isLoadingTxns, hasMoreTxns
     } = this.props;
+
+    // if (isLoadingTxns || isLoadingBalance) {
+    //   return (
+    //     <div className={`nrl__address${className ? ' ' + className : ''}`}>
+    //     </div>
+    //   )
+    // }
     
     return (
       <div className={`nrl__address${className ? ' ' + className : ''}`}>
@@ -106,7 +112,7 @@ class Address extends React.PureComponent {
             <span>{address}</span>
           </div>
         </div>
-        {
+        { 
           (tokenBalances && tokenBalances.length > 1) && (
             <div className="nrl__address-info--tokens">
               {
@@ -127,7 +133,15 @@ class Address extends React.PureComponent {
         </div>
         {
           <div className="nrl__address-txns--more">
-            <a className="btn-viewmore" onClick={onViewMore}>View More</a>
+            {
+              isLoadingTxns ? (
+                <Spinner/>
+              ) : (
+                hasMoreTxns && (
+                  <a className="btn-viewmore" onClick={onViewMore}>View More</a>
+                )
+              )
+            }
           </div>
           // (totalTxns && (totalTxns > txnHistory.length)) ? (
           //   <div className="nrl__address-txns--more">
