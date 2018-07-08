@@ -24,8 +24,8 @@ export const coins = [
       { tokenName: 'Zilliqa', ticker: 'ZIL' },
     ],
     api: {
-      live: 'http://18.232.254.235/api/v1',
-      test: 'http://18.209.104.0/api/v1'
+      live: 'https://eth.mousebelt.com/api/v1',
+      test: 'https://eth-ropsten.mousebelt.com/api/v1'
     },
   },
 
@@ -35,7 +35,7 @@ export const coins = [
     hasTokens: false,
     tokens: [],
     api: {
-      live: 'http://34.239.180.150/api/v1/',
+      live: 'https://ltc.mousebelt.com/api/v1/',
       // test: 'http://34.239.180.150/api/v1/'
     },
   },
@@ -52,7 +52,7 @@ export const coins = [
       { tokenName: 'THKEY', ticker: 'TKY' },
     ],
     api: {
-      live: 'http://54.152.5.218/api/v1',
+      live: 'https://neo.mousebelt.com/api/v1',
       // test: 'http://54.152.5.218/api/v1'
     },
   },
@@ -69,7 +69,7 @@ export const coins = [
       // { tokenName: 'Smartlands', ticker: 'SLT' },
     ],
     api: {
-      live: 'http://18.205.122.159/api/v1',
+      live: 'https://xlm.mousebelt.com/api/v1',
       // test: 'http://18.205.122.159/api/v1'
     },
   },
