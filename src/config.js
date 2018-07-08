@@ -69,7 +69,7 @@ export const coins = [
       // { tokenName: 'Smartlands', ticker: 'SLT' },
     ],
     api: {
-      live: 'http://18.205.122.159/api/v1',
+      live: 'https://xlm.mousebelt.com/api/v1',
       // test: 'http://18.205.122.159/api/v1'
     },
   },
