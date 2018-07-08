@@ -35,7 +35,7 @@ export const coins = [
     hasTokens: false,
     tokens: [],
     api: {
-      live: 'http://34.239.180.150/api/v1/',
+      live: 'https://eth.mousebelt.com/api/v1/',
       // test: 'http://34.239.180.150/api/v1/'
     },
   },
