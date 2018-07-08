@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { findCoinByCurrency } from 'config';
 
 import Toggle from 'components/Toggle/Toggle';
 
@@ -11,8 +12,10 @@ class NetTypeToggle extends PureComponent {
   }
 
   render() {
-    const { netType } = this.props;
+    const { netType, currency } = this.props;
     const isLiveNet = (netType === 'live');
+    const coin = findCoinByCurrency(currency);
+    const isDisabled = (!coin.api.live || !coin.api.test)
 
     return (
       <div className="settings__filter-nettype">
@@ -24,6 +27,7 @@ class NetTypeToggle extends PureComponent {
           onChange={this.handleChange}
           checkedChildren="Livenet"
           unCheckedChildren="Offline"
+          disabled={isDisabled}
         />
       </div>
     );
@@ -31,6 +35,7 @@ class NetTypeToggle extends PureComponent {
 }
 
 NetTypeToggle.propTypes = {
+  currency: PropTypes.string,
   netType: PropTypes.string,
   setNetType: PropTypes.func
 }

@@ -28,7 +28,8 @@ export default function auth(state = initialState.settings, action = {}) {
         newSettings = {
           ...state,
           currency: payload,
-          ticker: undefined
+          netType: 'live',
+          ticker: undefined,
         };      
       break;
 
@@ -36,7 +37,8 @@ export default function auth(state = initialState.settings, action = {}) {
       if (state.netType !== payload)
         newSettings = {
           ...state,
-          netType: payload
+          netType: payload,
+          ticker: undefined
         };
       break;
 

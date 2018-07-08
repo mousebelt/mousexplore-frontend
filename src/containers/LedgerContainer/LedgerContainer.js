@@ -31,7 +31,7 @@ class LedgerContainer extends PureComponent {
 
     const { ledgerHash } = match.params;
 
-    if (ledgerHash !== this.state.ledgerHash) {
+    if (ledgerHash && ledgerHash !== this.state.ledgerHash) {
       this.setState({
         txns: [],
         hasMoreTxns: false,

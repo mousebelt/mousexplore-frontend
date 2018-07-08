@@ -8,7 +8,7 @@ export const coins = [
     tokens: [],
     api: {
       live: 'http://35.173.152.54/api/v1',
-      test: 'http://35.173.152.54/api/v1'
+      // test: 'http://35.173.152.54/api/v1'
     },
   },
 
@@ -36,7 +36,7 @@ export const coins = [
     tokens: [],
     api: {
       live: 'http://34.239.180.150/api/v1/',
-      test: 'http://34.239.180.150/api/v1/'
+      // test: 'http://34.239.180.150/api/v1/'
     },
   },
 
@@ -53,7 +53,7 @@ export const coins = [
     ],
     api: {
       live: 'http://54.152.5.218/api/v1',
-      test: 'http://54.152.5.218/api/v1'
+      // test: 'http://54.152.5.218/api/v1'
     },
   },
   
@@ -70,7 +70,7 @@ export const coins = [
     ],
     api: {
       live: 'http://18.205.122.159/api/v1',
-      test: 'http://18.205.122.159/api/v1'
+      // test: 'http://18.205.122.159/api/v1'
     },
   },
 ];
