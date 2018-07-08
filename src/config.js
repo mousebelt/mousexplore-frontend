@@ -35,7 +35,7 @@ export const coins = [
     hasTokens: false,
     tokens: [],
     api: {
-      live: 'https://eth.mousebelt.com/api/v1/',
+      live: 'https://ltc.mousebelt.com/api/v1/',
       // test: 'http://34.239.180.150/api/v1/'
     },
   },
@@ -52,7 +52,7 @@ export const coins = [
       { tokenName: 'THKEY', ticker: 'TKY' },
     ],
     api: {
-      live: 'http://54.152.5.218/api/v1',
+      live: 'https://neo.mousebelt.com/api/v1',
       // test: 'http://54.152.5.218/api/v1'
     },
   },
