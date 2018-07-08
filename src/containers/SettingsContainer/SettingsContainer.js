@@ -55,6 +55,7 @@ class SettingsContainer extends PureComponent {
             setCurrency={setCurrency}
           />
           <NetTypeToggle
+            currency={settings.currency}
             netType={settings.netType}
             setNetType={setNetType}
           />

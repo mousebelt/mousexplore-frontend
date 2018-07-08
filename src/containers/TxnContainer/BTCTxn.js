@@ -90,7 +90,7 @@ class BTCTxn extends PureComponent {
             TxReceipt Status:&nbsp;
           </span>
           <span className={`value ${txnDetail.confirmations > 1 ? 'success' : 'failure'}`}>
-            {txnDetail.confirmations > 1 ? 'Success' : 'Failed'}
+            {txnDetail.confirmations > 0 ? 'Success' : 'Failed'}
           </span>
         </div>
         <div className="input-output">
@@ -153,10 +153,10 @@ class BTCTxn extends PureComponent {
           {
             txnDetail.blockHash ? 
               <HashLink className="value" hash={txnDetail.blockHash} type="block">
-                <span style={{color: 'red'}}>{txnDetail.blockHash}</span>
+                <span>{txnDetail.blockHash}</span>
               </HashLink>
               :
-              <span className={`value failure`}>
+              <span className="value failure">
                 Unconfirmed
               </span>
           }
