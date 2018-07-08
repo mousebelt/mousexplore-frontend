@@ -24,7 +24,7 @@ export const coins = [
       { tokenName: 'Zilliqa', ticker: 'ZIL' },
     ],
     api: {
-      live: 'http://18.232.254.235/api/v1',
+      live: 'https://eth.mousebelt.com/api/v1',
       test: 'http://18.209.104.0/api/v1'
     },
   },
