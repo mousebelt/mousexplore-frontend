@@ -25,7 +25,7 @@ export const coins = [
     ],
     api: {
       live: 'https://eth.mousebelt.com/api/v1',
-      test: 'http://18.209.104.0/api/v1'
+      test: 'https://eth-ropsten.mousebelt.com/api/v1'
     },
   },
 
