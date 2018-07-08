@@ -7,7 +7,7 @@ export const coins = [
     hasTokens: false,
     tokens: [],
     api: {
-      live: 'http://35.173.152.54/api/v1',
+      live: 'https://btc.mousebelt.com/api/v1',
       // test: 'http://35.173.152.54/api/v1'
     },
   },
