@@ -6,7 +6,6 @@ import Txn from 'components/Txn/Txn';
 import NotFound from 'components/NotFound/NotFound';
 import HashLink  from 'components/HashLink/HashLink';
 
-
 class NEOTxn extends PureComponent {
 
   state = {
