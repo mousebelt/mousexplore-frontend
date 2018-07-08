@@ -5,7 +5,7 @@ import logoImg  from'assets/img/logo.png';
 
 const OwnerLogo = (props) => (
   <div className="logo">
-    <HashLink>
+    <HashLink hash="/">
       <img className="logo__img" src={logoImg} alt="App Logo"/>
     </HashLink>
   </div>
