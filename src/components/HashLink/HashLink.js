@@ -11,10 +11,20 @@ const HashLink = ({settings, type, hash, children, ...props}) => {
     ticker: ticker ? ticker.toLowerCase() : undefined,
   });
 
+  hash = (hash === '/') ? null : hash;
+
   const toObject = {
     pathname: `/${currency.toLowerCase()}${type ? '/' + type.toLowerCase() : ''}${hash ? '/' + hash : ''}`,
     search: queryString
   };
+
+  if (hash === 'n/a') {
+    return (
+      <span {...props}>
+        {children}
+      </span>
+    )
+  }
 
   return (
     <Link {...props} to={toObject}>
