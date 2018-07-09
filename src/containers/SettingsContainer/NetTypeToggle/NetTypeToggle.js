@@ -26,7 +26,7 @@ class NetTypeToggle extends PureComponent {
           checked={isLiveNet}
           onChange={this.handleChange}
           checkedChildren="Livenet"
-          unCheckedChildren="Offline"
+          unCheckedChildren="Testnet"
           disabled={isDisabled}
         />
       </div>
