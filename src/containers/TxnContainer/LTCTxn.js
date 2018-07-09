@@ -102,7 +102,7 @@ class LTCTxn extends PureComponent {
                   if (!item.isCoinbase) 
                     return (
                       <p className="item" key={index}>
-                        <HashLink className="item-address" HashLink={item.address} type="address">
+                        <HashLink className="item-address" hash={item.address} type="address">
                           {item.address}
                         </HashLink>
                         <span className="item-value">{item.value} {currency}</span>
