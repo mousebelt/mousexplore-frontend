@@ -3,7 +3,7 @@ import { connectSettings } from 'core';
 import get from 'lodash/get';
 
 import Address from 'components/Address/Address';
-import { formatTxnData } from '../../core/utils/formatTxnData';
+import { formatTxnData } from 'core/utils/formatTxnData';
 
 class BTCAddress extends PureComponent {
   state = {
@@ -79,6 +79,7 @@ class BTCAddress extends PureComponent {
           
           txn.vin.forEach( vin => {
             const addresses = get(vin, 'address.scriptPubKey.addresses');
+
             if (addresses && addresses[0] === address)
               value -= vin.address.value;
           });
