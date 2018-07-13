@@ -78,7 +78,7 @@ class NEOTxn extends PureComponent {
           <span className="label">
             TxReceipt Status:&nbsp;
           </span>
-          <span className={`value ${txnDetail.confirmations > 1 ? 'success' : 'failure'}`}>
+          <span className={`value ${txnDetail.confirmations > 0 ? 'success' : 'failure'}`}>
             {txnDetail.confirmations > 0 ? 'Success' : 'Failed'}
           </span>
         </div>

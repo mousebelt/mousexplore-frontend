@@ -78,7 +78,7 @@ class BTCAddress extends PureComponent {
           txn = formatTxnData(txn, 'BTC')
           
           txn.vin.forEach( vin => {
-            const addresses = get(vin, 'address.scriptPubkey.addresses');
+            const addresses = get(vin, 'address.scriptPubKey.addresses');
             if (addresses && addresses[0] === address)
               value -= vin.address.value;
           });
