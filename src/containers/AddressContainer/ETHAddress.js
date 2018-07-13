@@ -48,7 +48,7 @@ class ETHAddress extends PureComponent {
         
         if (this._isMounted)
           this.setState({
-            balance: balanceObj.balance,
+            balance: balanceObj ? balanceObj.balance : 0,
             tokenBalances
           });
       })

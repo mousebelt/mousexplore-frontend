@@ -4,7 +4,7 @@ import Spinner from 'components/Spinner/Spinner';
 
 class List extends PureComponent {
   _renderHeader = () => {
-    const { icon, title, linkToAll, header } = this.props;
+    const { icon, title, linkToAll, header, isLoading } = this.props;
 
     const defaultHeader = (
       <div className="nrl__list-header--content">
@@ -19,6 +19,9 @@ class List extends PureComponent {
                 )
               }
               {title}
+              <span className="nrl__list-syncing">
+                {isLoading ? ' (Currently Syncing...)' : null}
+              </span>
             </h5>
           )
         }

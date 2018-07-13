@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react';
 import { connectSettings } from 'core';
+import get from 'lodash/get';
 
 import Address from 'components/Address/Address';
+import { formatTxnData } from 'core/utils/formatTxnData';
 
 class BTCAddress extends PureComponent {
   state = {
@@ -72,14 +74,20 @@ class BTCAddress extends PureComponent {
         
         newTxns = newTxns.map(txn => {
           let value = 0;
+
+          txn = formatTxnData(txn, 'BTC')
           
           txn.vin.forEach( vin => {
-            if (vin.address && (vin.address.scriptPubKey.addresses[0] === address))
+            const addresses = get(vin, 'address.scriptPubKey.addresses');
+
+            if (addresses && addresses[0] === address)
               value -= vin.address.value;
           });
 
           txn.vout.forEach( vout => {
-            if (vout.scriptPubKey.addresses[0] === address)
+            const addresses = get(vout, 'scriptPubKey.addresses');
+            
+            if (addresses && addresses[0] === address)
               value += vout.value;
           });
 

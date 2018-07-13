@@ -104,7 +104,17 @@ class Address extends React.PureComponent {
             </div>
             <div className="nrl__address-info--balance">
               <p>Balance: {(+balance).toFixed(4)} {currency}&nbsp;</p>
-              <span>{totalTxns} Transactions</span>
+              {
+                isLoadingTxns ? (
+                  <span>
+                    Transactions <span className="nrl_address-info--syncing">(Currently Syncing...)</span>
+                  </span>
+                ) : (
+                  <span>
+                    {totalTxns} Transactions
+                  </span>
+                )
+              }
             </div>
           </div>
           <div className="nrl__address-info--account">
