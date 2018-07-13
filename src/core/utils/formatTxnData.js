@@ -1,7 +1,7 @@
 const mapTxnKeys = {
   'BTC': {
     'blockHash': 'blockhash',
-    'hash': 'hash',    
+    'hash': 'txid',    
     'timestamp': 'blocktime',
     'confirmations': 'confirmations',
     'vsize': 'vsize',
@@ -15,7 +15,7 @@ const mapTxnKeys = {
   },
   'LTC': {
     'blockHash': 'blockhash',
-    'hash': 'hash',
+    'hash': 'txid',
     'timestamp': 'blocktime',
     'confirmations': 'confirmations',
     'vsize': 'vsize',
@@ -38,11 +38,11 @@ const mapTxnKeys = {
   }
 };
 
-export function formatTxnData(block, currency) {
+export function formatTxnData(txn, currency) {
   const mapping = mapTxnKeys[currency] || {};
 
   const formattedTxn = {
-    ...block
+    ...txn
   };
 
   for (let key in mapping) {
