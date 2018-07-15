@@ -80,7 +80,7 @@ class ETHAddress extends PureComponent {
         newTxns = newTxns.map(txn => {
           return {
             hash: txn.hash,
-            value: (+txn.value) / Math.pow(10, 18) * (txn.from === address ? -1 : 1),
+            value: (+txn.value) / Math.pow(10, 18) * (txn.from.toLowerCase() === address.toLowerCase() ? -1 : 1),
             blockHash: txn.blockHash,
             timestamp: txn.timestamp
           };
