@@ -19,7 +19,13 @@ class BTCTxn extends PureComponent {
     const { apiObject, currency, txnHash } = this.props;
 
     if (txnHash) {
-      this.getTxn(apiObject, currency, txnHash);    
+      this.getTxn(apiObject, currency, txnHash);
+    }
+  }
+
+  componentWillReceiveProps({ apiObject, currency, txnHash }) {
+    if (txnHash && txnHash !== this.props.txnHash) {
+      this.getTxn(apiObject, currency, txnHash);
     }
   }
 

@@ -22,6 +22,12 @@ class NEOTxn extends PureComponent {
       this.getTxn(apiObject, currency, txnHash);    
     }
   }
+
+  componentWillReceiveProps({ apiObject, currency, txnHash }) {
+    if (txnHash && txnHash !== this.props.txnHash) {
+      this.getTxn(apiObject, currency, txnHash);
+    }
+  }
  
   componentWillUnmount() {
     this._isMounted = false;

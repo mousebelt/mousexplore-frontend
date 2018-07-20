@@ -26,6 +26,17 @@ class XLMTxn extends PureComponent {
       this.getOperations(apiObject, currency, txnHash);
     }
   }
+
+  componentWillReceiveProps({ apiObject, currency, txnHash }) {
+    if (txnHash && txnHash !== this.props.txnHash) {
+      this.setState({
+        opeartions: []
+      }, () => {
+        this.getTxn(apiObject, currency, txnHash);
+        this.getOperations(apiObject, currency, txnHash);
+      })
+    }
+  }
  
   componentWillUnmount() {
     this._isMounted = false;

@@ -23,6 +23,12 @@ class ETHTxn extends PureComponent {
     }
   }
 
+  componentWillReceiveProps({ apiObject, currency, txnHash }) {
+    if (txnHash && txnHash !== this.props.txnHash) {
+      this.getTxn(apiObject, currency, txnHash);
+    }
+  }
+
   componentWillUnmount() {
     this._isMounted = false;
   }
