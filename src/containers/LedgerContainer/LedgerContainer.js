@@ -36,9 +36,10 @@ class LedgerContainer extends PureComponent {
         txns: [],
         hasMoreTxns: false,
         cursor: undefined,
+      }, () => {
+        this.getLedger(apiObject, currency, ledgerHash);
+        this.getLedgerTxns(apiObject, currency, ledgerHash);
       });
-      this.getLedger(apiObject, currency, ledgerHash);
-      this.getLedgerTxns(apiObject, currency, ledgerHash);
     }
   }
 
