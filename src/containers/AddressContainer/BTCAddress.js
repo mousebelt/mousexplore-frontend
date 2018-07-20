@@ -29,6 +29,18 @@ class BTCAddress extends PureComponent {
     }
   }
 
+  componentWillReceiveProps({ apiObject, currency, address }) {
+    if (address && this.props.address !== address) {
+      this.setState({
+        totalTxns: undefined,
+        txnHistory: []
+      }, () => {
+        this.getAddressInfo(apiObject, currency, address);
+        this.getAddressTxns(apiObject, currency, address); 
+      });
+    }
+  }
+
   componentWillUnmount() {
     this._isMounted = false;
   }
