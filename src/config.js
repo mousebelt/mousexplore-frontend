@@ -56,7 +56,18 @@ export const coins = [
       // test: 'http://54.152.5.218/api/v1'
     },
   },
-  
+
+  {
+    name: 'Wanchain',
+    currency: 'WAN',
+    hasTokens: true,
+    tokens: [],
+    api: {
+      live: 'http://localhost:8080/api/v1',
+      //test: 'https://eth-ropsten.mousebelt.com/api/v1'
+    },
+  },
+
   // {
   //   name: 'Stellar',
   //   currency: 'XLM',

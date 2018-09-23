@@ -6,6 +6,7 @@ import LTCTxn from './LTCTxn';
 import ETHTxn from './ETHTxn';
 import NEOTxn from './NEOTxn';
 import XLMTxn from './XLMTxn';
+import WANTxn from './WANTxn';
 
 const TxnComponentMap = {
   BTC: BTCTxn,
@@ -13,6 +14,7 @@ const TxnComponentMap = {
   ETH: ETHTxn,
   NEO: NEOTxn,
   XLM: XLMTxn,
+  WAN: WANTxn
 }
 
 class TxnContainer extends PureComponent {
