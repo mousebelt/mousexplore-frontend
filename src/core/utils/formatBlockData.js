@@ -66,6 +66,20 @@ const mapBlockKeys = {
     'baseFee': 'base_fee_in_stroops',
     'baseReserve': 'base_reserve_in_stroops',
     'timestamp': 'closed_at'
+  },
+  'WAN': {
+    'height': 'number',
+    'hash': 'hash',    
+    // 'nextHash': 'nextblockhash',
+    'prevHash': 'parentHash',
+    'txns': 'transactions',
+    'timestamp': 'timestamp',
+    'nonce': 'nonce',
+    'difficulty': 'difficulty',
+    // 'confirmations': 'confirmations',
+    // 'merkleRoot': 'merkleroot',   
+    // 'bits': 'bits',
+    'size': 'size',
   }
 };
 
