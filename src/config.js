@@ -57,22 +57,22 @@ export const coins = [
     },
   },
   
-  // {
-  //   name: 'Stellar',
-  //   currency: 'XLM',
-  //   hasTokens: true,
-  //   tokens: [
-  //     // { tokenName: 'Mobius', ticker: 'MOBI' },
-  //     // { tokenName: 'Repocoin', ticker: 'REPO' },
-  //     // { tokenName: 'Firefly', ticker: 'XCN' },
-  //     // { tokenName: 'Diruna', ticker: 'DRA' },
-  //     // { tokenName: 'Smartlands', ticker: 'SLT' },
-  //   ],
-  //   api: {
-  //     live: 'https://xlm.mousebelt.com/api/v1',
-  //     // test: 'http://18.205.122.159/api/v1'
-  //   },
-  // },
+  {
+    name: 'Stellar',
+    currency: 'XLM',
+    hasTokens: true,
+    tokens: [
+      // { tokenName: 'Mobius', ticker: 'MOBI' },
+      // { tokenName: 'Repocoin', ticker: 'REPO' },
+      // { tokenName: 'Firefly', ticker: 'XCN' },
+      // { tokenName: 'Diruna', ticker: 'DRA' },
+      // { tokenName: 'Smartlands', ticker: 'SLT' },
+    ],
+    api: {
+      live: 'https://xlm.mousebelt.com/api/v1',
+      // test: 'http://18.205.122.159/api/v1'
+    },
+  },
 ];
 
 export const findCoinByCurrency = (currency) => {
