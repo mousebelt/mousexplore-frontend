@@ -30,6 +30,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "react-app-rewired": "^1.5.2"
+    "react-app-rewired": "^1.5.2",
+    "merge": ">=1.2.1"
   }
 }
