@@ -32,7 +32,7 @@
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
-      color: @txt-main-color;
+      color: $txt-main-color;
       font-weight: normal;
 
       &:hover {
@@ -78,7 +78,7 @@
     }
 
     .time {
-      color: @txt-light-color;
+      color: $txt-light-color;
     }
   }
 
@@ -86,7 +86,7 @@
     position: relative;
 
     a {
-      color: @txt-main-color;
+      color: $txt-main-color;
       font-weight: normal;
 
       &:hover {
@@ -133,7 +133,7 @@
     }
 
     .time {
-      color: @txt-light-color;
+      color: $txt-light-color;
     }
   }
 
@@ -144,7 +144,7 @@
   //     white-space: nowrap;
   //     text-overflow: ellipsis;
   //     overflow: hidden;
-  //     color: @txt-main-color;
+  //     color: $txt-main-color;
   //     font-weight: normal;
 
   //     &:hover {
@@ -184,7 +184,7 @@
   //   }
 
   //   .time {
-  //     color: @txt-light-color;
+  //     color: $txt-light-color;
   //     position: absolute;
   //     right: 0px;
   //     top: 0px;

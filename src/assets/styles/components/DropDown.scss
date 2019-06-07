@@ -1,24 +1,24 @@
-@import '../shared.less';
+@import '../shared.scss';
 
 .nrl-dropdown {
   min-width: 200px;
   font-family: 'Source Sans Pro', sans-serif;
 
   .ant-select-selection {
-    border-color: @border-main-color;
+    border-color: $border-main-color;
     -webkit-box-shadow: none;
     box-shadow: none;
   }
   
   .ant-select-selection:focus,
   .ant-select-selection:active {
-    border-color: @border-focus-color;
+    border-color: $border-focus-color;
     -webkit-box-shadow: none;
     box-shadow: none;
   }
   
   .ant-select-selection:hover {
-    border-color: @border-hover-color;
+    border-color: $border-hover-color;
   }
 }
 

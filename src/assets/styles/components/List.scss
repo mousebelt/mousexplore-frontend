@@ -1,12 +1,12 @@
-@import '../shared.less';
+@import '../shared.scss';
 
 .nrl__list {
-  background: @bg-main-color;
+  background: $bg-main-color;
   border-radius: 5px;
   margin-bottom: 20px;
 
   &-header {
-    border-bottom: 1px solid @border-grey-color;
+    border-bottom: 1px solid $border-grey-color;
     padding: 20px;
 
     &--content {
@@ -36,15 +36,15 @@
     &--link {
       padding: 10px 20px;
       float: right;
-      background: @border-main-color;
+      background: $border-main-color;
       font-size: 14px;
       line-height: 15px;
       border-radius: 20px;
       text-transform: uppercase;
-      color: @txt-main-color;
+      color: $txt-main-color;
 
       &:hover {
-        color: @txt-main-color;
+        color: $txt-main-color;
       }
     }
   }
@@ -54,11 +54,11 @@
   }
 
   &-item {
-    border: 1px solid @border-main-color;
+    border: 1px solid $border-main-color;
     border-radius: 4px;
     padding: 15px;
     margin-bottom: 20px;
-    background-color: @bg-main-color;
+    background-color: $bg-main-color;
 
     &:last-of-type {
       margin-bottom: 0px;

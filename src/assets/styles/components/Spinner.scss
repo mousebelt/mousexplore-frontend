@@ -1,4 +1,4 @@
-@import '../shared.less';
+@import '../shared.scss';
 
 .nrl__spinner {
   width: 100%;
@@ -6,7 +6,7 @@
   display: inline-block;
 
   i {
-    color: @red;
+    color: $red;
     font-size: 30px;
   }
 }

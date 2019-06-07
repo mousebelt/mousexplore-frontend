@@ -1,10 +1,10 @@
-@import '../shared.less';
+@import '../shared.scss';
 
 .header {
   width: 100%;
   min-height: 96px;
-  border-bottom: 1px solid @border-main-color;
-  background-color: @bg-main-color;
+  border-bottom: 1px solid $border-main-color;
+  background-color: $bg-main-color;
 
   display: flex;
   flex-direction: column;
@@ -15,6 +15,6 @@
 
   &__title {
     font-size: 24px;
-    color: @txt-main-color;
+    color: $txt-main-color;
   }
 }

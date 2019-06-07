@@ -6,7 +6,7 @@ import promiseFinally from 'promise.prototype.finally';
 
 import 'font-awesome/css/font-awesome.min.css';
 import 'antd/dist/antd.css';
-import 'assets/styles/index.less';
+import 'assets/styles/index.scss';
 
 promiseFinally.shim();
 
