@@ -6,7 +6,7 @@ import SettingsContainer from 'containers/SettingsContainer/SettingsContainer';
 import RoutesContainer from 'containers/RoutesContainer/RoutesContainer';
 import PageNotFound from 'components/PageNotFound/PageNotFound';
 
-import 'assets/styles/App.less';
+import 'assets/styles/App.scss';
 
 // Basic lanuage support of English
 import { IntlProvider, addLocaleData } from 'react-intl';

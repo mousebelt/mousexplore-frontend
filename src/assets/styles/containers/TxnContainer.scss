@@ -1,13 +1,13 @@
-@import '../shared.less';
+@import '../shared.scss';
 
 .txn-container {
   .txn-detail {
-    border: 1px solid @border-main-color;
+    border: 1px solid $border-main-color;
     border-radius: 5px;
 
     &>div {
       padding: 20px;
-      border-bottom: 1px solid @border-main-color;
+      border-bottom: 1px solid $border-main-color;
 
       .label {
         font-size: 16px;
@@ -20,16 +20,16 @@
         font-size: 16px;
 
         &.success {
-          color: @green;
+          color: $green;
         }
 
         &.failure {
-          color: @red;
+          color: $red;
         }
       }
 
       a.value {
-        color: @txt-main-color;
+        color: $txt-main-color;
         text-decoration: underline;
         width: 100%;
         word-wrap: break-word;
@@ -83,7 +83,7 @@
           width: 100%;
 
           .item-address {
-            color: @txt-main-color;
+            color: $txt-main-color;
             display: inline-block;
             max-width: 60%;
             /*min-width: 60%;*/
@@ -106,7 +106,7 @@
           }
 
           .item-value {
-            color: @txt-main-color;
+            color: $txt-main-color;
             display: inline-block;
             min-width: 30%;
             line-height: 40px;
@@ -125,7 +125,7 @@
 
     &.txn-eth,&.txn-xlm {
       &>div:nth-of-type(2n) {
-        background: @bg-light-color;
+        background: $bg-light-color;
       }
     }
   }

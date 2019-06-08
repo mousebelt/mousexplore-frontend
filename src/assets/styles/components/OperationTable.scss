@@ -1,8 +1,8 @@
-@import '../shared.less';
+@import '../shared.scss';
 
 .nrl__operations {
   padding: 20px;
-  background: @bg-main-color;
+  background: $bg-main-color;
   border-radius: 5px;
   width: 100%;
   overflow-x: auto;
@@ -12,17 +12,17 @@
     width: 100%;
     border-collapse: separate;
     border-radius: 5px;
-    border: 1px solid @border-main-color;
+    border: 1px solid $border-main-color;
 
     // tr {
     //   min-height: 40px;
-    //   border: 1px solid @border-main-color;
+    //   border: 1px solid $border-main-color;
     // }
 
     td,th {
       padding: 10px 20px;
-      border-left: 1px solid @border-main-color;
-      border-top: 1px solid @border-main-color;
+      border-left: 1px solid $border-main-color;
+      border-top: 1px solid $border-main-color;
     }
 
 
@@ -37,10 +37,10 @@
     td.account-badge {
       span {
         a {
-          background: @bg-grey-color;
+          background: $bg-grey-color;
           border-radius: 20px;
           padding: 5px 10px;
-          color: @txt-main-color;
+          color: $txt-main-color;
         }
       }
     }

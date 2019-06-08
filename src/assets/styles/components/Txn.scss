@@ -1,7 +1,7 @@
-@import '../shared.less';
+@import '../shared.scss';
 
 .nrl__txn {
-  background-color: @bg-main-color;
+  background-color: $bg-main-color;
   border-radius: 5px;
 
   &-header {
@@ -9,10 +9,10 @@
     display: flex;
     align-items: center;
     position: relative;
-    border-bottom: 1px solid @border-light-color;
+    border-bottom: 1px solid $border-light-color;
 
     &--icon {
-      color: @red;
+      color: $red;
       margin-right: 20px;
       height: 40px;
     }
@@ -36,7 +36,7 @@
           min-width: 100px;
           word-wrap: break-word;
           
-          color: @txt-main-color;
+          color: $txt-main-color;
           text-decoration: underline;
         }
       }
@@ -48,15 +48,15 @@
 
       button {
         margin-left: 10px;
-        background: @btn-default-color;
-        color: @txt-main-color;
+        background: $btn-default-color;
+        color: $txt-main-color;
         font-size: 12px;
         font-weight: bold;
         border: none;
 
         &:hover {
-          background-color: @btn-primary-color;
-          color: @white;
+          background-color: $btn-primary-color;
+          color: $white;
         }
       }
     }

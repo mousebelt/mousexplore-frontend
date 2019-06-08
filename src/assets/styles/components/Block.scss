@@ -1,7 +1,7 @@
-@import '../shared.less';
+@import '../shared.scss';
 
 .nrl__block {
-  background: @bg-main-color;
+  background: $bg-main-color;
   padding: 20px;
   border-radius: 5px;
   margin-bottom: 50px;
@@ -9,14 +9,14 @@
   &-info {
     display: flex;
     flex-direction: row;
-    border-bottom: 1px solid @nrl-grey;
+    border-bottom: 1px solid $nrl-grey;
 
     &--icon {
       margin: 20px;
       width: 80px;
       height: 80px;
       border-radius: 50%;
-      background: @bg-grey-color;
+      background: $bg-grey-color;
       margin-right: 30px;
 
       @media all and (max-width: 550px) {
@@ -25,7 +25,7 @@
 
       i {
         font-size: 25px;
-        color: @red;
+        color: $red;
         transform: translateX(-50%) translateY(-50%);
         position: relative;
         top: 50%;
@@ -82,7 +82,7 @@
           word-wrap: break-word;
 
           a {
-            color: @txt-main-color;
+            color: $txt-main-color;
             text-decoration: underline;
           }
         }
@@ -106,13 +106,13 @@
       line-height: 20px;
 
       span {
-        color: @red;
+        color: $red;
       }
     }
 
     &--table {
       border-radius: 5px;
-      border: 1px solid @border-main-color;
+      border: 1px solid $border-main-color;
       overflow-x: auto;
 
       table {
@@ -120,7 +120,7 @@
         min-width: 800px;
 
         tr {
-          border-bottom: 1px solid @border-main-color;
+          border-bottom: 1px solid $border-main-color;
 
           &:last-of-type {
             border: none;
@@ -147,7 +147,7 @@
             }
 
             a {
-              color: @txt-main-color;
+              color: $txt-main-color;
               text-decoration: underline;
             }
 
@@ -166,12 +166,12 @@
 
       a.btn-viewmore {
         padding: 10px 25px;
-        background: @btn-default-color;
+        background: $btn-default-color;
         font-size: 14px;
         line-height: 15px;
         border-radius: 20px;
         text-transform: uppercase;
-        color: @txt-main-color;
+        color: $txt-main-color;
         display: inline-block;
       }
     }

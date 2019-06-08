@@ -1,7 +1,7 @@
-@import '../shared.less';
+@import '../shared.scss';
 
 .nrl__address {
-  background-color: @bg-main-color;
+  background-color: $bg-main-color;
   border-radius: 6px;
   padding: 20px;
 
@@ -79,14 +79,14 @@
 
       .balance {
         font-weight: bold;
-        color: @green;
+        color: $green;
       }
     }
   }
 
   &-txns {
     border-radius: 5px;
-    border: 1px solid @border-light-color;
+    border: 1px solid $border-light-color;
     overflow-x: auto;
 
     .txn-table {
@@ -94,7 +94,7 @@
       min-width: 800px;
 
       tr {
-        border-bottom: 1px solid @border-light-color;
+        border-bottom: 1px solid $border-light-color;
         
         .in-out {
           text-align: right;
@@ -120,11 +120,11 @@
           line-height: 20px;
           
           &.in {
-            color: @green;
+            color: $green;
           }
 
           &.out {
-            color: @red;
+            color: $red;
           }
         }
         
@@ -149,12 +149,12 @@
 
     a.btn-viewmore {
       padding: 10px 25px;
-      background: @btn-default-color;
+      background: $btn-default-color;
       font-size: 14px;
       line-height: 15px;
       border-radius: 20px;
       text-transform: uppercase;
-      color: @txt-main-color;
+      color: $txt-main-color;
       display: inline-block;
     }
   }
