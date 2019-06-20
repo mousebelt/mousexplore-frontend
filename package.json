@@ -27,6 +27,9 @@
     "redux-thunk": "^2.2.0",
     "url-parse": ">=1.4.3"
   },
+  "devDependencies": {
+    "eslint": ">=4.18.2"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
