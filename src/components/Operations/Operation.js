@@ -16,6 +16,15 @@ import PathPayment from './PathPayment'
 import Payment from './Payment'
 import SetOptions from './SetOptions'
 
+/**
+    Stellar API - Operation:
+    https://stellar.github.io/js-stellar-base/Operation.html
+**/
+/** 
+    Note: 11/1/19
+    Stellar API deprecated `manage_offer`.
+    Updated to `manage_buy_offer` and `manage_sell_offer`.
+**/
 const opTypeComponentMap = {
   account_merge: AccountMerge,
   allow_trust: AllowTrust,
@@ -24,6 +33,8 @@ const opTypeComponentMap = {
   create_passive_offer: Offer,
   inflation: Inflation,
   manage_data: ManageData,
+  manage_buy_offer: Offer,
+  manage_sell_offer: Offer,
   manage_offer: Offer,
   path_payment: PathPayment,
   payment: Payment,
